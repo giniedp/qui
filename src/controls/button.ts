@@ -1,0 +1,47 @@
+import m from 'mithril'
+
+import { call, ControlDef, label, registerComponent, tap } from './utils'
+
+/**
+ * Describes a button control
+ */
+export interface ButtonDef extends ControlDef {
+  /**
+   * The type name of the control
+   */
+  type: 'button'
+  /**
+   * The button text
+   */
+  text?: string
+  /**
+   * The on click action
+   */
+  onClick?: (ctrl: ButtonDef) => void
+}
+
+interface Attrs {
+  data: ButtonDef
+}
+
+registerComponent('button', (node: m.Vnode<Attrs>) => {
+  function onClick() {
+    tap(node.attrs.data, (data) => call(data.onClick, data))
+  }
+
+  return {
+    view: () => {
+      return tap(node.attrs.data, (data) => {
+        return m('div', { key: data.key, class: 'qui-control qui-control-button' },
+          label(data.label),
+          m('section',
+            m('button', {
+              type: 'button',
+              onclick: onClick,
+            }, data.text),
+          ),
+        )
+      })
+    },
+  }
+})

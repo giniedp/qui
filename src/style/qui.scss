@@ -1,0 +1,380 @@
+@import 'variables';
+@import 'utils';
+
+.qui-panel-root {
+  @include color(background-color, primary);
+  @include color(color, on-primary);
+
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  width: 300px;
+  padding: $spacer;
+  margin: 0;
+  overflow: auto;
+  overflow-x: hidden;
+
+  section {
+    flex: auto 1 1;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+  }
+}
+
+.qui-control {
+  display: flex;
+  flex-direction: row;
+  min-height: $line-height;
+  box-sizing: border-box;
+
+  label {
+    user-select: none;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    width: $label-width - 2 * $label-pad-x;
+    min-width: $label-width - 2 * $label-pad-x;
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $label-pad-y $label-pad-x;
+    margin: $spacer;
+
+    overflow: hidden;
+    word-wrap: none;
+  }
+
+  button {
+    @include color(background-color, primary);
+    @include color(color, on-primary);
+
+    cursor: pointer;
+    display: inline-block;
+    flex: auto 1 1;
+
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer - 2 * $button-pad-y;
+    padding: $button-pad-y $button-pad-x;
+    margin: $spacer;
+
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: none;
+    border: none;
+  }
+
+  button:hover {
+    @include color(background-color, secondary);
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  input:not([type="checkbox"]),
+  select {
+    @include color(background-color, primary);
+    @include color(color, on-primary);
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    flex: auto 1 1;
+    width: 0;
+
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $input-pad-y $input-pad-x;
+    margin: $spacer;
+  }
+
+  input:not([type="checkbox"]) {
+    border-bottom: 1px solid;
+    @include color(border-color, primary-dark);
+  }
+  select, button {
+    border-bottom: 1px solid;
+    @include color(border-color, primary-dark);
+  }
+
+  input:not([type="checkbox"]),
+  select,
+  button {
+    // border-bottom: 1px solid;
+    transition: border-color, background-color 0.2s ease-in-out;
+    @include color(border-color, primary-dark);
+
+    &:hover {
+      @include color(background-color, secondary);
+      @include color(border-color, secondary-dark);
+    }
+
+    &:focus {
+      outline: none;
+      @include color(border-color, accent);
+    }
+  }
+
+}
+
+.qui-control-checkbox {
+  > label {
+    flex: 1;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover { @include color(background-color, secondary); }
+
+    span {
+      width: 5.75rem;
+      padding: 0 0.25rem;
+    }
+  }
+}
+
+.qui-control-button-group {
+  display: flex;
+  vertical-align: middle;
+}
+
+.qui-control-range {
+  .progress {
+    flex: 1;
+    display: flex;
+    margin: $spacer;
+    border-right: 1px solid;
+    @include color(border-color, primary-dark);
+  }
+
+  .progress-bar {
+    @include color(background-color, on-primary);
+  }
+
+  input[type="number"] {
+    flex: none;
+    width: 3.5rem;
+  }
+}
+
+.qui-control-folder {
+  flex-direction: column;
+  margin-left: -$spacer;
+  margin-right: -$spacer;
+  margin-bottom: -$spacer;
+
+  > label {
+    margin: 0;
+    width: auto;
+    cursor: pointer;
+    height: $line-height;
+    line-height: $line-height;
+    @include color(background-color, primary-dark);
+
+    > span {
+      width: $line-height;
+      height: $line-height;
+      display: inline-block;
+      text-align: center;
+
+      &::before {
+        content: '►';
+        display: inline-block;
+        width: $line-height;
+        height: $line-height;
+        text-align: center;
+        transition: transform 0.1s ease-in-out
+      }
+
+      &.is-open::before {
+        transform: rotateZ(90deg);
+      }
+    }
+  }
+  .qui-control-folder {
+    margin-left: 0.5rem;
+  }
+}
+
+.qui-control-image {
+  > section {
+    flex: 1;
+    margin: $spacer;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+//
+// COLOR PICKER
+//
+
+.qui-control > .qui-control-color-picker {
+  width: 1;
+}
+
+.qui-control-color {
+  section {
+    position: relative;
+  }
+  button {
+    text-shadow: 0 0 10px black;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .qui-control-color-picker {
+    position: absolute;
+    top: $line-height;
+    left: 0;
+    width: 10rem;
+    z-index: 1000;
+    box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.75);
+  }
+}
+
+.qui-control-color-picker {
+  section {
+    width: 100%;
+    position: relative;
+    margin: $spacer;
+  }
+
+  .color-picker-sv {
+    overflow: hidden;
+    width: calc(100% - 1rem);
+    padding-top: calc(100% - 1rem);
+    position: relative; /* If you want text inside of it */
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+    cursor: crosshair;
+  }
+  .color-picker-sv-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .color-picker-sv-cursor {
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.75);
+  }
+
+  .color-picker-h {
+    overflow: hidden;
+    position: absolute;
+    width: 1rem;
+    top: 0;
+    right: 0;
+    bottom: 1rem;
+    box-sizing: border-box;
+    border-bottom: 1px solid ;
+    border-left: none;
+    cursor: ns-resize;
+  }
+  .color-picker-h-cursor {
+    position: relative;
+    width: 100%;
+    height: 1px;
+  }
+  .color-picker-a-cursor {
+    position: relative;
+    height: 100%;
+    width: 1px;
+  }
+  .color-picker-h-cursor::before,
+  .color-picker-a-cursor::before{
+    content: ' ';
+    box-sizing: border-box;
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    box-shadow: 0px 0px 5px 2px rgba(255,255,255,0.75);
+    border-radius: 3px;
+    border: 0px solid white;
+    transform: rotateZ(45deg);
+    @include color(background-color, primary-dark);
+  }
+  .color-picker-h-cursor::before {
+    top: -3px;
+    left: calc(0.5rem - 3px);
+  }
+  .color-picker-a-cursor::before {
+    left: -3px;
+    top: calc(0.5rem - 3px);
+  }
+
+  .color-picker-a,
+  .color-picker-out {
+    overflow: hidden;
+    position: absolute;
+    box-sizing: border-box;
+    border-top: none;
+    bottom: 0;
+    height: 1rem;
+    background-image: /* tint image */
+                      linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+                      /* checkered effect */
+                      linear-gradient(to right, grey 50%, white 50%),
+                      linear-gradient(to bottom, grey 50%, white 50%);
+    background-blend-mode: normal, difference, normal;
+    background-size: 1rem 1rem;
+  }
+  .color-picker-a {
+    left: 0;
+    right: 1rem;
+    cursor: ew-resize;
+    border-right: 1px solid ;
+  }
+  .color-picker-out {
+    right: 0;
+    width: 1rem;
+    border-left: none;
+  }
+
+  .color-picker-a-bg,
+  .color-picker-out-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .color-picker-sv,
+  .color-picker-h,
+  .color-picker-a,
+  .color-picker-out {
+    @include color(border-color, primary-dark);
+  }
+}
+
+//
+// THEMES
+//
+
+.qui-panel-dark {
+  --qui-color-primary: #2d333b;
+  --qui-color-primary-dark: #1c2128;
+  --qui-color-secondary: #20262e;
+  --qui-color-secondary-dark: #1c2128;
+  --qui-color-on-primary: #f1f1f1;
+  --qui-color-on-secondary: #f8f8f2;
+  --qui-color-accent: #f9AA33;
+}

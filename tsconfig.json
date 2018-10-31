@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "declaration": true,
+    "module": "es2015",
+    "moduleResolution": "node",
+    "outDir": "./dist/src",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "rootDir": "./src",
+    "sourceMap": true,
+    "inlineSourceMap": false,
+    "inlineSources": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+  },
+  "exclude": [
+    "./dist"
+  ]
+}
