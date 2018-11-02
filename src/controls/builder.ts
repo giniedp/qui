@@ -2,7 +2,10 @@ import m from 'mithril'
 import { ButtonDef } from './button'
 import { ButtonGroupDef } from './button-group'
 import { CheckboxDef } from './checkbox'
+import { ColorDef } from './color'
+import { ColorPickerDef } from './color-picker'
 import { GroupDef } from './group'
+import { ImageDef } from './image'
 import { NumberDef } from './number'
 import { SelectDef } from './select'
 import { TabDef, TabsDef } from './tabs'
@@ -13,19 +16,15 @@ export interface Removable {
   remove?: () => void
 }
 
-export interface WithControlType {
-  type: string
-}
-
 export interface TabsBuilder {
-  addTab(label: string, builder: (b: Builder) => void): TabDef & Removable
+  tab(label: string, builder: (b: Builder) => void): TabDef & Removable
 }
 
 export class Builder {
   private controls: any[] = []
   private el: HTMLElement
 
-  public addButton(text: string, opts: Partial<ButtonDef> = {}) {
+  public button(text: string, opts: Partial<ButtonDef> = {}) {
     return this.add<ButtonDef>({
       ...opts,
       type: 'button',
@@ -33,7 +32,7 @@ export class Builder {
     })
   }
 
-  public addButtonGroup(label: string, opts: Partial<ButtonGroupDef>, builder: (b: Builder) => void) {
+  public buttonGroup(label: string, opts: Partial<ButtonGroupDef>, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
     return this.add<ButtonGroupDef>({
@@ -44,7 +43,7 @@ export class Builder {
     })
   }
 
-  public addGroup(label: string, builder: (b: Builder) => void) {
+  public group(label: string, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
     return this.add<GroupDef>({
@@ -54,7 +53,7 @@ export class Builder {
     })
   }
 
-  public addTabs(builder: (b: TabsBuilder) => void) {
+  public tabs(builder: (b: TabsBuilder) => void) {
     const sub = new Builder()
     builder(sub)
     return this.add<TabsDef>({
@@ -63,7 +62,7 @@ export class Builder {
     })
   }
 
-  public addTab(label: string, builder: (b: Builder) => void) {
+  public tab(label: string, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
     return this.add<TabDef>({
@@ -73,7 +72,7 @@ export class Builder {
     })
   }
 
-  public addCheckbox<O>(property: keyof O, target: O, opts: Partial<CheckboxDef>) {
+  public checkbox<O>(property: keyof O, target: O, opts: Partial<CheckboxDef>) {
     return this.add<CheckboxDef>({
       label: String(property),
       ...opts,
@@ -83,7 +82,7 @@ export class Builder {
     })
   }
 
-  public addText<O>(property: keyof O, target: O, opts: Partial<TextDef> = {}) {
+  public text<O>(property: keyof O, target: O, opts: Partial<TextDef> = {}) {
     return this.add<TextDef>({
       label: String(property),
       ...opts,
@@ -93,7 +92,7 @@ export class Builder {
     })
   }
 
-  public addNumber<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
+  public number<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
     return this.add<NumberDef>({
       label: String(property),
       ...opts,
@@ -103,7 +102,7 @@ export class Builder {
     })
   }
 
-  public addSlider<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
+  public slider<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
     return this.add<NumberDef>({
       label: String(property),
       ...opts,
@@ -113,13 +112,37 @@ export class Builder {
     })
   }
 
-  public addSelect<O>(property: keyof O, target: O, opts: Partial<SelectDef> = {}) {
+  public select<O>(property: keyof O, target: O, opts: Partial<SelectDef> = {}) {
     return this.add<SelectDef>({
       label: String(property),
       ...opts,
       type: 'select',
       target: target,
       property: property,
+    })
+  }
+
+  public color(label: string, opts: Partial<ColorDef> = {}) {
+    return this.add<ColorDef>({
+      ...opts,
+      type: 'color',
+      label: label,
+    })
+  }
+
+  public colorPicker(label: string, opts: Partial<ColorPickerDef> = {}) {
+    return this.add<ColorPickerDef>({
+      ...opts,
+      type: 'color-picker',
+      label: label,
+    })
+  }
+
+  public image(label: string, opts: Partial<ImageDef> = {}) {
+    return this.add<ImageDef>({
+      ...opts,
+      type: 'image',
+      label: label,
     })
   }
 

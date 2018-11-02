@@ -1,6 +1,6 @@
 {
   "name": "qui-lib",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/qui.umd.js",
   "module": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
