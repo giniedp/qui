@@ -1,7 +1,9 @@
 {
   "name": "qui-lib",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "dist/qui.umd.js",
+  "module": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
   "author": "Alexander Gräfenstein",
   "license": "MIT",
   "description": "Quick UI - lightweight ui controls library for javascript",

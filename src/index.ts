@@ -3,7 +3,7 @@ import './controls'
 import { Builder } from './controls/builder'
 import { ControlDef, getComponent } from './controls/utils'
 
-export const VERSION = '0.0.2'
+export const VERSION = '0.0.3'
 
 /**
  * Mithril's hyperscript function.
