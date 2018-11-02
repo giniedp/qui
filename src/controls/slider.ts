@@ -1,18 +1,18 @@
 import m from 'mithril'
 
 import { NumberDef } from './number'
-import { call, label, registerComponent, tap } from './utils'
+import { call, clamp, getValue, label, registerComponent, setValue, use } from './utils'
 
 interface Attrs {
   data: NumberDef
 }
 
-registerComponent('range', (node: m.Vnode<Attrs>) => {
+registerComponent('slider', (node: m.Vnode<Attrs>) => {
   function onChange(e: Event) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
     const value = parseFloat(el.value)
-    data.value = isNaN(value) ? null : value
+    setValue(data, isNaN(value) ? null : value)
     if (e.type === 'input') {
       call(data.onInput, data)
     }
@@ -22,7 +22,15 @@ registerComponent('range', (node: m.Vnode<Attrs>) => {
   }
 
   function getPercent(data: NumberDef) {
-    return (((data.value - data.min) / (data.max - data.min)) * 100) | 0 //tslint:disable-line
+    return Math.floor((getValue(data) - data.min) / (data.max - data.min) * 100)
+  }
+
+  function limitValue(data: NumberDef, value: number) {
+    value = clamp(value, data.min, data.max)
+    if (data.step != null) {
+      value = Math.round(value / data.step) * data.step
+    }
+    return value
   }
 
   let target: HTMLElement
@@ -35,22 +43,31 @@ registerComponent('range', (node: m.Vnode<Attrs>) => {
     if (!target) {
       return
     }
-    let clientX = 0
-    if ('clientX' in e) {
-      clientX = e.clientX
-    } else if ('touches' in e) {
-      clientX = e.touches.item(0).clientX
-    }
-    clientX -= target.offsetLeft
-    let width = target.clientWidth
-    const d = node.attrs.data
-    const v = (d.max - d.min) * ((clientX / width) || 0) + d.min
-    d.value = v < d.min ? d.min : v > d.max ? d.max : v
-    m.redraw()
+
+    const rect = target.getBoundingClientRect()
+    const tx = window.pageXOffset || document.documentElement.scrollLeft
+
+    const cw = target.clientWidth
+    const px = 'touches' in e ? e.touches.item(0).pageX : e.pageX
+    const cx = (px - tx - rect.left) / cw
+    use(node.attrs.data, (data) => {
+      setValue(data, limitValue(data, (data.max - data.min) * cx + data.min))
+      m.redraw()
+    })
   }
 
   function dragEnd() {
     target = null
+  }
+
+  function keydown(e: KeyboardEvent) {
+    const code = e.key || e.keyCode
+    const step = (code === 'ArrowLeft' ? -1 : code === 'ArrowRight' ? 1 : 0)
+    if (step) {
+      use(node.attrs.data, (data) => {
+        setValue(data, limitValue(data, data.value + step * (data.step || 1)))
+      })
+    }
   }
 
   return {
@@ -63,13 +80,14 @@ registerComponent('range', (node: m.Vnode<Attrs>) => {
       document.removeEventListener('mouseup', dragEnd)
     },
     view: () => {
-      return tap(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-range', key: data.key},
+      return use(node.attrs.data, (data) => {
+        return m('div', { class: 'qui-control qui-control-slider', key: data.key},
           label(data.label),
           m('section',
             m('div', {
-              class: 'progress',
+              class: 'qui-progress',
               style: 'user-select: none;',
+              tabindex: 0,
               onmousedown: dragStart,
               onmousemove: drag,
               onmouseup: dragEnd,
@@ -78,13 +96,14 @@ registerComponent('range', (node: m.Vnode<Attrs>) => {
               ontouchmove: drag,
               ontouchend: dragEnd,
               ontouchcancel: dragEnd,
-            }, m('div', { class: 'progress-bar', style: `width: ${getPercent(data)}%; pointer-events: none; user-select: none;` })),
+              onkeydown: keydown,
+            }, m('div', { class: 'qui-progress-bar', style: `width: ${getPercent(data)}%; pointer-events: none; user-select: none;` })),
             m('input', {
               type: 'number',
               min: data.min,
               max: data.max,
               step: data.step,
-              value: data.value,
+              value: getValue(data),
               oninput: onChange,
               onchange: onChange,
               placeholder: data.placeholder,

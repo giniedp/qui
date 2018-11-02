@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { ControlDef, getComponent, isFunction, registerComponent, tap } from './utils'
+import { ControlDef, getComponent, isFunction, registerComponent, use } from './utils'
 
 /**
  * Describes a panel control
@@ -22,7 +22,7 @@ registerComponent('panel', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
+      return use(node.attrs.data, (data) => {
         const components = data.filter(isVisible).map((it) => m(getComponent(it.type), { data: it }))
         return m('div', {
           class: ['qui-panel', node.attrs.isRoot ? 'qui-panel-root' : ''].join(' '),

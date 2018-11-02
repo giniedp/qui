@@ -1,5 +1,6 @@
 import m from 'mithril'
 import './controls'
+import { Builder } from './controls/builder'
 import { ControlDef, getComponent } from './controls/utils'
 
 export const VERSION = '0.0.1'
@@ -19,9 +20,7 @@ export const h = m
  * @param data The ui description object
  */
 export function mount(el: Element, data: ControlDef[]) {
-  return m.mount(el, {
-    view: () => m(getComponent('panel'), { isRoot: true, data: data }),
-  })
+  return m.mount(el, { view: () => m(getComponent('panel'), { isRoot: true, data: data }) })
 }
 
 /**
@@ -45,4 +44,10 @@ export function unmount(el: Element) {
  */
 export function redraw() {
   m.redraw()
+}
+
+export function builder(el: HTMLElement, build: (b: Builder) => void) {
+  const b = new Builder()
+  build(b)
+  b.mount(el)
 }

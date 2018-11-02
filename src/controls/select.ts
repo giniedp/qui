@@ -1,33 +1,50 @@
 import m from 'mithril'
 
-import { call, ControlDef, isString, label, registerComponent, tap } from './utils'
+import { call, ControlDef, getValue, isNumber, isString, label, registerComponent, setValue, use } from './utils'
 
 const emptyArray: any[] = []
-const isArrayOfStrings = (arr: any): arr is string[] => {
+const isSimpleArray = (arr: any): arr is Array<string | number> => {
   if (!arr || !Array.isArray(arr)) {
     return false
   }
-  return arr.every(isString)
+  return arr.every((it) => isString(it) || isNumber(it))
 }
+
+export type SelectOptions =
+  { [key: string]: any } |
+  Array<string | number> |
+  Array<{ id: string, label: string, value: any }>
 
 /**
  * Describes a select control
  */
-export interface SelectDef extends ControlDef {
+export interface SelectDef<T = any> extends ControlDef {
   /**
    * The type name of the control
    */
   type: 'select'
   /**
-   * The selected value
+   * The target object where to get/set the value
+   *
+   * @remarks
+   * Requires the `property` option to be set.
+   */
+  target?: T
+  /**
+   * The property name of `target` object
+   *
+   * @remarks
+   * Requires the `target` option to be set.
+   */
+  property?: keyof T
+  /**
+   * If `target` and `property` are not set, then this value will be used
    */
   value?: any
   /**
    * The select options
-   *
-   * @remarks
    */
-  options?: string[] | { [key: string]: any } | Array<{ id: string, label: string, value: any }>
+  options?: SelectOptions
   /**
    * Will be called frequently during unput
    */
@@ -49,9 +66,9 @@ function getOptions(node: m.Vnode<Attrs>): Array<{ id: string, value: any, label
   }
 
   const opts = data.options
-  if (isArrayOfStrings(opts)) {
+  if (isSimpleArray(opts)) {
     return opts.map((it, index) => {
-      return { id: String(index), value: it, label: it }
+      return { id: String(index), value: it, label: String(it) }
     })
   }
 
@@ -74,19 +91,20 @@ function getSelectedIndex(node: m.Vnode<Attrs>) {
   }
 
   const opts = data.options
-  if (isArrayOfStrings(opts)) {
-    return opts.indexOf(data.value)
+  const value = getValue(data)
+  if (isSimpleArray(opts)) {
+    return opts.indexOf(value)
   }
 
   if (Array.isArray(opts)) {
-    const found = opts.filter((it) => it.value === data.value)[0]
+    const found = opts.filter((it) => it.value === value)[0]
     return opts.indexOf(found)
   }
 
   if (typeof opts === 'object') {
     const keys = Object.keys(opts).sort()
     for (const key of keys) {
-      if (data.value === opts[key]) {
+      if (value === opts[key]) {
         return keys.indexOf(key)
       }
     }
@@ -101,20 +119,20 @@ function setSelection(node: m.Vnode<Attrs>, selectedIndex: number) {
   }
 
   const opts = data.options
-  if (isArrayOfStrings(opts)) {
-    data.value = opts[selectedIndex]
+  if (isSimpleArray(opts)) {
+    setValue(data, opts[selectedIndex])
     return
   }
 
   if (Array.isArray(opts)) {
     const found = opts[selectedIndex]
-    data.value = found ? found.value : null
+    setValue(data, found ? found.value : null)
     return
   }
 
   if (typeof opts === 'object') {
     const key = Object.keys(opts).sort()[selectedIndex]
-    data.value = key && key in opts ? opts[key] : null
+    setValue(data, key && key in opts ? opts[key] : null)
   }
 }
 
@@ -129,7 +147,7 @@ registerComponent('select', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
+      return use(node.attrs.data, (data) => {
         return m('div', { class: 'qui-control qui-control-select', key: data.key },
           label(data.label),
           m('section',

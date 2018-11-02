@@ -6,6 +6,8 @@ const components: { [key: string]: m.FactoryComponent<any> | m.ClassComponent } 
  * Common control properties
  */
 export interface ControlDef {
+  [key: string]: any
+
   /**
    * The type name of the control
    */
@@ -86,9 +88,9 @@ export function call(cb: (...args: any[]) => void, ...args: any[]) {
   return isFunction(cb) ? cb(...args) : null
 }
 /**
- * Calls the callback with the given object if it is not null
+ * Calls the callback of object is not null
  */
-export function tap<T, R>(obj: T | null, cb: (it: T) => R): R | null {
+export function use<T, R>(obj: T | null, cb: (it: T) => R): R | null {
   return obj == null ? null : cb(obj)
 }
 /**
@@ -107,10 +109,18 @@ export function clamp(v: number, min: number, max: number) {
   return v < min ? min : v > max ? max : v
 }
 
+export function padLeft(value: string, length: number, char: string) {
+  while (value.length < length) {
+    value = `${char}${value}`
+  }
+  return value
+}
+
 /**
  * Describes a HSV color value
  */
 export interface HSV {
+  [key: string]: number
   /**
    * The hue component
    */
@@ -139,6 +149,7 @@ export interface HSVA extends HSV {
  * Describes an RGB color value
  */
 export interface RGB {
+  [key: string]: number
   /**
    * The red component
    */
@@ -211,4 +222,15 @@ export function rgb2hsv(rgb: RGB): HSV {
   H = (H % 6) * 60
   let S = C === 0 ? 0 : C / V
   return { h: H, s: S, v: V }
+}
+
+export function getValue<V, T>(def: { value?: V, target?: T, property?: keyof T }): V {
+  return def.target && def.property ? def.target[def.property] as any : def.value
+}
+
+export function setValue<V, T>(def: { value?: V, target?: T, property?: keyof T }, value: V) {
+  if (def.target && def.property) {
+    def.target[def.property] = value as any
+  }
+  def.value = value
 }

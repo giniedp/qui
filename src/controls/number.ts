@@ -1,15 +1,15 @@
 import m from 'mithril'
 
-import { call, ControlDef, label, registerComponent, tap } from './utils'
+import { call, ControlDef, getValue, label, registerComponent, setValue, use } from './utils'
 
 /**
  * Describes a number control
  */
-export interface NumberDef extends ControlDef {
+export interface NumberDef<T = any> extends ControlDef {
   /**
    * The type name of the control
    */
-  type: 'number' | 'range'
+  type: 'number' | 'slider'
   /**
    * The placeholder text
    */
@@ -27,7 +27,29 @@ export interface NumberDef extends ControlDef {
    */
   step?: number
   /**
-   * The actual value
+   * The number of significant digits
+   *
+   * @remarks
+   * if set each change will go through call to Number.toPrecision()
+   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision
+   */
+  precision?: number
+  /**
+   * The target object where to get/set the value
+   *
+   * @remarks
+   * Requires the `property` option to be set.
+   */
+  target?: T
+  /**
+   * The property name of `target` object
+   *
+   * @remarks
+   * Requires the `target` option to be set.
+   */
+  property?: keyof T
+  /**
+   * If `target` and `property` are not set, then this value will be used
    */
   value?: number
   /**
@@ -50,7 +72,7 @@ registerComponent('number', (node: m.Vnode<Attrs>) => {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
     const value = parseFloat(el.value)
-    data.value = isNaN(value) ? null : value
+    setValue(data, isNaN(value) ? null : value)
     if (e.type === 'input') {
       call(data.onInput, data)
     }
@@ -61,7 +83,7 @@ registerComponent('number', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
+      return use(node.attrs.data, (data) => {
         return m('div', { class: 'qui-control qui-control-number', key: data.key },
           label(data.label),
           m('section',
@@ -70,7 +92,7 @@ registerComponent('number', (node: m.Vnode<Attrs>) => {
               min: data.min,
               max: data.max,
               step: data.step,
-              value: data.value,
+              value: getValue(data),
               oninput: onChange,
               onchange: onChange,
               placeholder: data.placeholder,

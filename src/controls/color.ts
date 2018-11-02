@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { ColorPickerDef } from './color-picker'
-import { call, ControlDef, getComponent, label, registerComponent, tap } from './utils'
+import { call, ControlDef, getComponent, label, registerComponent, use } from './utils'
 
 /**
  * Describes a color control
@@ -57,14 +57,14 @@ registerComponent('color', (node: m.Vnode<Attrs>) => {
     opened = !opened
   }
   function onPickerInput(it: ColorPickerDef) {
-    tap(node.attrs.data, (data) => {
+    use(node.attrs.data, (data) => {
       data.value = it.value
       call(data.onInput, data)
     })
   }
 
   function onPickerChange(it: ColorPickerDef) {
-    tap(node.attrs.data, (data) => {
+    use(node.attrs.data, (data) => {
       data.value = it.value
       call(data.onChange, data)
     })
@@ -72,21 +72,32 @@ registerComponent('color', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-color', key: data.key },
+      return use(node.attrs.data, (data) => {
+        return m('div', {
+          class: 'qui-control qui-control-color',
+          key: data.key,
+        },
           label(data.label),
           m('section',
             m('button', {
-              type: 'button', style: { 'background-color': data.value },
+              type: 'button',
+              style: { 'background-color': data.value },
               onclick: toggle,
             }, data.value),
-            opened ? m(getComponent('color-picker'), { data: {
-              label: null,
-              value: data.value,
-              format: data.format,
-              onInput: onPickerInput,
-              onChange: onPickerChange,
-            } }) : null,
+            opened ? m(getComponent('color-picker'), {
+              style: {
+                position: 'fixed',
+                top: '0px',
+                left: '0px',
+              },
+              data: {
+                label: null,
+                value: data.value,
+                format: data.format,
+                onInput: onPickerInput,
+                onChange: onPickerChange,
+              },
+            }) : null,
           ),
         )
       })

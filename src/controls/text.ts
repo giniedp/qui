@@ -1,11 +1,11 @@
 import m from 'mithril'
 
-import { call, ControlDef, label, registerComponent, tap } from './utils'
+import { call, ControlDef, getValue, label, registerComponent, setValue, use } from './utils'
 
 /**
  * Describes a text control
  */
-export interface TextDef extends ControlDef {
+export interface TextDef<T = any> extends ControlDef {
   /**
    * The type name of the control
    */
@@ -15,7 +15,21 @@ export interface TextDef extends ControlDef {
    */
   placeholder?: string
   /**
-   * The value
+   * The target object where to get/set the value
+   *
+   * @remarks
+   * Requires the `property` option to be set.
+   */
+  target?: T
+  /**
+   * The property name of `target` object
+   *
+   * @remarks
+   * Requires the `target` option to be set.
+   */
+  property?: keyof T
+  /**
+   * If `target` and `property` are not set, then this value will be used
    */
   value?: string
   /**
@@ -37,7 +51,7 @@ registerComponent('text', (node: m.Vnode<Attrs>) => {
   function onChange(e: Event) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
-    data.value = el.value
+    setValue(data, el.value)
     if (e.type === 'input') {
       call(data.onInput, data)
     }
@@ -48,13 +62,13 @@ registerComponent('text', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
+      return use(node.attrs.data, (data) => {
         return m('div', { class: 'qui-control qui-control-text', key: data.key },
           label(data.label),
           m('section',
             m('input', {
               type: 'text',
-              value: data.value,
+              value: getValue(data),
               oninput: onChange,
               onchange: onChange,
               placeholder: data.placeholder,

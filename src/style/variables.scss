@@ -1,7 +1,9 @@
 $color-primary: #344955 !default;
-$color-primary-dark: #232F34 !default;
+$color-primary-dark: #0b222c !default;
+$color-primary-light: #5f7481 !default;
 $color-secondary: #4A6572 !default;
-$color-secondary-dark: #232F34 !default;
+$color-secondary-dark: #203b47 !default;
+$color-secondary-light: #7793a1 !default;
 $color-on-primary: #E0E5E7 !default;
 $color-on-secondary: #E0E5E7 !default;
 $color-accent: #f9AA33 !default;
@@ -13,9 +15,9 @@ $font-family-base:            $font-family-sans-serif !default;
 $font-size-base:              0.7rem !default;
 
 $line-height: 1.5rem;
-$spacer: 0;// 0.125rem;
+$spacer: 0.125rem;
 
-$label-width: 6rem;
+$label-width: 7rem;
 $label-pad-x: 0.25rem;
 $label-pad-y: 0.0rem;
 

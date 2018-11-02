@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, isArray, label, registerComponent, tap } from './utils'
+import { call, ControlDef, isArray, label, registerComponent, use } from './utils'
 
 /**
  * Describes a vector picker control
@@ -45,7 +45,7 @@ interface Attrs {
 }
 
 registerComponent('vector', (node: m.Vnode<Attrs>) => {
-  tap(node.attrs.data, (data) => {
+  use(node.attrs.data, (data) => {
     data.elements = data.elements || ['x', 'y', 'z']
   })
   function onChange(e: Event, field: string) {
@@ -65,7 +65,7 @@ registerComponent('vector', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
+      return use(node.attrs.data, (data) => {
         return m('div', { class: 'qui-control qui-control-vector', key: data.key },
           label(data.label),
           m('section',

@@ -1,23 +1,19 @@
 import m from 'mithril'
 
-import { ControlDef, getComponent, registerComponent, tap } from './utils'
+import { ControlDef, getComponent, registerComponent, use } from './utils'
 
 /**
- * Describes a folder control
+ * Describes a group control
  */
-export interface FolderDef extends ControlDef {
+export interface GroupDef extends ControlDef {
   /**
    * The type name of the control
    */
-  type: 'folder'
+  type: 'group'
   /**
    * If true, the children will be rendered
    */
   open?: boolean
-  /**
-   * The folder text
-   */
-  text?: string
   /**
    * Definitions of child controls
    */
@@ -25,10 +21,10 @@ export interface FolderDef extends ControlDef {
 }
 
 interface Attrs {
-  data: FolderDef
+  data: GroupDef
 }
 
-registerComponent('folder', (node: m.Vnode<Attrs>) => {
+registerComponent('group', (node: m.Vnode<Attrs>) => {
 
   function onClick() {
     const data = node.attrs.data
@@ -37,8 +33,8 @@ registerComponent('folder', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return tap(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: 'qui-control qui-control-folder' },
+      return use(node.attrs.data, (data) => {
+        return m('div', { key: data.key, class: 'qui-control qui-control-group' },
           m(
             'label',
             { onclick: onClick },

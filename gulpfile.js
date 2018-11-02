@@ -30,7 +30,7 @@ gulp.task('build:tsc', (cb) => {
     })
 })
 
-function buildRollup(minify) {
+function buildRollup(minify, cb) {
   const resolve = require('rollup-plugin-node-resolve')
   const commonjs = require('rollup-plugin-commonjs')
   const sourcemaps = require('rollup-plugin-sourcemaps')
@@ -61,10 +61,20 @@ function buildRollup(minify) {
       exports: 'named',
     })
   })
+  .then(() => {
+    cb()
+  })
+  .catch((err) => {
+    cb(err)
+  })
 }
 
-gulp.task('build:rollup:dev', ['build:tsc'], () => buildRollup(false))
-gulp.task('build:rollup:min', ['build:tsc'], () => buildRollup(true))
+gulp.task('build:rollup:dev', ['build:tsc'], (cb) => {
+  buildRollup(false, cb)
+})
+gulp.task('build:rollup:min', ['build:tsc'], (cb) => {
+  buildRollup(true, cb)
+})
 gulp.task('build:rollup', ['build:rollup:min', 'build:rollup:dev'])
 
 gulp.task('build:style', () => {
@@ -84,4 +94,10 @@ gulp.task('watch', ['clean'], () => {
   gulp.watch(path.join(srcDir, '**', '*.ts'), ['build:rollup', 'build:rollup:min'])
   gulp.watch(path.join(srcDir, '**', '*.scss'), ['build:style'])
   gulp.start('build:rollup', 'build:style')
+})
+
+gulp.task('publish', ['clean'], () => {
+  gulp.start('build:rollup', 'build:style', () => {
+    shell.exec(`npm publish --access=public`)
+  })
 })
