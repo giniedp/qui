@@ -1,16 +1,47 @@
 import m from 'mithril'
 
 import { ColorPickerDef } from './color-picker'
-import { call, ControlDef, getComponent, label, registerComponent, use } from './utils'
+import {
+  call,
+  ControlDef,
+  getComponent,
+  getValue,
+  isArray,
+  isNumber,
+  isObject,
+  isString,
+  label,
+  padLeft,
+  parseColor,
+  quiClass,
+  registerComponent,
+  rgba2css,
+  setValue,
+  use,
+} from './utils'
 
 /**
  * Describes a color control
  */
-export interface ColorDef extends ControlDef {
+export interface ColorDef<T = any> extends ControlDef {
   /**
    * The type name of the control
    */
   type: 'color'
+  /**
+   * The target object where to get/set the value
+   *
+   * @remarks
+   * Requires the `property` option to be set.
+   */
+  target?: T
+  /**
+   * The property name of `target` object
+   *
+   * @remarks
+   * Requires the `target` option to be set.
+   */
+  property?: keyof T
   /**
    * The color value as a string.
    *
@@ -22,7 +53,7 @@ export interface ColorDef extends ControlDef {
    * It is allowed to use single character form per component (#f00 instead of #ff0000)
    * but it will always be written back as #ff0000 on change
    */
-  value?: string
+  value?: string | number | number[]
   /**
    * The format of the string value. Defaults to 'rgb'
    *
@@ -31,6 +62,10 @@ export interface ColorDef extends ControlDef {
    * and it must match the input value.
    */
   format?: string
+  /**
+   * Whether each component is normalized to range [0:1]
+   */
+  normalized?: boolean
   /**
    * Will be called frequently during unput
    */
@@ -58,15 +93,47 @@ registerComponent('color', (node: m.Vnode<Attrs>) => {
   }
   function onPickerInput(it: ColorPickerDef) {
     use(node.attrs.data, (data) => {
-      data.value = it.value
+      setValue(data, it.value)
       call(data.onInput, data)
     })
   }
 
   function onPickerChange(it: ColorPickerDef) {
     use(node.attrs.data, (data) => {
-      data.value = it.value
+      setValue(data, it.value)
       call(data.onChange, data)
+    })
+  }
+
+  function getText() {
+    return use(node.attrs.data, (data) => {
+      const value = getValue(data)
+      if (isString(value)) {
+        return value
+      }
+      if (isNumber(value)) {
+        return '0x' + padLeft(value.toString(16), 8, '0')
+      }
+      if (isArray(value)) {
+        return value.map((it: number) => it < 1 && it > 0 ? it.toFixed(2) : it).join(' , ')
+      }
+      if (isObject(value)) {
+        return Object.keys(value).map((k) => {
+          const it = (value as any)[k]
+          return `${k}: ${it < 1 && it > 0 ? it.toFixed(2) : it}`
+        }).join(' ')
+      }
+      if (data.value == null) {
+        return 'null'
+      }
+      return '?'
+    })
+  }
+
+  function getColor() {
+    return use(node.attrs.data, (data) => {
+      const rgba = parseColor(getValue(data), data.format)
+      return rgba2css(rgba, 1)
     })
   }
 
@@ -74,16 +141,16 @@ registerComponent('color', (node: m.Vnode<Attrs>) => {
     view: () => {
       return use(node.attrs.data, (data) => {
         return m('div', {
-          class: 'qui-control qui-control-color',
+          class: quiClass('color'),
           key: data.key,
         },
           label(data.label),
           m('section',
             m('button', {
               type: 'button',
-              style: { 'background-color': data.value },
+              style: { 'background-color': getColor() },
               onclick: toggle,
-            }, data.value),
+            }, getText()),
             opened ? m(getComponent('color-picker'), {
               style: {
                 position: 'fixed',
@@ -92,7 +159,7 @@ registerComponent('color', (node: m.Vnode<Attrs>) => {
               },
               data: {
                 label: null,
-                value: data.value,
+                value: getValue(data),
                 format: data.format,
                 onInput: onPickerInput,
                 onChange: onPickerChange,

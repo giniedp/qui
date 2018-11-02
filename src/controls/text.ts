@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, getValue, label, registerComponent, setValue, use } from './utils'
+import { call, ControlDef, getValue, label, quiClass, registerComponent, setValue, use } from './utils'
 
 /**
  * Describes a text control
@@ -63,7 +63,7 @@ registerComponent('text', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-text', key: data.key },
+        return m('div', { class: quiClass('text'), key: data.key },
           label(data.label),
           m('section',
             m('input', {

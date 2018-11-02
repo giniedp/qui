@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { ButtonDef } from './button'
-import { call, ControlDef, label, registerComponent, use } from './utils'
+import { call, ControlDef, label, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a button group
@@ -25,7 +25,7 @@ registerComponent('button-group', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: 'qui-control qui-control-button-group' },
+        return m('div', { key: data.key, class: quiClass('button-group') },
           label(data.label),
           m('section',
             data.children.map((it) => {

@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, getValue, isNumber, isString, label, registerComponent, setValue, use } from './utils'
+import { call, ControlDef, getValue, isNumber, isString, label, quiClass, registerComponent, setValue, use } from './utils'
 
 const emptyArray: any[] = []
 const isSimpleArray = (arr: any): arr is Array<string | number> => {
@@ -148,7 +148,7 @@ registerComponent('select', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-select', key: data.key },
+        return m('div', { class: quiClass('select'), key: data.key },
           label(data.label),
           m('section',
             m('select',

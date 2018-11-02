@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, label, registerComponent, use } from './utils'
+import { call, ControlDef, label, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a button control
@@ -32,7 +32,7 @@ registerComponent('button', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: 'qui-control qui-control-button' },
+        return m('div', { key: data.key, class: quiClass('button') },
           label(data.label),
           m('section',
             m('button', {

@@ -5,6 +5,7 @@ import { CheckboxDef } from './checkbox'
 import { GroupDef } from './group'
 import { NumberDef } from './number'
 import { SelectDef } from './select'
+import { TabDef, TabsDef } from './tabs'
 import { TextDef } from './text'
 import { getComponent } from './utils'
 
@@ -14,6 +15,10 @@ export interface Removable {
 
 export interface WithControlType {
   type: string
+}
+
+export interface TabsBuilder {
+  addTab(label: string, builder: (b: Builder) => void): TabDef & Removable
 }
 
 export class Builder {
@@ -44,6 +49,25 @@ export class Builder {
     builder(sub)
     return this.add<GroupDef>({
       type: 'group',
+      label: label,
+      children: sub.controls,
+    })
+  }
+
+  public addTabs(builder: (b: TabsBuilder) => void) {
+    const sub = new Builder()
+    builder(sub)
+    return this.add<TabsDef>({
+      type: 'tabs',
+      children: sub.controls,
+    })
+  }
+
+  public addTab(label: string, builder: (b: Builder) => void) {
+    const sub = new Builder()
+    builder(sub)
+    return this.add<TabDef>({
+      type: 'tab',
       label: label,
       children: sub.controls,
     })

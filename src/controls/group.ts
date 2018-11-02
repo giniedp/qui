@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { ControlDef, getComponent, registerComponent, use } from './utils'
+import { ControlDef, getComponent, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a group control
@@ -25,16 +25,14 @@ interface Attrs {
 }
 
 registerComponent('group', (node: m.Vnode<Attrs>) => {
-
   function onClick() {
     const data = node.attrs.data
     data.open = !data.open
   }
-
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: 'qui-control qui-control-group' },
+        return m('div', { key: data.key, class: quiClass('group') },
           m(
             'label',
             { onclick: onClick },

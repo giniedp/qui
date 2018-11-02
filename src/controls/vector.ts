@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, isArray, label, registerComponent, use } from './utils'
+import { call, ControlDef, isArray, label, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a vector picker control
@@ -66,7 +66,7 @@ registerComponent('vector', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-vector', key: data.key },
+        return m('div', { class: quiClass('vector'), key: data.key },
           label(data.label),
           m('section',
             !data.value || !isArray(data.elements) ? null : data.elements.map((field) => {

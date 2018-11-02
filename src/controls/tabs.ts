@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { clamp, ControlDef, getComponent, registerComponent, use } from './utils'
+import { clamp, ControlDef, getComponent, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a button group
@@ -44,7 +44,7 @@ registerComponent('tabs', (node: m.Vnode<Attrs>) => {
           return null
         }
         selection = clamp(selection, 0, tabs.length - 1)
-        return m('div', { key: data.key, class: 'qui-control qui-control-tabs' },
+        return m('div', { key: data.key, class: quiClass('tabs') },
           ...(tabs.map((it, index) => {
             return m('button', {
               key: it.key,

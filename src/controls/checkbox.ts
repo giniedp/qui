@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, getValue, registerComponent, setValue, use } from './utils'
+import { call, ControlDef, getValue, quiClass, registerComponent, setValue, use } from './utils'
 
 /**
  * Describes a checkbox control
@@ -49,7 +49,7 @@ registerComponent('checkbox', (node: m.Vnode<Attrs>) => {
   return {
     view: (vnode: m.Vnode<Attrs>) => {
       return use(vnode.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-checkbox', key: data.key },
+        return m('div', { class: quiClass('checkbox'), key: data.key },
           m('label',
             m('span', data.label),
             m('input', {

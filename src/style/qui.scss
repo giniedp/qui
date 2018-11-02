@@ -11,8 +11,9 @@
 
   font-family: $font-family-base;
   font-size: $font-size-base;
-  width: 300px;
-  padding: $spacer;
+  width: 20rem;
+  padding-left: $spacer;
+  padding-right: $spacer;
   margin: 0;
   overflow: auto;
   overflow-x: hidden;
@@ -164,8 +165,16 @@
 .qui-control-tabs {
   flex-wrap: wrap;
 
+  border-bottom: 1px solid;
+  @include color(border-color, primary-dark);
+
   margin-left: -$spacer;
   margin-right: -$spacer;
+
+  > .qui-panel {
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
 
   > button {
     border: 0;
@@ -220,10 +229,16 @@
 
 .qui-control-group {
   flex-direction: column;
+  margin-left: -$spacer;
+  margin-right: -$spacer;
+
+  > .qui-panel {
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
 
   > label {
-    margin-left: -$spacer;
-    margin-right: -$spacer;
+    margin: 0;
     width: auto;
     cursor: pointer;
     height: $line-height;
@@ -271,7 +286,6 @@
 
 .qui-control-color {
   > section {
-    display: flex;
     flex-direction: column;
   }
   button {
@@ -285,7 +299,6 @@
 .qui-control-color-picker {
   > section {
     width: 100%;
-    display: flex;
     flex-direction: column;
   }
 

@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { ControlDef, label, registerComponent, use } from './utils'
+import { ControlDef, label, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes an image control
@@ -25,7 +25,7 @@ registerComponent('image', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-image', key: data.key },
+        return m('div', { class: quiClass('image'), key: data.key },
           label(data.label),
           m('section',
             m('img', { src: data.src }),

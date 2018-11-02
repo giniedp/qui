@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { NumberDef } from './number'
-import { call, clamp, getValue, label, registerComponent, setValue, use } from './utils'
+import { call, clamp, getValue, label, quiClass, registerComponent, setValue, use } from './utils'
 
 interface Attrs {
   data: NumberDef
@@ -81,7 +81,7 @@ registerComponent('slider', (node: m.Vnode<Attrs>) => {
     },
     view: () => {
       return use(node.attrs.data, (data) => {
-        return m('div', { class: 'qui-control qui-control-slider', key: data.key},
+        return m('div', { class: quiClass('slider'), key: data.key},
           label(data.label),
           m('section',
             m('div', {

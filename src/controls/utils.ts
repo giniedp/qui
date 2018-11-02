@@ -82,6 +82,12 @@ export function isArray(v: any): v is [] {
   return Array.isArray(v)
 }
 /**
+ * Checks if value is an object
+ */
+export function isObject(v: any): v is object {
+  return v != null && typeof v === 'object' && !isArray(v)
+}
+/**
  * Calls a function if it is not null
  */
 export function call(cb: (...args: any[]) => void, ...args: any[]) {
@@ -224,6 +230,18 @@ export function rgb2hsv(rgb: RGB): HSV {
   return { h: H, s: S, v: V }
 }
 
+export function rgb2hex(rgb: RGB) {
+  return '#' + [rgb.r, rgb.g, rgb.b].map((it) => padLeft(it.toString(16), 2, '0') ).join('')
+}
+
+export function rgba2hex(rgba: RGBA) {
+  return '#' + [rgba.r, rgba.g, rgba.b, Math.floor(rgba.a * 255)].map((it) => padLeft(it.toString(16), 2, '0') ).join('')
+}
+
+export function rgba2css(rgb: RGB, alpha: number = 1) {
+  return ['rgba(', rgb.r, ',', rgb.g, ',', rgb.b, ',', alpha, ')'].join('')
+}
+
 export function getValue<V, T>(def: { value?: V, target?: T, property?: keyof T }): V {
   return def.target && def.property ? def.target[def.property] as any : def.value
 }
@@ -233,4 +251,98 @@ export function setValue<V, T>(def: { value?: V, target?: T, property?: keyof T 
     def.target[def.property] = value as any
   }
   def.value = value
+}
+
+export function quiClass(name: string) {
+  return 'qui-control qui-control-' + name
+}
+
+function describeFormat(format: string = 'rgb') {
+  return {
+    components: (format.match(/[rgba]+/)[0] || '').split(''),
+    normalized: /(\[n\])|\{n\}/.test(format),
+    isArray: /(\[n?\])/.test(format),
+    isObject: /(\{n?\})/.test(format),
+    isNumber: /0x/.test(format),
+  }
+}
+
+export function parseColor(value: string | number | number[], format: string) {
+  const rgba: RGBA = {
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  }
+
+  const fmt = describeFormat(format)
+  if (Array.isArray(value) && fmt.isArray) {
+    fmt.components.forEach((key, i) => {
+      rgba[key] = value[i] || 0
+    })
+  } else if (isObject(value) && fmt.isObject) {
+    fmt.components.forEach((key) => {
+      rgba[key] = (value as any)[key] || 0
+    })
+  } else if (isNumber(value) && fmt.isNumber) {
+    fmt.components.reverse().forEach((key, i) => {
+      // tslint:disable-next-line:no-bitwise
+      rgba[key] = (value >> (i * 8)) & 255
+    })
+  } else if (isString(value) && /[0-9a-f]+/i.test(value)) {
+    let v: string = value.match(/[0-9a-f]+/i)[0]
+    if (v.length === fmt.components.length) {
+      v = v.split('').map((it) => `${it}${it}`).join('')
+    }
+    if (v.length === fmt.components.length * 2) {
+      fmt.components.forEach((key, i) => {
+        rgba[key] = parseInt(v.substr(i * 2, 2), 16)
+      })
+    } else {
+      console.warn('unable to parse color value', value)
+    }
+  } else {
+    //
+  }
+
+  if (fmt.normalized && (fmt.isArray || fmt.isObject)) {
+    // all inputs are normalized in range [0:1]
+    // convert back to [0:255]
+    rgba.r = Math.floor(rgba.r * 255)
+    rgba.g = Math.floor(rgba.g * 255)
+    rgba.b = Math.floor(rgba.b * 255)
+    // keep alpha in range [0:1]
+  } else {
+    // all inputs are in range [0:255]
+    // no need for conversion for rgb value
+    // but alpha must be converted to [0:1]
+    rgba.a = rgba.a / 255
+  }
+
+  return rgba
+}
+
+export function formatColor(rgba: RGBA, format: string) {
+  const fmt = describeFormat(format)
+
+  if (fmt.normalized && (fmt.isArray || fmt.isObject)) {
+    rgba.r = rgba.r / 255
+    rgba.g = rgba.g / 255
+    rgba.b = rgba.b / 255
+  } else {
+    rgba.a = Math.floor(rgba.a * 255)
+  }
+
+  if (fmt.isArray) {
+    return fmt.components.map((key) => rgba[key])
+  }
+  if (fmt.isObject) {
+    return rgba
+  }
+  if (fmt.isNumber) {
+    // tslint:disable-next-line:no-bitwise
+    const val = fmt.components.map((key) => padLeft((rgba[key] || 0).toString(16), 2, '0')).join('')
+    return parseInt('0x' + val, 16)
+  }
+  return '#' + fmt.components.map((key) => padLeft(rgba[key].toString(16), 2, '0')).join('')
 }
