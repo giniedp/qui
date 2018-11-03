@@ -122,19 +122,23 @@ export class Builder {
     })
   }
 
-  public color(label: string, opts: Partial<ColorDef> = {}) {
+  public color<O>(property: keyof O, target: O, opts: Partial<ColorDef> = {}) {
     return this.add<ColorDef>({
+      label: String(property),
       ...opts,
       type: 'color',
-      label: label,
+      target: target,
+      property: property,
     })
   }
 
-  public colorPicker(label: string, opts: Partial<ColorPickerDef> = {}) {
+  public colorPicker<O>(property: keyof O, target: O, opts: Partial<ColorPickerDef> = {}) {
     return this.add<ColorPickerDef>({
+      label: String(property),
       ...opts,
       type: 'color-picker',
-      label: label,
+      target: target,
+      property: property,
     })
   }
 
