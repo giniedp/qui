@@ -1,11 +1,11 @@
 import m from 'mithril'
 
-import { call, ControlDef, isArray, label, quiClass, registerComponent, use } from './utils'
+import { call, ControlDef, getValue, isArray, label, quiClass, registerComponent, use } from './utils'
 
 /**
  * Describes a vector picker control
  */
-export interface VectorDef extends ControlDef {
+export interface VectorDef<T = any> extends ControlDef {
   /**
    * The type name of the control
    */
@@ -26,6 +26,20 @@ export interface VectorDef extends ControlDef {
    * The step value
    */
   step?: number
+  /**
+   * The target object where to get/set the value
+   *
+   * @remarks
+   * Requires the `property` option to be set.
+   */
+  target?: T
+  /**
+   * The property name of `target` object
+   *
+   * @remarks
+   * Requires the `target` option to be set.
+   */
+  property?: keyof T
   /**
    * The vector object
    */
@@ -51,10 +65,9 @@ registerComponent('vector', (node: m.Vnode<Attrs>) => {
   function onChange(e: Event, field: string) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
-    const value = parseFloat(el.value)
-    if (data.value) {
-      (data.value as any)[field] = isNaN(value) ? null : value
-    }
+    const value = getValue(data) || {}
+    const v = parseFloat(el.value);
+    (value as any)[field] = isNaN(v) ? null : v
     if (e.type === 'input') {
       call(data.onInput, data)
     }
@@ -76,7 +89,7 @@ registerComponent('vector', (node: m.Vnode<Attrs>) => {
                 min: data.min,
                 max: data.max,
                 step: data.step,
-                value: data.value[field],
+                value: (getValue(data) || {})[field],
                 oninput: (e: Event) => onChange(e, field),
                 onchange: (e: Event) => onChange(e, field),
                 placeholder: field,
