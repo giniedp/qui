@@ -27,14 +27,6 @@ export interface NumberDef<T = any> extends ControlDef {
    */
   step?: number
   /**
-   * The number of significant digits
-   *
-   * @remarks
-   * if set each change will go through call to Number.toPrecision()
-   * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision
-   */
-  precision?: number
-  /**
    * The target object where to get/set the value
    *
    * @remarks
