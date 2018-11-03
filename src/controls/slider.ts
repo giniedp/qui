@@ -21,14 +21,22 @@ registerComponent('slider', (node: m.Vnode<Attrs>) => {
     }
   }
 
+  function min(data: NumberDef) {
+    return data.min == null ? 0 : data.min
+  }
+
+  function max(data: NumberDef) {
+    return data.max == null ? 1 : data.max
+  }
   function getPercent(data: NumberDef) {
-    return Math.floor((getValue(data) - data.min) / (data.max - data.min) * 100)
+    return Math.floor((getValue(data) - min(data)) / (max(data) - min(data)) * 100)
   }
 
   function limitValue(data: NumberDef, value: number) {
-    value = clamp(value, data.min, data.max)
+    value = clamp(value, min(data), max(data))
     if (data.step != null) {
-      value = Math.round(value / data.step) * data.step
+      const digits = (data.step % 1).toString(10).length - 2
+      value = parseFloat((Math.round(value / data.step) * data.step).toFixed(digits))
     }
     return value
   }
@@ -51,13 +59,20 @@ registerComponent('slider', (node: m.Vnode<Attrs>) => {
     const px = 'touches' in e ? e.touches.item(0).pageX : e.pageX
     const cx = (px - tx - rect.left) / cw
     use(node.attrs.data, (data) => {
-      setValue(data, limitValue(data, (data.max - data.min) * cx + data.min))
+      setValue(data, limitValue(data, (max(data) - min(data)) * cx + min(data)))
+      call(data.onInput, data)
       m.redraw()
     })
   }
 
   function dragEnd() {
-    target = null
+    if (target) {
+      target = null
+      use(node.attrs.data, (data) => {
+        call(data.onChange, data)
+        m.redraw()
+      })
+    }
   }
 
   function keydown(e: KeyboardEvent) {
@@ -66,6 +81,7 @@ registerComponent('slider', (node: m.Vnode<Attrs>) => {
     if (step) {
       use(node.attrs.data, (data) => {
         setValue(data, limitValue(data, data.value + step * (data.step || 1)))
+        call(data.onChange, data)
       })
     }
   }
@@ -100,8 +116,8 @@ registerComponent('slider', (node: m.Vnode<Attrs>) => {
             }, m('div', { class: 'qui-progress-bar', style: `width: ${getPercent(data)}%; pointer-events: none; user-select: none;` })),
             m('input', {
               type: 'number',
-              min: data.min,
-              max: data.max,
+              min: min(data),
+              max: max(data),
               step: data.step,
               value: getValue(data),
               oninput: onChange,
