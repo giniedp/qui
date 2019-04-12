@@ -1,9 +1,12 @@
 import m from 'mithril'
 import './controls'
 import { Builder } from './controls/builder'
-import { ControlDef, getComponent } from './controls/utils'
 
-export const VERSION = '0.0.4'
+import * as u from './controls/utils'
+
+declare const VERSION_STRING: string
+
+export const VERSION = VERSION_STRING
 
 /**
  * Mithril's hyperscript function.
@@ -19,8 +22,8 @@ export const h = m
  * @param el The ui host element
  * @param data The ui description object
  */
-export function mount(el: Element, data: ControlDef[]) {
-  return m.mount(el, { view: () => m(getComponent('panel'), { isRoot: true, data: data }) })
+export function mount(el: Element, data: u.ControlDef[]) {
+  return m.mount(el, { view: () => m(u.getComponent('panel'), { isRoot: true, data: data }) })
 }
 
 /**
@@ -51,3 +54,8 @@ export function builder(el: HTMLElement, build: (b: Builder) => void) {
   build(b)
   b.mount(el)
 }
+
+/**
+ * Utilities
+ */
+export const utils = u

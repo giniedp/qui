@@ -163,20 +163,11 @@
 }
 
 .qui-control-tabs {
-  flex-wrap: wrap;
-
-  border-bottom: 1px solid;
   @include color(border-color, primary-dark);
-
   margin-left: -$spacer;
   margin-right: -$spacer;
 
-  > .qui-panel {
-    margin-left: $spacer;
-    margin-right: $spacer;
-  }
-
-  > button {
+  button {
     border: 0;
     border-top: 1px solid;
     margin: 0;
@@ -196,10 +187,6 @@
       @include color(background-color, primary);
       @include color(border-color, accent);
     }
-  }
-
-  > .qui-panel {
-    width: 100%;
   }
 }
 
@@ -245,28 +232,23 @@
     line-height: $line-height;
     @include color(background-color, primary-dark);
 
-    > span {
+    &::before {
+      content: '►';
+      display: inline-block;
       width: $line-height;
       height: $line-height;
-      display: inline-block;
       text-align: center;
+      transition: transform 0.1s ease-in-out
+    }
 
-      &::before {
-        content: '►';
-        display: inline-block;
-        width: $line-height;
-        height: $line-height;
-        text-align: center;
-        transition: transform 0.1s ease-in-out
-      }
-
-      &.is-open::before {
-        transform: rotateZ(90deg);
-      }
+    &.is-open::before {
+      transform: rotateZ(90deg);
     }
   }
+
   .qui-control-group {
-    margin-left: 0.5rem;
+    border-left: 0.25rem solid;
+    @include color(border-color, primary-light);
   }
 }
 
@@ -297,10 +279,6 @@
 }
 
 .qui-control-color-picker {
-  > section {
-    width: 100%;
-    flex-direction: column;
-  }
 
   .color-picker-panel {
     flex: 1;
@@ -309,20 +287,9 @@
   }
 
   .color-picker-inputs {
+    flex: none;
     display: flex;
-    flex-direction: row;
-    height: $line-height;
-
-    label {
-      width: 0;
-      min-width: 0;
-      flex: 1;
-      height: $line-height;
-      line-height: $line-height;
-      padding: 0;
-      margin: 0;
-      text-align: right;
-    }
+    flex-direction: column;
 
     .input-r {
       border-color: #f00;
@@ -338,6 +305,12 @@
     }
     .input-hex {
       border-color: #000;
+    }
+
+    input {
+      display: block;
+      width: 4rem;
+      flex: none;
     }
   }
 

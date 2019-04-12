@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, getValue, isArray, label, quiClass, registerComponent, use } from './utils'
+import { call, ControlDef, getValue, isArray, registerComponent, renderControl } from './utils'
 
 /**
  * Describes a vector picker control
@@ -58,10 +58,10 @@ interface Attrs {
   data: VectorDef
 }
 
+const defaultElements = ['x', 'y', 'z']
+
 registerComponent('vector', (node: m.Vnode<Attrs>) => {
-  use(node.attrs.data, (data) => {
-    data.elements = data.elements || ['x', 'y', 'z']
-  })
+
   function onChange(e: Event, field: string) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
@@ -78,25 +78,22 @@ registerComponent('vector', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return use(node.attrs.data, (data) => {
-        return m('div', { class: quiClass('vector'), key: data.key },
-          label(data.label),
-          m('section',
-            !data.value || !isArray(data.elements) ? null : data.elements.map((field) => {
-              return m('input', {
-                key: field,
-                type: 'number',
-                min: data.min,
-                max: data.max,
-                step: data.step,
-                value: (getValue(data) || {})[field],
-                oninput: (e: Event) => onChange(e, field),
-                onchange: (e: Event) => onChange(e, field),
-                placeholder: field,
-              })
-            }),
-          ),
-        )
+      return renderControl(node, (data) => {
+        const elements = data.elements || defaultElements
+        const value = getValue(data) as any
+        const visible = value && isArray(elements) && elements.length
+        return !visible ? null : elements.map((field) => {
+          return m("input[type='number']", {
+            key: field,
+            min: data.min,
+            max: data.max,
+            step: data.step,
+            value: value[field],
+            oninput: (e: Event) => onChange(e, field),
+            onchange: (e: Event) => onChange(e, field),
+            placeholder: field,
+          })
+        })
       })
     },
   }

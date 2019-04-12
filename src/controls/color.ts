@@ -10,14 +10,12 @@ import {
   isNumber,
   isObject,
   isString,
-  label,
   padLeft,
   parseColor,
-  quiClass,
   registerComponent,
+  renderControl,
   rgba2css,
   setValue,
-  use,
 } from './utils'
 
 /**
@@ -80,93 +78,85 @@ interface Attrs {
   data: ColorDef
 }
 
+interface State {
+  opened: boolean
+}
+
+type ColorNode = m.Vnode<Attrs, State>
+
 export function createColor(data: ColorDef) {
   return m(getComponent('color'), { data: data })
 }
 
-registerComponent('color', (node: m.Vnode<Attrs>) => {
-
-  let opened = false
+registerComponent('color', (node: ColorNode) => {
 
   function toggle() {
-    opened = !opened
+    node.state.opened = !node.state.opened
   }
   function onPickerInput(it: ColorPickerDef) {
-    use(node.attrs.data, (data) => {
-      setValue(data, it.value)
-      call(data.onInput, data)
-    })
+    const data = node.attrs.data
+    setValue(data, it.value)
+    call(data.onInput, data)
   }
 
   function onPickerChange(it: ColorPickerDef) {
-    use(node.attrs.data, (data) => {
-      setValue(data, it.value)
-      call(data.onChange, data)
-    })
+    const data = node.attrs.data
+    setValue(data, it.value)
+    call(data.onChange, data)
   }
 
   function getText() {
-    return use(node.attrs.data, (data) => {
-      const value = getValue(data)
-      if (isString(value)) {
-        return value
-      }
-      if (isNumber(value)) {
-        return '0x' + padLeft(value.toString(16), 8, '0')
-      }
-      if (isArray(value)) {
-        return value.map((it: number) => it < 1 && it > 0 ? it.toFixed(2) : it).join(' , ')
-      }
-      if (isObject(value)) {
-        return Object.keys(value).map((k) => {
-          const it = (value as any)[k]
-          return `${k}: ${it < 1 && it > 0 ? it.toFixed(2) : it}`
-        }).join(' ')
-      }
-      if (data.value == null) {
-        return 'null'
-      }
-      return '?'
-    })
+    const data = node.attrs.data
+    const value = getValue(data)
+    if (isString(value)) {
+      return value
+    }
+    if (isNumber(value)) {
+      return '0x' + padLeft(value.toString(16), 8, '0')
+    }
+    if (isArray(value)) {
+      return value.map((it: number) => it < 1 && it > 0 ? it.toFixed(2) : it).join(' , ')
+    }
+    if (isObject(value)) {
+      return Object.keys(value).map((k) => {
+        const it = (value as any)[k]
+        return `${k}: ${it < 1 && it > 0 ? it.toFixed(2) : it}`
+      }).join(' ')
+    }
+    if (data.value == null) {
+      return 'null'
+    }
+    return '?'
   }
 
   function getColor() {
-    return use(node.attrs.data, (data) => {
-      const rgba = parseColor(getValue(data), data.format)
-      return rgba2css(rgba, 1)
-    })
+    const data = node.attrs.data
+    const rgba = parseColor(getValue(data), data.format)
+    return rgba2css(rgba, 1)
   }
 
   return {
+    state: {
+      opened: false,
+    },
     view: () => {
-      return use(node.attrs.data, (data) => {
-        return m('div', {
-          class: quiClass('color'),
-          key: data.key,
-        },
-          label(data.label),
-          m('section',
-            m('button', {
-              type: 'button',
-              style: { 'background-color': getColor() },
-              onclick: toggle,
-            }, getText()),
-            opened ? m(getComponent('color-picker'), {
-              style: {
-                position: 'fixed',
-                top: '0px',
-                left: '0px',
-              },
-              data: {
-                label: null,
-                value: getValue(data),
-                format: data.format,
-                onInput: onPickerInput,
-                onChange: onPickerChange,
-              },
-            }) : null,
-          ),
-        )
+      return renderControl(node, (data, state) => {
+        return [
+          m("button[type='button']", {
+            style: { 'background-color': getColor() },
+            onclick: toggle,
+          }, getText()),
+          state.opened ? m(getComponent('color-picker'), {
+            data: {
+              type: 'color-picker',
+              label: null,
+              value: getValue(data),
+              format: data.format,
+              onInput: onPickerInput,
+              onChange: onPickerChange,
+            },
+          }) : null,
+        ]
       })
     },
   }

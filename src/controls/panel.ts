@@ -22,12 +22,16 @@ registerComponent('panel', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return use(node.attrs.data, (data) => {
-        const components = data.filter(isVisible).map((it) => m(getComponent(it.type), { data: it }))
-        return m('div', {
+      const data = node.attrs.data
+      if (!data || !Array.isArray(data)) {
+        return null
+      }
+      return m('div',
+        {
           class: ['qui-panel', node.attrs.isRoot ? 'qui-panel-root' : ''].join(' '),
-        }, ...components)
-      })
+        },
+        data.filter(isVisible).map((it) => m(getComponent(it.type), { data: it })),
+      )
     },
   }
 })

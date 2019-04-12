@@ -1,4 +1,4 @@
-import m from 'mithril'
+import m, { Vnode } from 'mithril'
 
 const components: { [key: string]: m.FactoryComponent<any> | m.ClassComponent } = {}
 
@@ -100,13 +100,23 @@ export function use<T, R>(obj: T | null, cb: (it: T) => R): R | null {
   return obj == null ? null : cb(obj)
 }
 /**
- * Renderes a label if the given text is not null
- *
- * @remarks
- * The label will be rendered even if the text is undefined or empty
+ * Gets the data object
  */
-export function label(l: string) {
-  return l === null ? null : m('label', l)
+export function getData(node: Vnode<any>) {
+  return node.attrs.data
+}
+
+export function renderControl<T, S>(node: Vnode<{ data: T}, S>, view: (data: T, state: S) => any) {
+  const data = getData(node)
+  if (!data) {
+    return null
+  }
+  const label = data.label
+  const content = view ? view(data, node.state) : null
+  return !data ? null : m('div', { key: data.key, class: quiClass(data.type) },
+    label == null ? null : m('label', data.label),
+    content == null ? null : m('section', content),
+  )
 }
 /**
  * Clamps a number value

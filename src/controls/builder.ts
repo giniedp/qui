@@ -58,6 +58,7 @@ export class Builder {
     builder(sub)
     return this.add<TabsDef>({
       type: 'tabs',
+      active: 0,
       children: sub.controls,
     })
   }

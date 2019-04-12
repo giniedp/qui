@@ -10,11 +10,10 @@ import {
   HSV,
   hsv2rgb,
   HSVA,
-  label,
   padLeft,
   parseColor,
-  quiClass,
   registerComponent,
+  renderControl,
   rgb2hsv,
   RGBA,
   setValue,
@@ -300,89 +299,84 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
       })
     },
     view: () => {
-      return use(node.attrs.data, (data) => {
+      return renderControl(node, (data) => {
         const rgba = getRGBA()
-        return m('div', { class: quiClass('color-picker'), key: data.key },
-          label(data.label),
-          m('section',
-            m('div', { class: 'color-picker-inputs' },
-              m('input', { type: 'text', class: 'input-hex', value: hasAlpha() ? getHexRGBA() : getHexRGB(), onchange: inputHex }),
-            ),
-            m('div', { class: 'color-picker-inputs' },
-              m('input', { type: 'number', class: 'input-r', min: 0, max: 255, step: 1, value: rgba.r, onchange: inputR }),
-              m('input', { type: 'number', class: 'input-g', min: 0, max: 255, step: 1, value: rgba.g, onchange: inputG }),
-              m('input', { type: 'number', class: 'input-b', min: 0, max: 255, step: 1, value: rgba.b, onchange: inputB }),
-            ),
-            m('div', { class: 'color-picker-panel' },
-              m('div', { class: 'color-picker-sv', tabindex: 0, onmousedown: beginPickSV, ontouchstart: beginPickSV,
-                style: {
-                  'background-color': `${getHexRGB(1, 1)}`,
-                  'user-select': 'none',
-                },
-              },
-                m('div', { class: 'color-picker-sv-bg',
-                  style: {
-                    background: 'linear-gradient(to right,rgba(255,255,255,1),rgba(255,255,255,0))',
-                    'user-select': 'none',
-                    'pointer-events': 'none',
-                  },
-                }),
-                m('div', { class: 'color-picker-sv-bg',
-                  style: {
-                    background: 'linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,0))',
-                    'user-select': 'none',
-                    'pointer-events': 'none',
-                  },
-                }),
-                m('div', { class: 'color-picker-sv-cursor',
-                  style: {
-                    'user-select': 'none',
-                    'pointer-events': 'none',
-                    'background-color': `${getHexRGB()}`,
-                    left: `${sat * 100}%`,
-                    top: `${(1 - val) * 100}%`,
-                  },
-                }),
-              ),
-              m('div', { class: 'color-picker-h', tabindex: 0, onmousedown: beginPickH, ontouchstart: beginPickH,
-                style: {
-                  'user-select': 'none',
-                  background: 'linear-gradient(to right, #f00 0, #f0f 17% , #00f 33% , #0ff 50% , #0f0 67% , #ff0 83% , #f00 100%)',
-                },
-              },
-                m('div', { class: 'color-picker-h-cursor',
-                  style: {
-                    'user-select': 'none',
-                    'pointer-events': 'none',
-                    'background-color': `${getHexRGB(1, 1)}`,
-                    position: 'absolute',
-                    left: `${(1 - hue) * 100}%`,
-                  },
-                }),
-              ),
-              !hasAlpha() ? null : m('div', { class: 'color-picker-a', tabindex: 0, onmousedown: beginPickA, ontouchstart: beginPickA,
-                style: {
-                  'user-select': 'none',
-                },
-              },
-                m('div', { class: 'color-picker-a-bg',
-                  style: {
-                    background: `linear-gradient(to right, ${getCssRGBA(0)}, ${getCssRGBA(1)})`,
-                  },
-                }),
-                m('div', { class: 'color-picker-a-cursor',
-                  style: {
-                    'user-select': 'none',
-                    'pointer-events': 'none',
-                    position: 'absolute',
-                    left: `${a * 100}%`,
-                  },
-                }),
-              ),
-            ),
-
+        return [
+          m('.color-picker-inputs',
+            m("input.input-hex[type='text']", { value: hasAlpha() ? getHexRGBA() : getHexRGB(), onchange: inputHex }),
+            m("input.input-r[type='number']", { min: 0, max: 255, step: 1, value: rgba.r, onchange: inputR }),
+            m("input.input-g[type='number']", { min: 0, max: 255, step: 1, value: rgba.g, onchange: inputG }),
+            m("input.input-b[type='number']", { min: 0, max: 255, step: 1, value: rgba.b, onchange: inputB }),
           ),
-        )
+          m('.color-picker-panel',
+            m('.color-picker-sv', { tabindex: 0, onmousedown: beginPickSV, ontouchstart: beginPickSV,
+              style: {
+                'background-color': `${getHexRGB(1, 1)}`,
+                'user-select': 'none',
+              },
+            },
+              m('.color-picker-sv-bg', {
+                style: {
+                  background: 'linear-gradient(to right,rgba(255,255,255,1),rgba(255,255,255,0))',
+                  'user-select': 'none',
+                  'pointer-events': 'none',
+                },
+              }),
+              m('.color-picker-sv-bg', {
+                style: {
+                  background: 'linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,0))',
+                  'user-select': 'none',
+                  'pointer-events': 'none',
+                },
+              }),
+              m('.color-picker-sv-cursor', {
+                style: {
+                  'user-select': 'none',
+                  'pointer-events': 'none',
+                  'background-color': `${getHexRGB()}`,
+                  left: `${sat * 100}%`,
+                  top: `${(1 - val) * 100}%`,
+                },
+              }),
+            ),
+            m('.color-picker-h', { tabindex: 0, onmousedown: beginPickH, ontouchstart: beginPickH,
+              style: {
+                'user-select': 'none',
+                background: 'linear-gradient(to right, #f00 0, #f0f 17% , #00f 33% , #0ff 50% , #0f0 67% , #ff0 83% , #f00 100%)',
+              },
+            },
+              m('.color-picker-h-cursor', {
+                style: {
+                  'user-select': 'none',
+                  'pointer-events': 'none',
+                  'background-color': `${getHexRGB(1, 1)}`,
+                  position: 'absolute',
+                  left: `${(1 - hue) * 100}%`,
+                },
+              }),
+            ),
+            !hasAlpha() ? null : m('.color-picker-a', { tabindex: 0, onmousedown: beginPickA, ontouchstart: beginPickA,
+              style: {
+                'user-select': 'none',
+              },
+            },
+              m('.color-picker-a-bg', {
+                style: {
+                  background: `linear-gradient(to right, ${getCssRGBA(0)}, ${getCssRGBA(1)})`,
+                },
+              }),
+              m('.color-picker-a-cursor', {
+                style: {
+                  'user-select': 'none',
+                  'pointer-events': 'none',
+                  position: 'absolute',
+                  left: `${a * 100}%`,
+                },
+              }),
+            ),
+          ),
+
+        ]
       })
     },
   }

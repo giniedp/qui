@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { call, ControlDef, getValue, label, quiClass, registerComponent, setValue, use } from './utils'
+import { call, ControlDef, getValue, registerComponent, renderControl, setValue } from './utils'
 
 /**
  * Describes a text control
@@ -62,19 +62,8 @@ registerComponent('text', (node: m.Vnode<Attrs>) => {
 
   return {
     view: () => {
-      return use(node.attrs.data, (data) => {
-        return m('div', { class: quiClass('text'), key: data.key },
-          label(data.label),
-          m('section',
-            m('input', {
-              type: 'text',
-              value: getValue(data),
-              oninput: onChange,
-              onchange: onChange,
-              placeholder: data.placeholder,
-            }),
-          ),
-        )
+      return renderControl(node, (data) => {
+        return m("input[type='text']", { value: getValue(data), oninput: onChange, onchange: onChange, placeholder: data.placeholder })
       })
     },
   }

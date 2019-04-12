@@ -1,6 +1,6 @@
 import m from 'mithril'
 
-import { ControlDef, getComponent, quiClass, registerComponent, use } from './utils'
+import { ControlDef, getComponent, quiClass, registerComponent } from './utils'
 
 /**
  * Describes a group control
@@ -20,30 +20,27 @@ export interface GroupDef extends ControlDef {
   children?: ControlDef[]
 }
 
+type GroupNode = m.Vnode<Attrs>
+
 interface Attrs {
   data: GroupDef
 }
 
-registerComponent('group', (node: m.Vnode<Attrs>) => {
+registerComponent('group', (node: GroupNode) => {
   function onClick() {
     const data = node.attrs.data
     data.open = !data.open
   }
   return {
     view: () => {
-      return use(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: quiClass('group') },
-          m(
-            'label',
-            { onclick: onClick },
-            m(
-              'span', { class: data.open ? 'is-open' : '' }),
-              data.label || '',
-            ),
-            !data.open || !data.children ? null : m(getComponent('panel'), { data: data.children },
-          ),
-        )
-      })
+      const data = node.attrs.data
+      return !data ? null : m('div', { key: data.key, class: quiClass('group') },
+        m('label', { onclick: onClick, class: data.open ? 'is-open' : '' }, data.label),
+        !data.open || !data.children || !data.children.length
+          ? null
+          : m(getComponent('panel'), { data: data.children },
+        ),
+      )
     },
   }
 })

@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { ButtonDef } from './button'
-import { call, ControlDef, label, quiClass, registerComponent, use } from './utils'
+import { call, ControlDef, registerComponent, renderControl } from './utils'
 
 /**
  * Describes a button group
@@ -24,15 +24,11 @@ interface Attrs {
 registerComponent('button-group', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
-      return use(node.attrs.data, (data) => {
-        return m('div', { key: data.key, class: quiClass('button-group') },
-          label(data.label),
-          m('section',
-            data.children.map((it) => {
-              return m('button', { type: 'button', onclick: () => call(it.onClick, it) }, it.text)
-            }),
-          ),
-        )
+      return renderControl(node, (data) => {
+        const childern = data.children || []
+        return childern.map((it) => {
+          return m("button[type='button']", { onclick: () => call(it.onClick, it) }, it.text)
+        })
       })
     },
   }
