@@ -3,14 +3,6 @@ import { Builder } from './controls/builder'
 import { ControlDef, getComponent } from './controls/utils'
 
 /**
- * Mithril's hyperscript function.
- *
- * @remarks
- * Useful to create custom components
- */
-export const h = m
-
-/**
  * Mounts a ui to the given element
  *
  * @param el The ui host element
