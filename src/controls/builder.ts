@@ -24,6 +24,12 @@ export class Builder {
   private controls: any[] = []
   private el: HTMLElement
 
+  /**
+   * Adds a button control
+   *
+   * @param text The button text
+   * @param opts Additional options for the control
+   */
   public button(text: string, opts: Partial<ButtonDef> = {}) {
     return this.add<ButtonDef>({
       ...opts,
@@ -32,6 +38,14 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a button group control
+   *
+   * @param label The group label
+   * @param text The button text
+   * @param opts Additional options for the control
+   * @param builder The builder function for creating sub controls
+   */
   public buttonGroup(label: string, opts: Partial<ButtonGroupDef>, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
@@ -43,6 +57,12 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a button group control
+   *
+   * @param label The group label
+   * @param builder The builder function for creating sub controls
+   */
   public group(label: string, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
@@ -53,6 +73,11 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a tabs panel control
+   *
+   * @param builder The builder function for creating sub controls
+   */
   public tabs(builder: (b: TabsBuilder) => void) {
     const sub = new Builder()
     builder(sub)
@@ -63,6 +88,12 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a tab control
+   *
+   * @param label The tab label
+   * @param builder The builder function for creating sub controls
+   */
   public tab(label: string, builder: (b: Builder) => void) {
     const sub = new Builder()
     builder(sub)
@@ -73,6 +104,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a checkbox control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public checkbox<O>(property: keyof O, target: O, opts: Partial<CheckboxDef>) {
     return this.add<CheckboxDef>({
       label: String(property),
@@ -83,6 +121,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a text control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public text<O>(property: keyof O, target: O, opts: Partial<TextDef> = {}) {
     return this.add<TextDef>({
       label: String(property),
@@ -93,6 +138,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a number control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public number<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
     return this.add<NumberDef>({
       label: String(property),
@@ -103,6 +155,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a number slider control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public slider<O>(property: keyof O, target: O, opts: Partial<NumberDef> = {}) {
     return this.add<NumberDef>({
       label: String(property),
@@ -113,6 +172,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a select control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public select<O>(property: keyof O, target: O, opts: Partial<SelectDef> = {}) {
     return this.add<SelectDef>({
       label: String(property),
@@ -123,6 +189,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a color control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public color<O>(property: keyof O, target: O, opts: Partial<ColorDef> = {}) {
     return this.add<ColorDef>({
       label: String(property),
@@ -133,6 +206,13 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a color picker control
+   *
+   * @param property The accessor property
+   * @param target The target object holding the value
+   * @param opts Additional options for the control
+   */
   public colorPicker<O>(property: keyof O, target: O, opts: Partial<ColorPickerDef> = {}) {
     return this.add<ColorPickerDef>({
       label: String(property),
@@ -143,6 +223,12 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds an image control
+   *
+   * @param label The control label
+   * @param opts Additional options for the control
+   */
   public image(label: string, opts: Partial<ImageDef> = {}) {
     return this.add<ImageDef>({
       ...opts,
@@ -151,6 +237,24 @@ export class Builder {
     })
   }
 
+  /**
+   * Adds a single control
+   *
+   * @param def The control definition
+   */
+  public add(def: ButtonDef & Removable): ButtonDef & Removable
+  public add(def: ButtonGroupDef & Removable): ButtonGroupDef & Removable
+  public add(def: GroupDef & Removable): GroupDef & Removable
+  public add(def: TabsDef & Removable): TabsDef & Removable
+  public add(def: TabDef & Removable): TabDef & Removable
+  public add(def: CheckboxDef & Removable): CheckboxDef & Removable
+  public add(def: TextDef & Removable): TextDef & Removable
+  public add(def: NumberDef & Removable): NumberDef & Removable
+  public add(def: SelectDef & Removable): SelectDef & Removable
+  public add(def: ColorDef & Removable): ColorDef & Removable
+  public add(def: ColorPickerDef & Removable): ColorPickerDef & Removable
+  public add(def: ImageDef & Removable): ImageDef & Removable
+  public add<T>(def: T & Removable): T & Removable
   public add<C>(def: C & Removable): C & Removable {
     def.remove = () => {
       const i = this.controls.indexOf(def)
@@ -162,11 +266,19 @@ export class Builder {
     return def
   }
 
+  /**
+   * Mounts the controls of this builder to the given DOM element
+   *
+   * @param el The target DOM element
+   */
   public mount(el: HTMLElement) {
     this.el = el
     return m.mount(el, { view: () => m(getComponent('panel'), { isRoot: true, data: this.controls }) })
   }
 
+  /**
+   * Unmounts all controls from the DOM element
+   */
   public unmount() {
     m.mount(this.el, null)
   }
