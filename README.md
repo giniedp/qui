@@ -1,7 +1,7 @@
 ![Latest NPM release][version-shield]
 [![License][license-shield]][license-url]
 
-# Qui
+# Tweak UI
 Tweak UI is a lightweight js library providing simple tweak controls
 
 It provides a set of common ui components built with mithriljs. The main objective

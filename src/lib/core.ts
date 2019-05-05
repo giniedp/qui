@@ -112,7 +112,7 @@ export function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V {
 const components: { [key: string]: m.FactoryComponent<any> | m.ClassComponent } = {}
 
 /**
- * Gets a registered qui component for a given type name
+ * Gets a registered component for a given type name
  *
  * @public
  * @param type The component type
@@ -125,7 +125,7 @@ export function getComponent(type: string) {
 }
 
 /**
- * Registeres a qui component
+ * Registeres a component
  *
  * @public
  * @param name The component type name
