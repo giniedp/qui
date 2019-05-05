@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "declaration": true,
+    "declarationMap": true,
     "module": "es2015",
     "moduleResolution": "node",
     "outDir": "./dist/src",

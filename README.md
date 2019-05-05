@@ -2,41 +2,24 @@
 [![License][license-shield]][license-url]
 
 # Qui
-qui-lib is a lightweight ui controls library for javascript.
+Tweak UI is a lightweight js library providing simple tweak controls
+
+It provides a set of common ui components built with mithriljs. The main objective
+is to allow a developer to rapidly scaffold input interfaces for manipulating javascript objects
+at runtime.
 
 ## Installation
 
 ### NPM
 
-`npm -i qui-lib`
+`npm -i tweak-ui`
 
 ### CDN
 
 ```html
-<style link="https://unpkg.com/qui-lib@x.x.x/dist/qui.min.css"></style>
-<script src="https://unpkg.com/qui-lib@x.x.x/dist/qui.umd.min.js"></script>
+<style link="https://unpkg.com/tweak-ui@x.x.x/dist/tweakui.min.css"></style>
+<script src="https://unpkg.com/tweak-ui@x.x.x/dist/tweakui.umd.min.js"></script>
 ```
-
-## Controls
-
-### Group
-### Tabs
-### Button
-### Button Group
-### Checkbox
-### Image
-### Number
-### Slider
-### Select
-### Text
-### Vector
-### Color Picker
-
-## Themes
-
-## Features
-
-## Custom Controls
 
 ## Alternatives
 
@@ -45,5 +28,5 @@ qui-lib is a lightweight ui controls library for javascript.
 * [guify](https://github.com/colejd/guify)
 
 [license-url]: ./LICENSE
-[license-shield]: https://img.shields.io/npm/l/qui-lib.svg
-[version-shield]: https://img.shields.io/npm/v/qui-lib.svg
+[license-shield]: https://img.shields.io/npm/l/tweak-ui.svg
+[version-shield]: https://img.shields.io/npm/v/tweak-ui.svg

@@ -12,8 +12,8 @@ config.plugins.forEach((it) => {
 export default Object.assign({}, config, {
   external: ['mithril'],
   output: {
-    name: 'qui',
-    file: 'dist/qui.module.js',
+    name: 'TweakUi',
+    file: 'dist/tweak-ui.module.js',
     format: 'es',
     sourcemap: true,
   },

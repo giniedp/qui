@@ -7,9 +7,9 @@ import commonjs from 'rollup-plugin-commonjs'
 import pkg from './package.json'
 
 export default {
-  input: 'src/index.ts',
+  input: 'src/lib/index.ts',
   watch: {
-    include: 'src/**'
+    include: 'src/lib/**'
   },
   plugins: [
     resolve(),

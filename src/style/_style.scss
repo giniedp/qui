@@ -1,0 +1,403 @@
+
+.tweakui-panel-root {
+  box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  @include color(background-color, primary);
+  @include color(color, on-primary);
+  @include color(border-color, primary-dark);
+
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  width: 20rem;
+  padding-left: $spacer;
+  padding-right: $spacer;
+  margin: 0;
+  overflow: auto;
+  overflow-x: hidden;
+
+  section {
+    flex: auto 1 1;
+    display: flex;
+    flex-direction: row;
+    align-content: stretch;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.5rem
+  }
+
+  &::-webkit-scrollbar-track {
+    @include color(background-color, primary);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-width: 1px;
+    border-style: solid;
+    transition: background-color 0.2s ease-in-out;
+    @include color(background-color, primary);
+    @include color(border-color, primary-dark);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    @include color(background-color, secondary);
+  }
+}
+
+.tweakui-control {
+  display: flex;
+  flex-direction: row;
+  min-height: $line-height;
+  box-sizing: border-box;
+
+  label {
+    user-select: none;
+    // text-transform: uppercase;
+    box-sizing: border-box;
+    width: $label-width - 2 * $label-pad-x;
+    min-width: $label-width - 2 * $label-pad-x;
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $label-pad-y $label-pad-x;
+    margin: $spacer;
+
+    overflow: hidden;
+    word-wrap: none;
+  }
+
+  button {
+    @include color(background-color, secondary);
+    @include color(color, on-primary);
+
+    cursor: pointer;
+    display: inline-block;
+    flex: auto 1 1;
+
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer - 2 * $button-pad-y;
+    padding: $button-pad-y $button-pad-x;
+    margin: $spacer;
+
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: none;
+    border: none;
+  }
+
+  button:hover,
+  button.active {
+    @include color(background-color, secondary-dark);
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  input:not([type="checkbox"]),
+  select {
+    @include color(background-color, secondary);
+    @include color(color, on-secondary);
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    flex: auto 1 1;
+    width: 0;
+
+    height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $input-pad-y $input-pad-x;
+    margin: $spacer;
+  }
+
+  button, select, input:not([type="checkbox"]), .tweakui-progress {
+    border-bottom: 1px solid;
+    @include color(border-color, primary-dark);
+    transition: border-color  0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+    &:hover,
+    &.checked {
+      @include color(background-color, secondary-light);
+      @include color(border-color, secondary-dark);
+    }
+
+    &:focus,
+    &.checked {
+      outline: none;
+      @include color(border-color, accent);
+    }
+  }
+  select, input:not([type="checkbox"]) {
+    &:focus {
+      @include color(color, accent);
+    }
+  }
+}
+
+.tweakui-control-checkbox {
+  > label {
+    flex: 1;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover { @include color(background-color, secondary); }
+
+    span {
+      box-sizing: border-box;
+      width: $label-width - 3 * $spacer;
+      padding: 0 0.25rem;
+      display: inline-block;
+    }
+  }
+}
+
+.tweakui-control-button-group {
+  display: flex;
+  vertical-align: middle;
+}
+
+.tweakui-control-tabs {
+  @include color(border-color, primary-dark);
+  margin-left: -$spacer;
+  margin-right: -$spacer;
+
+  button {
+    border: 0;
+    border-top: 1px solid;
+    margin: 0;
+
+    height: $line-height;
+    line-height: $line-height - 2 * $button-pad-y;
+
+    @include color(background-color, primary-dark);
+    @include color(border-color, primary);
+
+    &:hover {
+      @include color(background-color, primary);
+      @include color(border-color, primary-dark);
+    }
+
+    &.tab-active {
+      @include color(background-color, primary);
+      @include color(border-color, accent);
+    }
+  }
+}
+
+.tweakui-control-slider {
+  .tweakui-progress {
+    flex: 1;
+    display: flex;
+    margin: $spacer;
+    cursor: ew-resize;
+    transition: background-color 0.2s ease-in-out;
+
+    @include color(background-color, secondary);
+    &:hover {
+      @include color(background-color, secondary-dark);
+    }
+  }
+
+  .tweakui-progress-bar {
+    @include color(background-color, secondary-light);
+  }
+
+  input[type="number"] {
+    flex: none;
+    width: 3.5rem;
+  }
+}
+
+.tweakui-control-group {
+  flex-direction: column;
+  margin-left: -$spacer;
+  margin-right: -$spacer;
+
+  > .tweakui-panel {
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
+
+  > label {
+    margin: 0;
+    width: auto;
+    cursor: pointer;
+    height: $line-height;
+    line-height: $line-height;
+    @include color(background-color, primary-dark);
+
+    &::before {
+      content: '►';
+      display: inline-block;
+      width: $line-height;
+      height: $line-height;
+      text-align: center;
+      transition: transform 0.1s ease-in-out
+    }
+
+    &.is-open::before {
+      transform: rotateZ(90deg);
+    }
+  }
+
+  .tweakui-control-group {
+    border-left: 0.25rem solid;
+    @include color(border-color, primary-light);
+  }
+}
+
+.tweakui-control-image {
+  > section {
+    flex: 1;
+    margin: $spacer;
+    display: block;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+//
+// COLOR PICKER
+//
+
+.tweakui-control-color {
+  > section {
+    flex-direction: column;
+  }
+  button {
+    text-shadow: 0 0 10px black;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.tweakui-control-color-picker {
+
+  .color-picker-panel {
+    flex: 1;
+    position: relative;
+    margin: $spacer;
+  }
+
+  .color-picker-inputs {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+
+    .input-r {
+      border-color: #f00;
+    }
+    .input-g {
+      border-color: #0f0;
+    }
+    .input-b {
+      border-color: #00f;
+    }
+    .input-a {
+      border-image: linear-gradient(to right, #fff, transparent);
+    }
+    .input-hex {
+      border-color: #000;
+    }
+
+    input {
+      display: block;
+      width: 4rem;
+      flex: none;
+    }
+  }
+
+  .color-picker-sv,
+  .color-picker-h,
+  .color-picker-a {
+    &:focus {
+      outline: none;
+      @include color(border-color, accent);
+    }
+  }
+
+  .color-picker-sv {
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    box-sizing: border-box;
+    cursor: crosshair;
+    z-index: 1;
+    border-bottom: 1px solid;
+    @include color(border-color, primary-dark);
+  }
+  .color-picker-sv-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .color-picker-sv-cursor {
+    box-sizing: border-box;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    margin-top: -5px;
+    margin-left: -5px;
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
+  }
+
+  .color-picker-h,
+  .color-picker-a {
+    position: relative;
+    height: 1rem;
+    box-sizing: border-box;
+    cursor: ew-resize;
+    margin-top: $spacer * 2;
+    border-bottom: 1px solid;
+    @include color(border-color, primary-dark);
+  }
+
+  .color-picker-h-cursor,
+  .color-picker-a-cursor {
+    position: absolute;
+    width: 4px;
+    height: calc(1rem - 2px);
+    margin-left: -3px;
+    border: 1px solid white;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.75);
+  }
+
+  .color-picker-a {
+    background-image: /* tint image */
+                      linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)),
+                      /* checkered effect */
+                      linear-gradient(to right, grey 50%, white 50%),
+                      linear-gradient(to bottom, grey 50%, white 50%);
+    background-blend-mode: normal, difference, normal;
+    background-size: 1rem 1rem;
+  }
+
+  .color-picker-a-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .color-picker-sv,
+  .color-picker-h,
+  .color-picker-a {
+    @include color(border-color, primary-dark);
+  }
+}
