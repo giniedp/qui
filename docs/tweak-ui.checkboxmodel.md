@@ -16,6 +16,7 @@ export interface CheckboxModel<T = any> extends ControlViewModel, ValueSource<T,
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.checkboxmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [onChange](./tweak-ui.checkboxmodel.onchange.md) | <code>(value: CheckboxModel) =&gt; void</code> | This is called when the control value changes |
 |  [text](./tweak-ui.checkboxmodel.text.md) | <code>string</code> | The button text |
 |  [type](./tweak-ui.checkboxmodel.type.md) | <code>'checkbox' &#124; 'checkbutton'</code> | The type name of the control |

@@ -4,7 +4,7 @@
 
 ## getComponent() function
 
-Gets a registered qui component for a given type name
+Gets a registered component for a given type name
 
 <b>Signature:</b>
 

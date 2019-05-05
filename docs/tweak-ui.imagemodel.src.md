@@ -9,5 +9,5 @@ The image source url
 <b>Signature:</b>
 
 ```typescript
-src?: string;
+src?: string | string[];
 ```

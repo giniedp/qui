@@ -9,14 +9,14 @@ Mounts the controls of this builder to the given DOM element
 <b>Signature:</b>
 
 ```typescript
-mount(el: HTMLElement): void;
+mount(el: HTMLElement | string): void;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>HTMLElement</code> |  |
+|  el | <code>HTMLElement &#124; string</code> |  |
 
 <b>Returns:</b>
 

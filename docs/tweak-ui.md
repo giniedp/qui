@@ -4,7 +4,7 @@
 
 ## tweak-ui package
 
-Tweak UI is a lightweight ui library for javascript
+Tweak UI is a lightweight js library for building input controls with data binding
 
 ## Classes
 
@@ -16,12 +16,12 @@ Tweak UI is a lightweight ui library for javascript
 
 |  Function | Description |
 |  --- | --- |
-|  [builder(el, build)](./tweak-ui.builder.md) | Creates a new ui builder and mounts the result to the given DOM element |
-|  [getComponent(type)](./tweak-ui.getcomponent.md) | Gets a registered qui component for a given type name |
+|  [build(el, builder)](./tweak-ui.build.md) | Creates a new ui builder and mounts the result to the given DOM element |
+|  [getComponent(type)](./tweak-ui.getcomponent.md) | Gets a registered component for a given type name |
 |  [getModelValue(model)](./tweak-ui.getmodelvalue.md) | Gets a value of a view model |
 |  [mount(el, data)](./tweak-ui.mount.md) | Mounts a ui to the given element |
 |  [redraw()](./tweak-ui.redraw.md) | Redraws the ui |
-|  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registeres a qui component |
+|  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registeres a component |
 |  [renderControl(node, view)](./tweak-ui.rendercontrol.md) |  |
 |  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |
 |  [unmount(el)](./tweak-ui.unmount.md) | Unmounts the ui from given host element |
@@ -70,5 +70,7 @@ Tweak UI is a lightweight ui library for javascript
 
 ## Remarks
 
-The library provides input controls and data binding for manipulating objects at runtime. Similar projects are - [https://github.com/dataarts/dat.gui](https://github.com/dataarts/dat.gui) - [https://github.com/automat/controlkit.js](https://github.com/automat/controlkit.js) - [https://github.com/colejd/guify](https://github.com/colejd/guify)
+The library provides a set of common ui components built with mithriljs. The main objective is to allow a developer to rapidly scaffold input interfaces for manipulating javascript objects at runtime.
+
+Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit](https://github.com/automat/controlkit.js) [guify](https://github.com/colejd/guify)
 

@@ -9,7 +9,7 @@ The label text for this control
 <b>Signature:</b>
 
 ```typescript
-label?: string | false | null;
+label?: string;
 ```
 
 ## Remarks

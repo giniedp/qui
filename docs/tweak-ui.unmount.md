@@ -9,14 +9,14 @@ Unmounts the ui from given host element
 <b>Signature:</b>
 
 ```typescript
-export declare function unmount(el: Element): void;
+export declare function unmount(el: Element | string): void;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>Element</code> |  |
+|  el | <code>Element &#124; string</code> |  |
 
 <b>Returns:</b>
 

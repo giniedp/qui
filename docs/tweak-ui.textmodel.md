@@ -16,6 +16,7 @@ export interface TextModel<T = any> extends ControlViewModel, ValueSource<T, str
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.textmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [onChange](./tweak-ui.textmodel.onchange.md) | <code>(model: TextModel&lt;T&gt;, value: number) =&gt; void</code> | This is called once the control value is committed by the user. |
 |  [onInput](./tweak-ui.textmodel.oninput.md) | <code>(model: TextModel&lt;T&gt;, value: number) =&gt; void</code> | This is called when the control value has been changed. |
 |  [placeholder](./tweak-ui.textmodel.placeholder.md) | <code>string</code> | The placeholder text |

@@ -16,6 +16,7 @@ export interface VectorModel<T = any> extends ControlViewModel, ValueSource<T, V
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.vectormodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [keys](./tweak-ui.vectormodel.keys.md) | <code>string[]</code> | The vector object field names. Defaults to <code>['x', 'y', 'z']</code> |
 |  [max](./tweak-ui.vectormodel.max.md) | <code>number</code> | The max value |
 |  [min](./tweak-ui.vectormodel.min.md) | <code>number</code> | The min value |

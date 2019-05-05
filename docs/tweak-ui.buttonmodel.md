@@ -16,6 +16,7 @@ export interface ButtonModel extends ControlViewModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.buttonmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [onClick](./tweak-ui.buttonmodel.onclick.md) | <code>(ctrl: ButtonModel) =&gt; void</code> | This is callend when the control is clicked |
 |  [text](./tweak-ui.buttonmodel.text.md) | <code>string</code> | The button text |
 |  [type](./tweak-ui.buttonmodel.type.md) | <code>'button'</code> | The type name of the control |

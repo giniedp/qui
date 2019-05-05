@@ -4,7 +4,7 @@
 
 ## registerComponent() function
 
-Registeres a qui component
+Registeres a component
 
 <b>Signature:</b>
 

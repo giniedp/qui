@@ -16,6 +16,7 @@ export interface NumberModel<T = any> extends ControlViewModel, ValueSource<T, n
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.numbermodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [max](./tweak-ui.numbermodel.max.md) | <code>number</code> | The max value |
 |  [min](./tweak-ui.numbermodel.min.md) | <code>number</code> | The min value |
 |  [onChange](./tweak-ui.numbermodel.onchange.md) | <code>(model: NumberModel&lt;T&gt;, value: number) =&gt; void</code> | This is called once the control value is committed by the user. |

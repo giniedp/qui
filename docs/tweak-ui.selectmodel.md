@@ -16,6 +16,7 @@ export interface SelectModel<T = any, V = any> extends ControlViewModel, ValueSo
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [disabled](./tweak-ui.selectmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
 |  [onChange](./tweak-ui.selectmodel.onchange.md) | <code>(model: SelectModel&lt;T&gt;, value: V) =&gt; void</code> | This is called once the control value is committed by the user. |
 |  [options](./tweak-ui.selectmodel.options.md) | <code>SelectModelOptions</code> | The select options |
 |  [type](./tweak-ui.selectmodel.type.md) | <code>'select'</code> | The type name of the control |
