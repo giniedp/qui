@@ -23,6 +23,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
 
   nav#navbar.navbar.navbar-light.sticky-top.shadow-sm.bg-white
     .container
+      span
       ul.nav.nav-pills
         li.nav-item.dropdown
           a.nav-link.dropdown-toggle(data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Install
@@ -49,7 +50,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           a.nav-link.dropdown-toggle(data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Concepts
           .dropdown-menu
             a.dropdown-item(href="#concept-layout") Layout & Labels
-            a.dropdown-item(href="#concept-values") Input Values
+            a.dropdown-item(href="#concept-input") Input Values
             a.dropdown-item(href="#concept-mithril") Mithril
         li.nav-item.dropdown
           a.nav-link.dropdown-toggle(data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Customize
@@ -71,9 +72,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
       p.mt-3 mount your ui on a DOM element
       pre.language-javascript: code.
         TweakUi.mount(el, [
-          { /* your     */ },
-          { /* controls */ },
-          { /* array    */ },
+          // ... array of definitions
         ])
 
     h2#install-cdn Installation (CDN)
@@ -89,10 +88,8 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
 
       p.mt-3 mount your ui on a DOM element
       pre.language-javascript: code.
-        TweakUi.mount(document.querySelector(".my-element"), [
-          { /* your     */ },
-          { /* controls */ },
-          { /* array    */ },
+        TweakUi.mount(".my-element", [
+          // ... array of definitions
         ])
 
     h2#controls Controls
@@ -383,168 +380,42 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
 
     h2 Complete example
     section.example.complete.row
-      .col.gui.flex-grow-0.order-last
+      .col.flex-grow-0.order-last
+        .testbox
+        .gui
       .col
         script(type="text/javascript").language-javascript.
+          var testEl = document.querySelector(".example.complete .testbox")
           TweakUi.mount(".example.complete .gui", [{
             type: "tabs",
             children: [{
-              label: "Tab A",
+              label: "Content",
               children: [{
-                type: "color",
-                format: "0xrgba",
-                value: 0xffcc8844,
-                label: "0xrgba",
-                onInput: (it, value) => console.log(it, value)
+                type: "text",
+                label: "Text",
+                get value() { return testEl.textContent },
+                set value(v) { testEl.textContent = v }
               }]
             }, {
-              label: "Tab B",
+              label: "Style",
               children: [{
                 type: "color",
-                format: "#rgba",
-                value: "#4488ccff",
-                label: "#rgba",
-                onInput: (it, value) => console.log(it, value)
-              }]
-            }, {
-              label: "Tab C",
-              children: [{
+                label: "Background",
+                format: "rgb()",
+                get value() { return testEl.style.backgroundColor },
+                set value(v) { testEl.style.backgroundColor = v },
+              }, {
                 type: "color",
-                format: "[]rgba",
-                value: [64, 128, 192, 255],
-                label: "[]rgba",
-                onInput: (it, value) => console.log(it, value)
-              }]
-            }, {
-              label: "Tab D",
-              children: [{
-                type: "color",
-                format: "[n]rgba",
-                value: [0.25, 0.5, 0.75, 1],
-                label: "[n]rgba",
-                onInput: (it, value) => console.log(it, value)
-              }]
-            }, {
-              label: "Tab E",
-              children: [{
-                type: "color",
-                format: "{n}rgba",
-                value: { r: 0.25, g: 0.5, b: 0.75, a: 1},
-                label: "{n}rgba",
-                onInput: (it, value) => console.log(it, value)
+                label: "Color",
+                format: "rgb()",
+                get value() { return testEl.style.color },
+                set value(v) { testEl.style.color = v },
               }]
             }]
-          },{
-            type: "button",
-            text: "My Button",
-            onClick: (it) => console.log(it)
-          }, {
-            type: "button-group",
-            children: [{
-              text: "A", onClick: (it) => console.log(it)
-            }, {
-              text: "B", onClick: (it) => console.log(it)
-            }, {
-              text: "C", onClick: (it) => console.log(it)
-            }, {
-              text: "D", onClick: (it) => console.log(it)
-            }]
-          }, {
-            type: "text",
-            label: "My Text",
-            value: "Hello World",
-            placeholder: 'a text',
-            onChange: (it, value) => console.log(it, value),
-            onInput: (it, value) => console.log(it, value)
-          }, {
-            type: "number",
-            label: "My Number",
-            min: 1,
-            max: 10,
-            step: 0.1,
-            value: 5,
-            placeholder: '123',
-            onChange: (it, value) => console.log(it, value),
-            onInput: (it, value) => console.log(it, value)
-          }, {
-            type: "vector",
-            label: "My Vector",
-            min: -1,
-            max: 1,
-            step: 0.1,
-            value: { x: 0, y: 0, z: 0 },
-            onChange: (it, value) => console.log(it, value),
-            onInput: (it, value) => console.log(it, value)
-          }, {
-            type: "checkbox",
-            label: "My Checkbox",
-            onChange: (ctrl) => {
-              console.log("change", ctrl.label, ctrl.value)
-            }
-          }, {
-            type: "slider",
-            label: "My slider",
-            min: 1,
-            max: 10,
-            step: 0.1,
-            value: 5,
-            placeholder: '123',
-            onChange: (it, value) => console.log(it, value),
-            onInput: (it, value) => console.log(it, value)
-          }, {
-            type: "image",
-            label: "Image",
-            src: "https://picsum.photos/300/300",
-          }, {
-            type: "select",
-            label: "Array",
-            options: ["a", "b", "c"],
-            value: "b",
-            onChange: (it, value) => console.log(it, value),
-          }, {
-            type: "select",
-            label: "Object",
-            options: {
-              foo: { name: "FOO" },
-              bar: { name: "BAR" },
-              baz: { name: "BAZ" },
-            },
-            onChange: (it, value) => console.log(it, value),
-          }, {
-            type: "group",
-            label: "A group",
-            open: false,
-            children: [{
-              type: "button",
-              text: "My Button",
-              onClick: (it) => console.log(it)
-            }, {
-              type: "group",
-              label: "A group",
-              open: false,
-              children: [{
-                type: "button",
-                text: "My Button",
-                onClick: (it) => console.log(it)
-              }]
-            }]
-          }, {
-              type: "color-picker",
-              label: "My Picker",
-              value: "#88ff00ff",
-              format: "argb",
-              onChange: (it, value) => console.log(it, value),
-              onInput: (it, value) => console.log(it, value)
-            }, {
-              type: "color",
-              label: "My Color",
-              value: "#ffffff",
-              onChange: (it, value) => console.log(it, value),
-              onInput: (it, value) => console.log(it, value)
           }])
 
-    h2 Concepts
-    h3 Layout & Labels
+    h2#concepts Concepts
+    h3#concept-layout Layout & Labels
     p.
       The main container has a fixed width of <code>20rem</code> which is <code>320px</code> on this page.
       All controlls are stacked vertically. The default stylesheet uses the <code>flex-box</code> layout model
@@ -563,7 +434,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
             { type: "text", label: "",        value: "i have an empty label" }
           ])
 
-    h3 Input values
+    h3#concept-input Input values
     p There are several ways how to provide and retreive input values.
     p Use the <code>value</code> property to set the inital value and then listen for change
     section.example.value-property.row
@@ -601,14 +472,14 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
             target: window.document,
             property: "title"
           }])
-    h3 Mithril
+    h3#concept-mithril Mithril
     p.
       This library is based on <a href="https://mithril.js.org/">mithril</a>. All key concepts of mithril
       also apply to this library. So if you are about to write your own controls for Tweak UI dont forget
       to check mithrils documentation.
 
-    h2 Customize
-    h3 Custom controls
+    h2#customize Customize
+    h3#custom-controls Custom controls
     p.
       Register your custom controls by using the <code>registerComponent</code> function.
       The argument must be a unique name and a component class or component factory.
@@ -643,7 +514,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
               "?rel=0&amp;autoplay=0&mute=1"
             ].join("")
           }])
-    h3 Change Theme colors
+    h3#custom-colors Change Theme colors
     p.
       Tweak ui comes with a default theme and the alternatives <code>.tweakui-dark</code> and <code>.tweakui-light</code>.
       Add one of these classes to the root element to change the look.
