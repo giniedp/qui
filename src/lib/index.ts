@@ -29,6 +29,7 @@ import './text'
 import './vector'
 
 export * from './core'
+export * from './color-formats'
 export * from './builder'
 export * from './button'
 export * from './button-group'
@@ -43,7 +44,6 @@ export * from './select'
 export * from './tabs'
 export * from './text'
 export * from './vector'
-export { HSV, HSVA, RGB, RGBA, default as utils } from './utils'
 
 declare const VERSION_STRING: string
 

@@ -303,23 +303,88 @@ export class Builder {
   }
 
   /**
-   * Adds a single control
+   * Adds a button control
+   *
+   * @param def The button control definition
+   */
+  public add(def: ButtonModel & Removable): ButtonModel & Removable
+  /**
+   * Adds a button group control
+   *
+   * @param def The button group control definition
+   */
+  public add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable
+  /**
+   * Adds a group control
+   *
+   * @param def The group control definition
+   */
+  public add(def: GroupModel & Removable): GroupModel & Removable
+  /**
+   * Adds a tabs control
+   *
+   * @param def The tabs control definition
+   */
+  public add(def: TabsModel & Removable): TabsModel & Removable
+  /**
+   * Adds a tab control
+   *
+   * @param def The tab control definition
+   */
+  public add(def: TabData & Removable): TabData & Removable
+  /**
+   * Adds a checkbox control
+   *
+   * @param def The checkbox control definition
+   */
+  public add(def: CheckboxModel & Removable): CheckboxModel & Removable
+  /**
+   * Adds a text control
+   *
+   * @param def The text control definition
+   */
+  public add(def: TextModel & Removable): TextModel & Removable
+  /**
+   * Adds a number control
+   *
+   * @param def The number control definition
+   */
+  public add(def: NumberModel & Removable): NumberModel & Removable
+  /**
+   * Adds a select control
+   *
+   * @param def The select control definition
+   */
+  public add(def: SelectModel & Removable): SelectModel & Removable
+  /**
+   * Adds a color control
+   *
+   * @param def The color control definition
+   */
+  public add(def: ColorModel & Removable): ColorModel & Removable
+  /**
+   * Adds a color picker control
+   *
+   * @param def The color picker control definition
+   */
+  public add(def: ColorPickerModel & Removable): ColorPickerModel & Removable
+  /**
+   * Adds an image control
+   *
+   * @param def The image control definition
+   */
+  public add(def: ImageModel & Removable): ImageModel & Removable
+  /**
+   * Adds a control
    *
    * @param def The control definition
    */
-  public add(def: ButtonModel & Removable): ButtonModel & Removable
-  public add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable
-  public add(def: GroupModel & Removable): GroupModel & Removable
-  public add(def: TabsModel & Removable): TabsModel & Removable
-  public add(def: TabData & Removable): TabData & Removable
-  public add(def: CheckboxModel & Removable): CheckboxModel & Removable
-  public add(def: TextModel & Removable): TextModel & Removable
-  public add(def: NumberModel & Removable): NumberModel & Removable
-  public add(def: SelectModel & Removable): SelectModel & Removable
-  public add(def: ColorModel & Removable): ColorModel & Removable
-  public add(def: ColorPickerModel & Removable): ColorPickerModel & Removable
-  public add(def: ImageModel & Removable): ImageModel & Removable
   public add<T>(def: T & Removable): T & Removable
+  /**
+   * Adds a control
+   *
+   * @param def The control definition
+   */
   public add<C>(def: C & Removable): C & Removable {
     def.remove = () => {
       const i = this.controls.indexOf(def)

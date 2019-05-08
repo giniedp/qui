@@ -9,9 +9,8 @@ import {
   isObject,
   isString,
   padLeft,
-  parseColor,
-  rgba2css,
 } from './utils'
+import { getColorFormatter } from './color-formats';
 
 /**
  * Describes a color control
@@ -59,6 +58,8 @@ export interface ColorModel<T = any, V = number | string | number[]> extends Con
   onChange?: (model: ColorModel<T, V>, value: V) => void
 }
 
+type ColorNode = m.Vnode<Attrs, State>
+
 interface Attrs {
   data: ColorModel
 }
@@ -66,8 +67,6 @@ interface Attrs {
 interface State {
   opened: boolean
 }
-
-type ColorNode = m.Vnode<Attrs, State>
 
 registerComponent('color', (node: ColorNode) => {
 
@@ -112,8 +111,8 @@ registerComponent('color', (node: ColorNode) => {
 
   function getColor() {
     const data = node.attrs.data
-    const rgba = parseColor(getModelValue(data), data.format)
-    return rgba2css(rgba, 1)
+    const rgba = getColorFormatter(data.format).parse(getModelValue(data))
+    return getColorFormatter('rgba()').format(rgba)
   }
 
   return {

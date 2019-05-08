@@ -1,20 +1,9 @@
 // tslint:disable:no-bitwise
 import m from 'mithril'
 
+import { getColorFormatter, HSV, hsv2rgb, HSVA, RGBA, rgb2hsv } from './color-formats'
 import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
-import {
-  call,
-  clamp,
-  formatColor,
-  HSV,
-  hsv2rgb,
-  HSVA,
-  padLeft,
-  parseColor,
-  rgb2hsv,
-  RGBA,
-  use,
-} from './utils'
+import { call, clamp, use } from './utils'
 
 /**
  * Describes a color picker control
@@ -85,6 +74,14 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
     }
   }
 
+  function getRGB(s = sat, v = val) {
+    return hsv2rgb(getHSVA(s, v))
+  }
+
+  function getRGBA(s = sat, v = val, alpha = a): RGBA {
+    return { ...getRGB(s, v), a: alpha }
+  }
+
   function setHSV(hsv: HSV) {
     hue = hsv.h / 360
     sat = hsv.s
@@ -96,30 +93,20 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
     a = hsv.a
   }
 
-  function getRGBA(): RGBA {
-    return {
-      ...hsv2rgb(getHSVA()),
-      a: a,
-    }
-  }
-
   function getHexRGB(s?: number, v?: number) {
-    const col = hsv2rgb(getHSVA(s, v))
-    return '#' + [col.r, col.g, col.b].map((it) => padLeft(it.toString(16), 2, '0') ).join('')
+    return getColorFormatter('#rgb').format(getRGBA(s, v))
   }
 
   function getHexRGBA(s?: number, v?: number) {
-    const col = hsv2rgb(getHSVA(s, v))
-    return '#' + [col.r, col.g, col.b, Math.floor(a * 255)].map((it) => padLeft(it.toString(16), 2, '0') ).join('')
+    return getColorFormatter('#rgba').format(getRGBA(s, v))
   }
 
-  function getCssRGBA(alpha: number = a) {
-    const col = hsv2rgb(getHSVA())
-    return ['rgba(', col.r, ',', col.g, ',', col.b, ',', alpha, ')'].join('')
+  function getCssRGBA(s = sat, v = val, alpha: number = a) {
+    return getColorFormatter('rgba()').format(getRGBA(s, v, alpha))
   }
 
   function parseInput(value: string | number | number[], format: string) {
-    const rgba = parseColor(value, format)
+    const rgba = getColorFormatter(format || 'rgb').parse(value)
     setHSVA({
       ...rgb2hsv(rgba),
       a: rgba.a,
@@ -127,7 +114,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
   }
 
   function formatOutput(format: string) {
-    return formatColor(getRGBA(), format)
+    return getColorFormatter(format).format(getRGBA())
   }
 
   function triggerInput() {
@@ -170,7 +157,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
 
   function input(e: Event, field: keyof RGBA) {
     const color = getRGBA()
-    color[field] = parseInt((e.target as HTMLInputElement).value, 10)
+    color[field] = parseInt((e.target as HTMLInputElement).value, 10) / 255
     setHSV(rgb2hsv(color))
     triggerInput()
     triggerChange()
@@ -277,14 +264,14 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
         return [
           m('.color-picker-inputs',
             m("input.input-hex[type='text']", { value: hasAlpha() ? getHexRGBA() : getHexRGB(), onchange: inputHex }),
-            m("input.input-r[type='number']", { min: 0, max: 255, step: 1, value: rgba.r, onchange: inputR }),
-            m("input.input-g[type='number']", { min: 0, max: 255, step: 1, value: rgba.g, onchange: inputG }),
-            m("input.input-b[type='number']", { min: 0, max: 255, step: 1, value: rgba.b, onchange: inputB }),
+            m("input.input-r[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.r * 255), onchange: inputR }),
+            m("input.input-g[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.g * 255), onchange: inputG }),
+            m("input.input-b[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.b * 255), onchange: inputB }),
           ),
           m('.color-picker-panel',
             m('.color-picker-sv', { tabindex: 0, onmousedown: beginPickSV, ontouchstart: beginPickSV,
               style: {
-                'background-color': `${getHexRGB(1, 1)}`,
+                'background-color': `${getCssRGBA(1, 1, 1)}`,
                 'user-select': 'none',
               },
             },
@@ -306,7 +293,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
                 style: {
                   'user-select': 'none',
                   'pointer-events': 'none',
-                  'background-color': `${getHexRGB()}`,
+                  'background-color': `${getCssRGBA(hue, sat, 1)}`,
                   left: `${sat * 100}%`,
                   top: `${(1 - val) * 100}%`,
                 },
@@ -322,7 +309,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
                 style: {
                   'user-select': 'none',
                   'pointer-events': 'none',
-                  'background-color': `${getHexRGB(1, 1)}`,
+                  'background-color': `${getCssRGBA(1, 1, 1)}`,
                   position: 'absolute',
                   left: `${(1 - hue) * 100}%`,
                 },
@@ -335,7 +322,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
             },
               m('.color-picker-a-bg', {
                 style: {
-                  background: `linear-gradient(to right, ${getCssRGBA(0)}, ${getCssRGBA(1)})`,
+                  background: `linear-gradient(to right, ${getCssRGBA(sat, val, 0)}, ${getCssRGBA(sat, val, 1)})`,
                 },
               }),
               m('.color-picker-a-cursor', {
