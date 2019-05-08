@@ -16,9 +16,9 @@ checkbutton<T>(target: T, property: keyof T, opts?: Partial<CheckboxModel>): Che
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> |  |
-|  property | <code>keyof T</code> |  |
-|  opts | <code>Partial&lt;CheckboxModel&gt;</code> |  |
+|  target | <code>T</code> | The target object holding the value |
+|  property | <code>keyof T</code> | The accessor property |
+|  opts | <code>Partial&lt;CheckboxModel&gt;</code> | Additional options for the control |
 
 <b>Returns:</b>
 

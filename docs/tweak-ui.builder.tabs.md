@@ -16,7 +16,7 @@ tabs(cb: (b: TabsBuilder) => void): TabsModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  cb | <code>(b: TabsBuilder) =&gt; void</code> |  |
+|  cb | <code>(b: TabsBuilder) =&gt; void</code> | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 

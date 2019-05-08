@@ -16,8 +16,8 @@ export declare function mount(el: Element, data: ControlViewModel[]): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>Element</code> |  |
-|  data | <code>ControlViewModel[]</code> |  |
+|  el | <code>Element</code> | The ui host element |
+|  data | <code>ControlViewModel[]</code> | The ui definition object |
 
 <b>Returns:</b>
 

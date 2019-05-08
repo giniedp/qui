@@ -68,9 +68,9 @@ export class Builder {
   /**
    * Adds a button group control
    *
-   * @param label The group label
-   * @param opts Additional options for the control
-   * @param builder A callback allowing to build sub controls
+   * @param label - The group label
+   * @param opts - Additional options for the control
+   * @param builder - A callback allowing to build sub controls
    */
   public buttonGroup(label: string, builder: (b: Builder) => void): ButtonGroupModel & Removable
   public buttonGroup(label: string, opts: Partial<ButtonGroupModel>, builder: (b: Builder) => void): ButtonGroupModel & Removable
@@ -86,8 +86,8 @@ export class Builder {
   /**
    * Adds a button group control
    *
-   * @param label The group label
-   * @param builder A callback allowing to build sub controls
+   * @param label - The group label
+   * @param builder - A callback allowing to build sub controls
    */
   public group(label: string, builder: (b: Builder) => void): GroupModel & Removable
   public group(label: string, opts: Partial<GroupModel>, builder?: (b: Builder) => void): GroupModel & Removable
@@ -103,7 +103,7 @@ export class Builder {
   /**
    * Adds a tabs panel control
    *
-   * @param cb A callback allowing to build sub controls
+   * @param cb - A callback allowing to build sub controls
    */
   public tabs(cb: (b: TabsBuilder) => void) {
     const sub = new Builder()
@@ -118,8 +118,8 @@ export class Builder {
   /**
    * Adds a tab control
    *
-   * @param label The tab label
-   * @param cb A callback allowing to build sub controls
+   * @param label - The tab label
+   * @param cb - A callback allowing to build sub controls
    */
   public tab(label: string, cb: (builder: Builder) => void): TabData & Removable
   public tab(label: string, opts: Partial<TabData>, cb?: (builder: Builder) => void): TabData & Removable
@@ -135,8 +135,8 @@ export class Builder {
   /**
    * Adds a button control
    *
-   * @param text The button text
-   * @param opts Additional options for the control
+   * @param text - The button text
+   * @param opts - Additional options for the control
    */
   public button(text: string, opts: Partial<ButtonModel> = {}) {
     return this.add<ButtonModel>(assign(opts, {
@@ -148,9 +148,9 @@ export class Builder {
   /**
    * Adds a checkbox control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public checkbox<T>(target: T, property: keyof T, opts: Partial<CheckboxModel> = {}) {
     if (opts.label === undefined) {
@@ -166,9 +166,9 @@ export class Builder {
   /**
    * Adds a checkbutton control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public checkbutton<T>(target: T, property: keyof T, opts: Partial<CheckboxModel> = {}) {
     if (opts.label === undefined) {
@@ -184,9 +184,9 @@ export class Builder {
   /**
    * Adds a text control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public text<T>(target: T, property: keyof T, opts: Partial<TextModel> = {}) {
     if (opts.label === undefined) {
@@ -202,9 +202,9 @@ export class Builder {
   /**
    * Adds a number control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public number<T>(target: T, property: keyof T, opts: Partial<NumberModel> = {}) {
     if (opts.label === undefined) {
@@ -220,9 +220,9 @@ export class Builder {
   /**
    * Adds a number slider control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public slider<T>(target: T, property: keyof T, opts: Partial<NumberModel> = {}) {
     if (opts.label === undefined) {
@@ -238,9 +238,9 @@ export class Builder {
   /**
    * Adds a select control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public select<T>(target: T, property: keyof T, opts: Partial<SelectModel> = {}) {
     if (opts.label === undefined) {
@@ -256,9 +256,9 @@ export class Builder {
   /**
    * Adds a color control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public color<T>(target: T, property: keyof T, opts: Partial<ColorModel> = {}) {
     if (opts.label === undefined) {
@@ -274,9 +274,9 @@ export class Builder {
   /**
    * Adds a color picker control
    *
-   * @param target The target object holding the value
-   * @param property The accessor property
-   * @param opts Additional options for the control
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
   public colorPicker<T>(target: T, property: keyof T, opts: Partial<ColorPickerModel> = {}) {
     if (opts.label === undefined) {
@@ -292,8 +292,8 @@ export class Builder {
   /**
    * Adds an image control
    *
-   * @param label The control label
-   * @param opts Additional options for the control
+   * @param label - The control label
+   * @param opts - Additional options for the control
    */
   public image(label: string, opts: Partial<ImageModel> = {}) {
     return this.add<ImageModel>(assign(opts, {
@@ -305,85 +305,85 @@ export class Builder {
   /**
    * Adds a button control
    *
-   * @param def The button control definition
+   * @param def - The button control definition
    */
   public add(def: ButtonModel & Removable): ButtonModel & Removable
   /**
    * Adds a button group control
    *
-   * @param def The button group control definition
+   * @param def - The button group control definition
    */
   public add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable
   /**
    * Adds a group control
    *
-   * @param def The group control definition
+   * @param def - The group control definition
    */
   public add(def: GroupModel & Removable): GroupModel & Removable
   /**
    * Adds a tabs control
    *
-   * @param def The tabs control definition
+   * @param def - The tabs control definition
    */
   public add(def: TabsModel & Removable): TabsModel & Removable
   /**
    * Adds a tab control
    *
-   * @param def The tab control definition
+   * @param def - The tab control definition
    */
   public add(def: TabData & Removable): TabData & Removable
   /**
    * Adds a checkbox control
    *
-   * @param def The checkbox control definition
+   * @param def - The checkbox control definition
    */
   public add(def: CheckboxModel & Removable): CheckboxModel & Removable
   /**
    * Adds a text control
    *
-   * @param def The text control definition
+   * @param def - The text control definition
    */
   public add(def: TextModel & Removable): TextModel & Removable
   /**
    * Adds a number control
    *
-   * @param def The number control definition
+   * @param def - The number control definition
    */
   public add(def: NumberModel & Removable): NumberModel & Removable
   /**
    * Adds a select control
    *
-   * @param def The select control definition
+   * @param def - The select control definition
    */
   public add(def: SelectModel & Removable): SelectModel & Removable
   /**
    * Adds a color control
    *
-   * @param def The color control definition
+   * @param def - The color control definition
    */
   public add(def: ColorModel & Removable): ColorModel & Removable
   /**
    * Adds a color picker control
    *
-   * @param def The color picker control definition
+   * @param def - The color picker control definition
    */
   public add(def: ColorPickerModel & Removable): ColorPickerModel & Removable
   /**
    * Adds an image control
    *
-   * @param def The image control definition
+   * @param def - The image control definition
    */
   public add(def: ImageModel & Removable): ImageModel & Removable
   /**
    * Adds a control
    *
-   * @param def The control definition
+   * @param def - The control definition
    */
   public add<T>(def: T & Removable): T & Removable
   /**
    * Adds a control
    *
-   * @param def The control definition
+   * @param def - The control definition
    */
   public add<C>(def: C & Removable): C & Removable {
     def.remove = () => {
@@ -399,7 +399,7 @@ export class Builder {
   /**
    * Mounts the controls of this builder to the given DOM element
    *
-   * @param el The target DOM element (or a selector)
+   * @param el - The target DOM element (or a selector)
    */
   public mount(el: HTMLElement | string) {
     this.el = typeof el === 'string' ? document.querySelector(el) : el
@@ -418,8 +418,8 @@ export class Builder {
  * Creates a new ui builder and mounts the result to the given DOM element
  *
  * @public
- * @param el The DOM element (or a selector) where ui should be mounted at
- * @param builder A build callback allowing to add controls before the ui is mounted
+ * @param el - The DOM element (or a selector) where ui should be mounted at
+ * @param builder - A build callback allowing to add controls before the ui is mounted
  */
 export function build(el: HTMLElement | string, builder?: (b: Builder) => void) {
   const b = new Builder()

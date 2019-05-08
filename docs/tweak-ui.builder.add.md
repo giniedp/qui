@@ -4,7 +4,7 @@
 
 ## Builder.add() method
 
-Adds a single control
+Adds a button control
 
 <b>Signature:</b>
 
@@ -16,7 +16,7 @@ add(def: ButtonModel & Removable): ButtonModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ButtonModel &amp; Removable</code> |  |
+|  def | <code>ButtonModel &amp; Removable</code> | The button control definition |
 
 <b>Returns:</b>
 

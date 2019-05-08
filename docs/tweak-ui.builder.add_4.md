@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a tab control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: TabData & Removable): TabData & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>TabData &amp; Removable</code> |  |
+|  def | <code>TabData &amp; Removable</code> | The tab control definition |
 
 <b>Returns:</b>
 

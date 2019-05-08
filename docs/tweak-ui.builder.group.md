@@ -16,8 +16,8 @@ group(label: string, builder: (b: Builder) => void): GroupModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  builder | <code>(b: Builder) =&gt; void</code> |  |
+|  label | <code>string</code> | The group label |
+|  builder | <code>(b: Builder) =&gt; void</code> | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 

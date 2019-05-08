@@ -16,8 +16,8 @@ export declare function build(el: HTMLElement | string, builder?: (b: Builder) =
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>HTMLElement &#124; string</code> |  |
-|  builder | <code>(b: Builder) =&gt; void</code> |  |
+|  el | <code>HTMLElement &#124; string</code> | The DOM element (or a selector) where ui should be mounted at |
+|  builder | <code>(b: Builder) =&gt; void</code> | A build callback allowing to add controls before the ui is mounted |
 
 <b>Returns:</b>
 

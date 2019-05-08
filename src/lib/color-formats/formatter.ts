@@ -7,6 +7,12 @@ import { ColorFormatter } from './types'
 
 const formatter: { [key: string]: ColorFormatter<any> } = {}
 
+/**
+ * Gets a formatter implementation for the given format
+ *
+ * @public
+ * @param format - The format code
+ */
 export function getColorFormatter(format: string = 'rgb'): ColorFormatter<any> {
   if (format in formatter) {
     return formatter[format]

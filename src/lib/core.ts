@@ -66,8 +66,8 @@ export interface ValueSource<T, V> {
 /**
  *
  * @public
- * @param node
- * @param view
+ * @param node - The virtual node to render
+ * @param view - The view rendering function
  */
 export function renderControl<T extends ControlViewModel, S>(node: Vnode<{ data: T}, S>, view: (data: T, state: S) => any) {
   const data = node.attrs.data
@@ -86,7 +86,7 @@ export function renderControl<T extends ControlViewModel, S>(node: Vnode<{ data:
  * Gets a value of a view model
  *
  * @public
- * @param model The view model of a control
+ * @param model - The view model of a control
  */
 export function getModelValue<T, V>(model: ValueSource<T, V>): V {
   if (model.target && model.property && model.property in model.target) {
@@ -99,7 +99,7 @@ export function getModelValue<T, V>(model: ValueSource<T, V>): V {
  * Sets a value on a view model
  *
  * @public
- * @param model The view model of a control
+ * @param model - The view model of a control
  */
 export function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V {
   if (model.target && model.property) {
@@ -115,7 +115,7 @@ const components: { [key: string]: m.FactoryComponent<any> | m.ClassComponent } 
  * Gets a registered component for a given type name
  *
  * @public
- * @param type The component type
+ * @param type - The component type
  */
 export function getComponent(type: string) {
   if (components[type]) {
@@ -128,9 +128,9 @@ export function getComponent(type: string) {
  * Registeres a component
  *
  * @public
- * @param name The component type name
- * @param comp The component
- * @param override Allows to override an already registered component
+ * @param name - The component type name
+ * @param comp - The component
+ * @param override - Allows to override an already registered component
  */
 export function registerComponent(name: string, comp: m.FactoryComponent<any> | m.ClassComponent, overrode: boolean = false) {
   if (components[name] && ! overrode) {
@@ -144,8 +144,8 @@ export function registerComponent(name: string, comp: m.FactoryComponent<any> | 
  * Mounts a ui to the given element
  *
  * @public
- * @param el The ui host element
- * @param data The ui definition object
+ * @param el - The ui host element
+ * @param data - The ui definition object
  */
 export function mount(el: Element, data: ControlViewModel[]) {
   const component = { view: () => m(getComponent('panel'), { isRoot: true, data: data }) }
@@ -160,7 +160,7 @@ export function mount(el: Element, data: ControlViewModel[]) {
  * Unmounts the ui from given host element
  *
  * @public
- * @param el The ui host element
+ * @param el - The ui host element
  */
 export function unmount(el: Element | string) {
   if (typeof el === 'string') {

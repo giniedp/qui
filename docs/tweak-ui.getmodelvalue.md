@@ -16,7 +16,7 @@ export declare function getModelValue<T, V>(model: ValueSource<T, V>): V;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  model | <code>ValueSource&lt;T, V&gt;</code> |  |
+|  model | <code>ValueSource&lt;T, V&gt;</code> | The view model of a control |
 
 <b>Returns:</b>
 

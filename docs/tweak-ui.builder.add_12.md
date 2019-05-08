@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add<T>(def: T & Removable): T & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>T &amp; Removable</code> |  |
+|  def | <code>T &amp; Removable</code> | The control definition |
 
 <b>Returns:</b>
 

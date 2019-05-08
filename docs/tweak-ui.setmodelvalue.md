@@ -16,7 +16,7 @@ export declare function setModelValue<T, V>(model: ValueSource<T, V>, value: V):
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  model | <code>ValueSource&lt;T, V&gt;</code> |  |
+|  model | <code>ValueSource&lt;T, V&gt;</code> | The view model of a control |
 |  value | <code>V</code> |  |
 
 <b>Returns:</b>

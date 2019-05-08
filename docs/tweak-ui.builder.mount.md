@@ -16,7 +16,7 @@ mount(el: HTMLElement | string): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>HTMLElement &#124; string</code> |  |
+|  el | <code>HTMLElement &#124; string</code> | The target DOM element (or a selector) |
 
 <b>Returns:</b>
 

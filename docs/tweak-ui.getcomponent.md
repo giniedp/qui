@@ -16,7 +16,7 @@ export declare function getComponent(type: string): m.FactoryComponent<any> | m.
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  type | <code>string</code> |  |
+|  type | <code>string</code> | The component type |
 
 <b>Returns:</b>
 

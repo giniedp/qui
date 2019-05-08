@@ -16,8 +16,8 @@ export declare function registerComponent(name: string, comp: m.FactoryComponent
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  name | <code>string</code> |  |
-|  comp | <code>m.FactoryComponent&lt;any&gt; &#124; m.ClassComponent</code> |  |
+|  name | <code>string</code> | The component type name |
+|  comp | <code>m.FactoryComponent&lt;any&gt; &#124; m.ClassComponent</code> | The component |
 |  overrode | <code>boolean</code> |  |
 
 <b>Returns:</b>

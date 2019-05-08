@@ -16,8 +16,8 @@ image(label: string, opts?: Partial<ImageModel>): ImageModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  opts | <code>Partial&lt;ImageModel&gt;</code> |  |
+|  label | <code>string</code> | The control label |
+|  opts | <code>Partial&lt;ImageModel&gt;</code> | Additional options for the control |
 
 <b>Returns:</b>
 

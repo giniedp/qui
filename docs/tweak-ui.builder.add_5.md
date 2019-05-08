@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a checkbox control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: CheckboxModel & Removable): CheckboxModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>CheckboxModel &amp; Removable</code> |  |
+|  def | <code>CheckboxModel &amp; Removable</code> | The checkbox control definition |
 
 <b>Returns:</b>
 

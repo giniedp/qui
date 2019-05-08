@@ -92,7 +92,17 @@ export interface RGBA extends RGB {
   a: number
 }
 
+/**
+ * An implementation to parse and format specific color format
+ * @public
+ */
 export interface ColorFormatter<T> {
+  /**
+   * Parses a color value and returns an RGBA object with all components normalized to [0:1]
+   */
   parse: (v: T) => RGBA
+  /**
+   * Formats an RGBA color value into a target color format
+   */
   format: (rgba: RGBA) => T
 }

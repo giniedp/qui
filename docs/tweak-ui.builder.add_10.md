@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a color picker control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: ColorPickerModel & Removable): ColorPickerModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ColorPickerModel &amp; Removable</code> |  |
+|  def | <code>ColorPickerModel &amp; Removable</code> | The color picker control definition |
 
 <b>Returns:</b>
 

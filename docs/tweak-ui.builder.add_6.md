@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a text control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: TextModel & Removable): TextModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>TextModel &amp; Removable</code> |  |
+|  def | <code>TextModel &amp; Removable</code> | The text control definition |
 
 <b>Returns:</b>
 

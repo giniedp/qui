@@ -16,8 +16,8 @@ export declare function renderControl<T extends ControlViewModel, S>(node: Vnode
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  node | <code>Vnode&lt;{</code><br/><code>    data: T;</code><br/><code>}, S&gt;</code> |  |
-|  view | <code>(data: T, state: S) =&gt; any</code> |  |
+|  node | <code>Vnode&lt;{</code><br/><code>    data: T;</code><br/><code>}, S&gt;</code> | The virtual node to render |
+|  view | <code>(data: T, state: S) =&gt; any</code> | The view rendering function |
 
 <b>Returns:</b>
 

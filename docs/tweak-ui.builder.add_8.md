@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a select control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: SelectModel & Removable): SelectModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>SelectModel &amp; Removable</code> |  |
+|  def | <code>SelectModel &amp; Removable</code> | The select control definition |
 
 <b>Returns:</b>
 

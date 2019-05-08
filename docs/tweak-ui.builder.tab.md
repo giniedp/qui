@@ -16,8 +16,8 @@ tab(label: string, cb: (builder: Builder) => void): TabData & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  cb | <code>(builder: Builder) =&gt; void</code> |  |
+|  label | <code>string</code> | The tab label |
+|  cb | <code>(builder: Builder) =&gt; void</code> | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 

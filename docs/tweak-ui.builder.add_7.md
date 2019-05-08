@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a number control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: NumberModel & Removable): NumberModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>NumberModel &amp; Removable</code> |  |
+|  def | <code>NumberModel &amp; Removable</code> | The number control definition |
 
 <b>Returns:</b>
 

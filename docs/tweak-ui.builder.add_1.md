@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a button group control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ButtonGroupModel &amp; Removable</code> |  |
+|  def | <code>ButtonGroupModel &amp; Removable</code> | The button group control definition |
 
 <b>Returns:</b>
 

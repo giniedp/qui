@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds a group control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: GroupModel & Removable): GroupModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>GroupModel &amp; Removable</code> |  |
+|  def | <code>GroupModel &amp; Removable</code> | The group control definition |
 
 <b>Returns:</b>
 

@@ -16,8 +16,8 @@ button(text: string, opts?: Partial<ButtonModel>): ButtonModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  text | <code>string</code> |  |
-|  opts | <code>Partial&lt;ButtonModel&gt;</code> |  |
+|  text | <code>string</code> | The button text |
+|  opts | <code>Partial&lt;ButtonModel&gt;</code> | Additional options for the control |
 
 <b>Returns:</b>
 

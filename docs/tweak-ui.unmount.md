@@ -16,7 +16,7 @@ export declare function unmount(el: Element | string): void;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>Element &#124; string</code> |  |
+|  el | <code>Element &#124; string</code> | The ui host element |
 
 <b>Returns:</b>
 

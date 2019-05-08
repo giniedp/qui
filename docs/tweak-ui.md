@@ -17,12 +17,15 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  Function | Description |
 |  --- | --- |
 |  [build(el, builder)](./tweak-ui.build.md) | Creates a new ui builder and mounts the result to the given DOM element |
+|  [getColorFormatter(format)](./tweak-ui.getcolorformatter.md) | Gets a formatter implementation for the given format |
 |  [getComponent(type)](./tweak-ui.getcomponent.md) | Gets a registered component for a given type name |
 |  [getModelValue(model)](./tweak-ui.getmodelvalue.md) | Gets a value of a view model |
+|  [hsv2rgb(hsv)](./tweak-ui.hsv2rgb.md) | Converts hsv to rgb |
 |  [mount(el, data)](./tweak-ui.mount.md) | Mounts a ui to the given element |
 |  [redraw()](./tweak-ui.redraw.md) | Redraws the ui |
 |  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registeres a component |
 |  [renderControl(node, view)](./tweak-ui.rendercontrol.md) |  |
+|  [rgb2hsv(rgb)](./tweak-ui.rgb2hsv.md) | Converts rgb to hsv |
 |  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |
 |  [unmount(el)](./tweak-ui.unmount.md) | Unmounts the ui from given host element |
 
@@ -33,10 +36,13 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) | Describes a button group |
 |  [ButtonModel](./tweak-ui.buttonmodel.md) | Describes a button control |
 |  [CheckboxModel](./tweak-ui.checkboxmodel.md) | Describes a checkbox control |
+|  [ColorFormatter](./tweak-ui.colorformatter.md) | An implementation to parse and format specific color format |
 |  [ColorModel](./tweak-ui.colormodel.md) | Describes a color control |
 |  [ColorPickerModel](./tweak-ui.colorpickermodel.md) | Describes a color picker control |
 |  [ControlViewModel](./tweak-ui.controlviewmodel.md) | Common control properties |
 |  [GroupModel](./tweak-ui.groupmodel.md) | Describes a group control |
+|  [HSL](./tweak-ui.hsl.md) | Describes a HSL color value |
+|  [HSLA](./tweak-ui.hsla.md) | Describes a HSL color value with alpha |
 |  [HSV](./tweak-ui.hsv.md) | Describes a HSV color value |
 |  [HSVA](./tweak-ui.hsva.md) | Describes a HSV color value with alpha |
 |  [ImageModel](./tweak-ui.imagemodel.md) | Describes an image control |
@@ -57,7 +63,6 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  Variable | Description |
 |  --- | --- |
 |  [h](./tweak-ui.h.md) | Mithril's hyperscript function. |
-|  [utils](./tweak-ui.utils.md) |  |
 |  [VERSION](./tweak-ui.version.md) | The version string |
 
 ## Type Aliases

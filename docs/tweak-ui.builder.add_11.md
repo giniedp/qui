@@ -4,6 +4,8 @@
 
 ## Builder.add() method
 
+Adds an image control
+
 <b>Signature:</b>
 
 ```typescript
@@ -14,7 +16,7 @@ add(def: ImageModel & Removable): ImageModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ImageModel &amp; Removable</code> |  |
+|  def | <code>ImageModel &amp; Removable</code> | The image control definition |
 
 <b>Returns:</b>
 
