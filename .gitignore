@@ -3,3 +3,4 @@ dist
 temp
 .rpt2_cache
 coverage
+Makefile
