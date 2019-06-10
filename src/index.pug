@@ -1,6 +1,12 @@
 doctype html
 head
   meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+  meta(charset="utf-8")
+  meta(property="og:type" content="website")
+  meta(property="og:title" content="Tweak Ui")
+  meta(property="og:site_name" content="Tweak Ui")
+  meta(property="og:url" content="https://tweakui.ginie.eu/")
+  meta(property="og:description" content="a lightweight js library for building input controls with data binding")
   title Tweak UI
   link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
   script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
@@ -79,8 +85,8 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
     section
       p Reference the library and style sheet
       aside.language-html
-        script(src='./tweak-ui.umd.js')
-        link(href='./tweak-ui.css' rel='stylesheet')
+        script(src='https://unpkg.com/tweak-ui@x.x.x/dist/tweak-ui.umd.js')
+        link(href='https://unpkg.com/tweak-ui@x.x.x/dist/tweak-ui.css' rel='stylesheet')
 
       p.mt-3 Add a container to your HTML
       aside.language-html
@@ -92,8 +98,13 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           // ... array of definitions
         ])
 
-    h2#controls Controls
+    h2#sourcecode-git Github
+    section
+      p
+        span get the source at
+        a(href="https://github.com/giniedp/tweak-ui", target="_blank")  github
 
+    h2#controls Controls
     section#control-button
       h3 Button
       .row
@@ -654,3 +665,14 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           node.parentNode.insertBefore(pre, node.nextSibling)
         })
       }())
+
+    h3#comments Comments
+    section#disqus_thread
+    script(type='text/javascript').
+      var disqus_shortname = 'tweak-ui';
+      var disqus_url = 'https://tweak-ui.ginie.eu';
+      (function(){
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();

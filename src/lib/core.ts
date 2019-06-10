@@ -40,6 +40,14 @@ export interface ControlViewModel {
 }
 
 /**
+ * Common control group properties
+ * @public
+ */
+export interface ControlGroupViewModel extends ControlViewModel {
+  children?: ControlViewModel[]
+}
+
+/**
  * @public
  */
 export interface ValueSource<T, V> {

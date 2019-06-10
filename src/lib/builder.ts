@@ -3,7 +3,7 @@ import { ButtonGroupModel } from './button-group'
 import { CheckboxModel } from './checkbox'
 import { ColorModel } from './color'
 import { ColorPickerModel } from './color-picker'
-import { ControlViewModel, getComponent, h } from './core'
+import { ControlGroupViewModel, ControlViewModel, getComponent, h } from './core'
 import { GroupModel } from './group'
 import { ImageModel } from './image'
 import { NumberModel } from './number'
@@ -28,21 +28,21 @@ export interface TabsBuilder {
 }
 
 function assign<T extends ControlViewModel>(partial: Partial<T>, extension: T): T {
-  Object.keys(extension).forEach((key) => {
+  Object.keys(extension).forEach((key: keyof T) => {
     partial[key] = extension[key]
   })
   return partial as T
 }
 
-function buildGroup<T extends ControlViewModel>(...args: any[]): Partial<T> {
+function buildGroup<T extends ControlGroupViewModel>(...args: any[]): Partial<T> {
   let cb: (builder: Builder) => void
   let opts: Partial<T> = {}
-  if (typeof arguments[1] === 'function') {
-    cb = arguments[1]
+  if (typeof arguments[0] === 'function') {
+    cb = arguments[0]
   } else {
-    opts = arguments[1] || opts
-    if (typeof arguments[2] === 'function') {
-      cb = arguments[2]
+    opts = arguments[0] || opts
+    if (typeof arguments[1] === 'function') {
+      cb = arguments[1]
     }
   }
   if (cb) {
