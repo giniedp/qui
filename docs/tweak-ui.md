@@ -39,6 +39,7 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  [ColorFormatter](./tweak-ui.colorformatter.md) | An implementation to parse and format specific color format |
 |  [ColorModel](./tweak-ui.colormodel.md) | Describes a color control |
 |  [ColorPickerModel](./tweak-ui.colorpickermodel.md) | Describes a color picker control |
+|  [ControlGroupViewModel](./tweak-ui.controlgroupviewmodel.md) | Common control group properties |
 |  [ControlViewModel](./tweak-ui.controlviewmodel.md) | Common control properties |
 |  [GroupModel](./tweak-ui.groupmodel.md) | Describes a group control |
 |  [HSL](./tweak-ui.hsl.md) | Describes a HSL color value |
