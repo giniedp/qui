@@ -97,7 +97,7 @@ export function renderControl<T extends ControlViewModel, S>(node: Vnode<{ data:
  * @param model - The view model of a control
  */
 export function getModelValue<T, V>(model: ValueSource<T, V>): V {
-  if (model.target && model.property && model.property in model.target) {
+  if (model.target && model.property != null && model.property in model.target) {
     return model.target[model.property] as any
   }
   return model.value
@@ -110,7 +110,7 @@ export function getModelValue<T, V>(model: ValueSource<T, V>): V {
  * @param model - The view model of a control
  */
 export function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V {
-  if (model.target && model.property) {
+  if (model.target && model.property != null) {
     model.target[model.property] = value as any
   }
   model.value = value
