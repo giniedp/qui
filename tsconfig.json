@@ -16,11 +16,7 @@
     "skipLibCheck": true,
     "target": "es5",
     "allowSyntheticDefaultImports": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./node_modules/@types"]
   },
-  "exclude": [
-    "./dist"
-  ]
+  "exclude": ["./dist"]
 }

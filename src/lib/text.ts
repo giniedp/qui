@@ -1,6 +1,13 @@
 import m from 'mithril'
 
-import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
+import {
+  ControlViewModel,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
 import { call } from './utils'
 
 /**
@@ -8,7 +15,9 @@ import { call } from './utils'
  *
  * @public
  */
-export interface TextModel<T = any> extends ControlViewModel, ValueSource<T, string>  {
+export interface TextModel<T = any>
+  extends ControlViewModel,
+  ValueSource<T, string> {
   /**
    * The type name of the control
    */
@@ -39,7 +48,6 @@ interface Attrs {
 }
 
 registerComponent('text', (node: m.Vnode<Attrs>) => {
-
   function onChange(e: Event) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data

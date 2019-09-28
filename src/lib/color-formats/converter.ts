@@ -9,12 +9,12 @@ import { HSV, RGB } from './types'
  * @returns RGB color components in range [0:1]
  */
 export function hsv2rgb(hsv: HSV): RGB {
-  let H = (hsv.h % 360)
+  let H = hsv.h % 360
   let S = clamp(hsv.s, 0, 1)
   let V = clamp(hsv.v, 0, 1)
 
   let C = V * S
-  let X = C * (1 - Math.abs((H / 60) % 2 - 1))
+  let X = C * (1 - Math.abs(((H / 60) % 2) - 1))
   let m = V - C
 
   const rgb: RGB = { r: 0, g: 0, b: 0 }
@@ -60,7 +60,6 @@ export function hsv2rgb(hsv: HSV): RGB {
  * The resulting H component is in range [0:360] and S and V in range [0:1]
  */
 export function rgb2hsv(rgb: RGB): HSV {
-
   let r = rgb.r
   let g = rgb.g
   let b = rgb.b
@@ -70,7 +69,7 @@ export function rgb2hsv(rgb: RGB): HSV {
 
   let S = 0
   let H = 0
-  if (d !== 0)  {
+  if (d !== 0) {
     S = d / V
     if (V === r) {
       H = (g - b) / d + (g < b ? 6 : 0)

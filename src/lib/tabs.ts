@@ -1,6 +1,11 @@
 import m from 'mithril'
 
-import { ControlViewModel, getComponent, registerComponent, renderControl } from './core'
+import {
+  ControlViewModel,
+  getComponent,
+  registerComponent,
+  renderControl,
+} from './core'
 import { clamp } from './utils'
 
 /**
@@ -50,11 +55,15 @@ registerComponent('tabs', (node: TabsNode) => {
       return [
         renderControl(node, (d) => {
           return tabs.map((it, index) => {
-            return m("button[type='button']", {
-              key: it.key,
-              onclick: () => d.active = index,
-              class: active === index ? 'tab-active' : '',
-            }, it.label)
+            return m(
+              "button[type='button']",
+              {
+                key: it.key,
+                onclick: () => (d.active = index),
+                class: active === index ? 'tab-active' : '',
+              },
+              it.label,
+            )
           })
         }),
         ...tabs.map((it) => {

@@ -1,4 +1,3 @@
-
 /**
  * Describes a HSV color value
  * @public

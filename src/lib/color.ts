@@ -1,22 +1,25 @@
 import m from 'mithril'
 
+import { getColorFormatter } from './color-formats'
 import { ColorPickerModel } from './color-picker'
-import { ControlViewModel, getComponent, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
 import {
-  call,
-  isArray,
-  isNumber,
-  isObject,
-  isString,
-  padLeft,
-} from './utils'
-import { getColorFormatter } from './color-formats';
+  ControlViewModel,
+  getComponent,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
+import { call, isArray, isNumber, isObject, isString, padLeft } from './utils'
 
 /**
  * Describes a color control
  * @public
  */
-export interface ColorModel<T = any, V = number | string | number[]> extends ControlViewModel, ValueSource<T, V>  {
+export interface ColorModel<T = any, V = number | string | number[]>
+  extends ControlViewModel,
+    ValueSource<T, V> {
   /**
    * The type name of the control
    */
@@ -69,7 +72,6 @@ interface State {
 }
 
 registerComponent('color', (node: ColorNode) => {
-
   function toggle() {
     node.state.opened = !node.state.opened
   }
@@ -95,13 +97,17 @@ registerComponent('color', (node: ColorNode) => {
       return '0x' + padLeft(value.toString(16), 8, '0')
     }
     if (isArray(value)) {
-      return value.map((it: number) => it < 1 && it > 0 ? it.toFixed(2) : it).join(' , ')
+      return value
+        .map((it: number) => (it < 1 && it > 0 ? it.toFixed(2) : it))
+        .join(' , ')
     }
     if (isObject(value)) {
-      return Object.keys(value).map((k) => {
-        const it = (value as any)[k]
-        return `${k}: ${it < 1 && it > 0 ? it.toFixed(2) : it}`
-      }).join(' ')
+      return Object.keys(value)
+        .map((k) => {
+          const it = (value as any)[k]
+          return `${k}: ${it < 1 && it > 0 ? it.toFixed(2) : it}`
+        })
+        .join(' ')
     }
     if (data.value == null) {
       return 'null'
@@ -122,20 +128,26 @@ registerComponent('color', (node: ColorNode) => {
     view: () => {
       return renderControl(node, (data, state) => {
         return [
-          m("button[type='button']", {
-            style: { 'background-color': getColor() },
-            onclick: toggle,
-          }, getText()),
-          state.opened ? m(getComponent('color-picker'), {
-            data: {
-              type: 'color-picker',
-              label: null,
-              value: getModelValue(data),
-              format: data.format,
-              onInput: onPickerInput,
-              onChange: onPickerChange,
+          m(
+            "button[type='button']",
+            {
+              style: { 'background-color': getColor() },
+              onclick: toggle,
             },
-          }) : null,
+            getText(),
+          ),
+          state.opened
+            ? m(getComponent('color-picker'), {
+                data: {
+                  type: 'color-picker',
+                  label: null,
+                  value: getModelValue(data),
+                  format: data.format,
+                  onInput: onPickerInput,
+                  onChange: onPickerChange,
+                },
+              })
+            : null,
         ]
       })
     },

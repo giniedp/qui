@@ -40,7 +40,12 @@ registerComponent('image', (node: m.Vnode<Attrs>) => {
     view: () => {
       return renderControl(node, (data) => {
         return (Array.isArray(data.src) ? data.src : [data.src]).map((src) => {
-          return m('img', { src: src, width: data.width, height: data.height, onclick: onClick })
+          return m('img', {
+            src: src,
+            width: data.width,
+            height: data.height,
+            onclick: onClick,
+          })
         })
       })
     },

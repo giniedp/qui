@@ -16,7 +16,11 @@ export class NumberColorFormat implements ColorFormatter<number> {
   }
 
   public format(rgba: RGBA) {
-    const val = this.componentsRev.map((key) => padLeft(Math.round(((rgba[key] * 255) || 0)).toString(16), 2, '0')).join('')
+    const val = this.componentsRev
+      .map((key) =>
+        padLeft(Math.round(rgba[key] * 255 || 0).toString(16), 2, '0'),
+      )
+      .join('')
     return parseInt('0x' + val, 16)
   }
 }

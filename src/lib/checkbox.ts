@@ -1,13 +1,22 @@
 import m from 'mithril'
 
-import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
+import {
+  ControlViewModel,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
 import { call, controllCssClass, use } from './utils'
 
 /**
  * Describes a checkbox control
  * @public
  */
-export interface CheckboxModel<T = any> extends ControlViewModel, ValueSource<T, boolean> {
+export interface CheckboxModel<T = any>
+  extends ControlViewModel,
+    ValueSource<T, boolean> {
   /**
    * The type name of the control
    */
@@ -44,8 +53,11 @@ registerComponent('checkbox', (node: m.Vnode<Attrs>) => {
   return {
     view: (vnode: m.Vnode<Attrs>) => {
       return use(vnode.attrs.data, (data) => {
-        return m('div', { class: controllCssClass('checkbox'), key: data.key },
-          m('label',
+        return m(
+          'div',
+          { class: controllCssClass('checkbox'), key: data.key },
+          m(
+            'label',
             m('span', data.label),
             m('input', {
               type: 'checkbox',
@@ -72,11 +84,15 @@ registerComponent('checkbutton', (node: m.Vnode<Attrs>) => {
       return renderControl(node, (data) => {
         const checked = getModelValue(data) === true
         return [
-          m("button[type='button']", {
-            class: checked ? 'active' : null,
-            onclick: () => { setModelValue(data, !checked) },
-            disabled: data.disabled,
-          },
+          m(
+            "button[type='button']",
+            {
+              class: checked ? 'active' : null,
+              onclick: () => {
+                setModelValue(data, !checked)
+              },
+              disabled: data.disabled,
+            },
             m('input', {
               type: 'checkbox',
               style: { display: 'none' },

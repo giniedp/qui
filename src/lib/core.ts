@@ -77,17 +77,24 @@ export interface ValueSource<T, V> {
  * @param node - The virtual node to render
  * @param view - The view rendering function
  */
-export function renderControl<T extends ControlViewModel, S>(node: Vnode<{ data: T}, S>, view: (data: T, state: S) => any) {
+export function renderControl<T extends ControlViewModel, S>(
+  node: Vnode<{ data: T }, S>,
+  view: (data: T, state: S) => any,
+) {
   const data = node.attrs.data
   if (!data) {
     return null
   }
   const label = data.label
   const content = view ? view(data, node.state) : null
-  return !data ? null : m('div', { key: data.key, class: controllCssClass(data.type) },
-    label == null ? null : m('label', data.label),
-    content == null ? null : m('section', content),
-  )
+  return !data
+    ? null
+    : m(
+        'div',
+        { key: data.key, class: controllCssClass(data.type) },
+        label == null ? null : m('label', data.label),
+        content == null ? null : m('section', content),
+      )
 }
 
 /**
@@ -97,7 +104,11 @@ export function renderControl<T extends ControlViewModel, S>(node: Vnode<{ data:
  * @param model - The view model of a control
  */
 export function getModelValue<T, V>(model: ValueSource<T, V>): V {
-  if (model.target && model.property != null && model.property in model.target) {
+  if (
+    model.target &&
+    model.property != null &&
+    model.property in model.target
+  ) {
     return model.target[model.property] as any
   }
   return model.value
@@ -117,7 +128,9 @@ export function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V {
   return value
 }
 
-const components: { [key: string]: m.FactoryComponent<any> | m.ClassComponent } = {}
+const components: {
+  [key: string]: m.FactoryComponent<any> | m.ClassComponent
+} = {}
 
 /**
  * Gets a registered component for a given type name
@@ -133,15 +146,19 @@ export function getComponent(type: string) {
 }
 
 /**
- * Registeres a component
+ * Registers a component
  *
  * @public
  * @param name - The component type name
  * @param comp - The component
  * @param override - Allows to override an already registered component
  */
-export function registerComponent(name: string, comp: m.FactoryComponent<any> | m.ClassComponent, overrode: boolean = false) {
-  if (components[name] && ! overrode) {
+export function registerComponent(
+  name: string,
+  comp: m.FactoryComponent<any> | m.ClassComponent,
+  overrode: boolean = false,
+) {
+  if (components[name] && !overrode) {
     console.warn(`a component named '${name}' is already registered`)
   } else {
     components[name] = comp
@@ -156,7 +173,9 @@ export function registerComponent(name: string, comp: m.FactoryComponent<any> | 
  * @param data - The ui definition object
  */
 export function mount(el: Element, data: ControlViewModel[]) {
-  const component = { view: () => m(getComponent('panel'), { isRoot: true, data: data }) }
+  const component = {
+    view: () => m(getComponent('panel'), { isRoot: true, data: data }),
+  }
   if (typeof el === 'string') {
     m.mount(document.querySelector(el), component)
   } else {
@@ -186,7 +205,7 @@ export function unmount(el: Element | string) {
  * When changing the ui description object qui callbacks (e.g. `onInput` or `onChange`)
  * the ui will redraw automatically.
  *
- * However if the ui description oject is changed from outside the qui callback
+ * However if the ui description object is changed from outside the qui callback
  * then this method must be called in order to update the visual state.
  */
 export function redraw() {

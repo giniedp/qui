@@ -1,6 +1,13 @@
 import m from 'mithril'
 
-import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
+import {
+  ControlViewModel,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
 import { call, isNumber, isString } from './utils'
 
 const emptyArray: any[] = []
@@ -15,15 +22,17 @@ const isSimpleArray = (arr: any): arr is Array<string | number> => {
  * @public
  */
 export type SelectModelOptions =
-  { [key: string]: any } |
-  Array<string | number> |
-  Array<{ id: string, label: string, value: any }>
+  | { [key: string]: any }
+  | Array<string | number>
+  | Array<{ id: string; label: string; value: any }>
 
 /**
  * Describes a select control
  * @public
  */
-export interface SelectModel<T = any, V = any> extends ControlViewModel, ValueSource<T, V>  {
+export interface SelectModel<T = any, V = any>
+  extends ControlViewModel,
+    ValueSource<T, V> {
   /**
    * The type name of the control
    */
@@ -46,7 +55,9 @@ interface Attrs {
   data: SelectModel
 }
 
-function getOptions(node: m.Vnode<Attrs>): Array<{ id: string, value: any, label: string }> {
+function getOptions(
+  node: m.Vnode<Attrs>,
+): Array<{ id: string; value: any; label: string }> {
   const data = node.attrs.data
   if (!data || !data.options) {
     return emptyArray
@@ -64,9 +75,11 @@ function getOptions(node: m.Vnode<Attrs>): Array<{ id: string, value: any, label
   }
 
   if (typeof opts === 'object') {
-    return Object.keys(opts).sort().map((key) => {
-      return { id: key, value: opts[key], label: key }
-    })
+    return Object.keys(opts)
+      .sort()
+      .map((key) => {
+        return { id: key, value: opts[key], label: key }
+      })
   }
   return emptyArray
 }
@@ -124,7 +137,6 @@ function setSelection(node: m.Vnode<Attrs>, selectedIndex: number) {
 }
 
 registerComponent('select', (node: m.Vnode<Attrs>) => {
-
   function onChange(e: Event) {
     const el = e.target as HTMLSelectElement
     const data = node.attrs.data
@@ -135,16 +147,23 @@ registerComponent('select', (node: m.Vnode<Attrs>) => {
   return {
     view: () => {
       return renderControl(node, (data) => {
-        return m('select',
+        return m(
+          'select',
           {
             selectedIndex: getSelectedIndex(node),
             onchange: onChange,
             disabled: data.disabled,
           },
-          getOptions(node).map((it: any) => m('option', {
-            value: it.value,
-            label: it.label,
-          }, it.label || '')),
+          getOptions(node).map((it: any) =>
+            m(
+              'option',
+              {
+                value: it.value,
+                label: it.label,
+              },
+              it.label || '',
+            ),
+          ),
         )
       })
     },

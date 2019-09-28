@@ -29,7 +29,11 @@ registerComponent('button-group', (node: m.Vnode<Attrs>) => {
       return renderControl(node, (data) => {
         const childern = data.children || []
         return childern.map((it) => {
-          return m("button[type='button']", { onclick: () => call(it.onClick, it) }, it.text)
+          return m(
+            "button[type='button']",
+            { onclick: () => call(it.onClick, it) },
+            it.text,
+          )
         })
       })
     },

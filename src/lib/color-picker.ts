@@ -1,15 +1,31 @@
 // tslint:disable:no-bitwise
 import m from 'mithril'
 
-import { getColorFormatter, HSV, hsv2rgb, HSVA, RGBA, rgb2hsv } from './color-formats'
-import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
+import {
+  getColorFormatter,
+  HSV,
+  hsv2rgb,
+  HSVA,
+  rgb2hsv,
+  RGBA,
+} from './color-formats'
+import {
+  ControlViewModel,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
 import { call, clamp, use } from './utils'
 
 /**
  * Describes a color picker control
  * @public
  */
-export interface ColorPickerModel<T = any, V = number | string | number[]> extends ControlViewModel, ValueSource<T, V> {
+export interface ColorPickerModel<T = any, V = number | string | number[]>
+  extends ControlViewModel,
+    ValueSource<T, V> {
   /**
    * The type name of the control
    */
@@ -59,11 +75,10 @@ interface Attrs {
 }
 
 registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
-
   let hue = 0 // range [0,1]
   let sat = 0 // range [0,1]
   let val = 0 // range [0,1]
-  let a = 0   // range [0,1]
+  let a = 0 // range [0,1]
 
   function getHSVA(s = sat, v = val): HSVA {
     return {
@@ -164,7 +179,10 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
   }
 
   function inputHex(e: Event) {
-    parseInput((e.target as HTMLInputElement).value, hasAlpha() ? 'rgba' : 'rgb')
+    parseInput(
+      (e.target as HTMLInputElement).value,
+      hasAlpha() ? 'rgba' : 'rgb',
+    )
     triggerInput()
     triggerChange()
   }
@@ -221,7 +239,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
       val = 1 - cy
     }
     if (kind === 'h') {
-      hue = (1 - cx)
+      hue = 1 - cx
     }
     if (kind === 'a') {
       a = cx
@@ -262,29 +280,59 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
       return renderControl(node, (data) => {
         const rgba = getRGBA()
         return [
-          m('.color-picker-inputs',
-            m("input.input-hex[type='text']", { value: hasAlpha() ? getHexRGBA() : getHexRGB(), onchange: inputHex }),
-            m("input.input-r[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.r * 255), onchange: inputR }),
-            m("input.input-g[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.g * 255), onchange: inputG }),
-            m("input.input-b[type='number']", { min: 0, max: 255, step: 1, value: Math.round(rgba.b * 255), onchange: inputB }),
+          m(
+            '.color-picker-inputs',
+            m("input.input-hex[type='text']", {
+              value: hasAlpha() ? getHexRGBA() : getHexRGB(),
+              onchange: inputHex,
+            }),
+            m("input.input-r[type='number']", {
+              min: 0,
+              max: 255,
+              step: 1,
+              value: Math.round(rgba.r * 255),
+              onchange: inputR,
+            }),
+            m("input.input-g[type='number']", {
+              min: 0,
+              max: 255,
+              step: 1,
+              value: Math.round(rgba.g * 255),
+              onchange: inputG,
+            }),
+            m("input.input-b[type='number']", {
+              min: 0,
+              max: 255,
+              step: 1,
+              value: Math.round(rgba.b * 255),
+              onchange: inputB,
+            }),
           ),
-          m('.color-picker-panel',
-            m('.color-picker-sv', { tabindex: 0, onmousedown: beginPickSV, ontouchstart: beginPickSV,
-              style: {
-                'background-color': `${getCssRGBA(1, 1, 1)}`,
-                'user-select': 'none',
+          m(
+            '.color-picker-panel',
+            m(
+              '.color-picker-sv',
+              {
+                tabindex: 0,
+                onmousedown: beginPickSV,
+                ontouchstart: beginPickSV,
+                style: {
+                  'background-color': `${getCssRGBA(1, 1, 1)}`,
+                  'user-select': 'none',
+                },
               },
-            },
               m('.color-picker-sv-bg', {
                 style: {
-                  background: 'linear-gradient(to right,rgba(255,255,255,1),rgba(255,255,255,0))',
+                  background:
+                    'linear-gradient(to right,rgba(255,255,255,1),rgba(255,255,255,0))',
                   'user-select': 'none',
                   'pointer-events': 'none',
                 },
               }),
               m('.color-picker-sv-bg', {
                 style: {
-                  background: 'linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,0))',
+                  background:
+                    'linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,0))',
                   'user-select': 'none',
                   'pointer-events': 'none',
                 },
@@ -299,12 +347,18 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
                 },
               }),
             ),
-            m('.color-picker-h', { tabindex: 0, onmousedown: beginPickH, ontouchstart: beginPickH,
-              style: {
-                'user-select': 'none',
-                background: 'linear-gradient(to right, #f00 0, #f0f 17% , #00f 33% , #0ff 50% , #0f0 67% , #ff0 83% , #f00 100%)',
+            m(
+              '.color-picker-h',
+              {
+                tabindex: 0,
+                onmousedown: beginPickH,
+                ontouchstart: beginPickH,
+                style: {
+                  'user-select': 'none',
+                  background:
+                    'linear-gradient(to right, #f00 0, #f0f 17% , #00f 33% , #0ff 50% , #0f0 67% , #ff0 83% , #f00 100%)',
+                },
               },
-            },
               m('.color-picker-h-cursor', {
                 style: {
                   'user-select': 'none',
@@ -315,27 +369,37 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
                 },
               }),
             ),
-            !hasAlpha() ? null : m('.color-picker-a', { tabindex: 0, onmousedown: beginPickA, ontouchstart: beginPickA,
-              style: {
-                'user-select': 'none',
-              },
-            },
-              m('.color-picker-a-bg', {
-                style: {
-                  background: `linear-gradient(to right, ${getCssRGBA(sat, val, 0)}, ${getCssRGBA(sat, val, 1)})`,
-                },
-              }),
-              m('.color-picker-a-cursor', {
-                style: {
-                  'user-select': 'none',
-                  'pointer-events': 'none',
-                  position: 'absolute',
-                  left: `${a * 100}%`,
-                },
-              }),
-            ),
+            !hasAlpha()
+              ? null
+              : m(
+                  '.color-picker-a',
+                  {
+                    tabindex: 0,
+                    onmousedown: beginPickA,
+                    ontouchstart: beginPickA,
+                    style: {
+                      'user-select': 'none',
+                    },
+                  },
+                  m('.color-picker-a-bg', {
+                    style: {
+                      background: `linear-gradient(to right, ${getCssRGBA(
+                        sat,
+                        val,
+                        0,
+                      )}, ${getCssRGBA(sat, val, 1)})`,
+                    },
+                  }),
+                  m('.color-picker-a-cursor', {
+                    style: {
+                      'user-select': 'none',
+                      'pointer-events': 'none',
+                      position: 'absolute',
+                      left: `${a * 100}%`,
+                    },
+                  }),
+                ),
           ),
-
         ]
       })
     },

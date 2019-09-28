@@ -36,13 +36,20 @@ registerComponent('group', (node: GroupNode) => {
   return {
     view: () => {
       const data = node.attrs.data
-      return !data ? null : m('div', { key: data.key, class: controllCssClass('group') },
-        m('label', { onclick: onClick, class: data.open ? 'is-open' : '' }, data.label),
-        !data.open || !data.children || !data.children.length
-          ? null
-          : m(getComponent('panel'), { data: data.children },
-        ),
-      )
+      return !data
+        ? null
+        : m(
+            'div',
+            { key: data.key, class: controllCssClass('group') },
+            m(
+              'label',
+              { onclick: onClick, class: data.open ? 'is-open' : '' },
+              data.label,
+            ),
+            !data.open || !data.children || !data.children.length
+              ? null
+              : m(getComponent('panel'), { data: data.children }),
+          )
     },
   }
 })

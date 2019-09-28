@@ -1,13 +1,22 @@
 import m from 'mithril'
 
-import { ControlViewModel, getModelValue, registerComponent, renderControl, setModelValue, ValueSource } from './core'
+import {
+  ControlViewModel,
+  getModelValue,
+  registerComponent,
+  renderControl,
+  setModelValue,
+  ValueSource,
+} from './core'
 import { call, clamp } from './utils'
 
 /**
  * Describes a number control
  * @public
  */
-export interface NumberModel<T = any> extends ControlViewModel, ValueSource<T, number>  {
+export interface NumberModel<T = any>
+  extends ControlViewModel,
+    ValueSource<T, number> {
   /**
    * The type name of the control
    */
@@ -73,14 +82,18 @@ function numberComponent(node: m.Vnode<Attrs>) {
     return isSlider(data) && data.max == null ? 1 : data.max
   }
   function getPercent(data: NumberModel) {
-    return Math.floor((getModelValue(data) - min(data)) / (max(data) - min(data)) * 100)
+    return Math.floor(
+      ((getModelValue(data) - min(data)) / (max(data) - min(data))) * 100,
+    )
   }
 
   function limitValue(data: NumberModel, value: number) {
     value = clamp(value, min(data), max(data))
     if (data.step != null) {
       const digits = clamp((data.step % 1).toString(10).length - 2, 0, 100)
-      value = parseFloat((Math.round(value / data.step) * data.step).toFixed(digits))
+      value = parseFloat(
+        (Math.round(value / data.step) * data.step).toFixed(digits),
+      )
     }
     return value
   }
@@ -120,7 +133,7 @@ function numberComponent(node: m.Vnode<Attrs>) {
 
   function keydown(e: KeyboardEvent) {
     const code = e.key || e.keyCode
-    const step = (code === 'ArrowLeft' ? -1 : code === 'ArrowRight' ? 1 : 0)
+    const step = code === 'ArrowLeft' ? -1 : code === 'ArrowRight' ? 1 : 0
     const data = node.attrs.data
     if (step && data) {
       const value = limitValue(data, data.value + step * (data.step || 1))
@@ -141,22 +154,29 @@ function numberComponent(node: m.Vnode<Attrs>) {
     view: () => {
       return renderControl(node, (data) => {
         return [
-          isSlider(data) ? m('.tweakui-progress', {
-            style: 'user-select: none;',
-            tabindex: 0,
-            onmousedown: dragStart,
-            onmousemove: drag,
-            onmouseup: dragEnd,
+          isSlider(data)
+            ? m(
+                '.tweakui-progress',
+                {
+                  style: 'user-select: none;',
+                  tabindex: 0,
+                  onmousedown: dragStart,
+                  onmousemove: drag,
+                  onmouseup: dragEnd,
 
-            ontouchstart: dragStart,
-            ontouchmove: drag,
-            ontouchend: dragEnd,
-            ontouchcancel: dragEnd,
-            onkeydown: keydown,
-          }, m('.tweakui-progress-bar', {
-              style: `width: ${getPercent(data)}%; pointer-events: none; user-select: none;`,
-            }),
-          ) : null,
+                  ontouchstart: dragStart,
+                  ontouchmove: drag,
+                  ontouchend: dragEnd,
+                  ontouchcancel: dragEnd,
+                  onkeydown: keydown,
+                },
+                m('.tweakui-progress-bar', {
+                  style: `width: ${getPercent(
+                    data,
+                  )}%; pointer-events: none; user-select: none;`,
+                }),
+              )
+            : null,
           m("input[type='number']", {
             min: data.min,
             max: data.max,

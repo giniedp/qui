@@ -32,9 +32,16 @@ interface Attrs {
 
 registerComponent('button', (node: m.Vnode<Attrs>) => {
   return {
-    view: () => renderControl(node, (data) => m("button[type='button']", {
-      onclick: () => call(data.onClick, data),
-      disabled: data.disabled,
-    }, data.text)),
+    view: () =>
+      renderControl(node, (data) =>
+        m(
+          "button[type='button']",
+          {
+            onclick: () => call(data.onClick, data),
+            disabled: data.disabled,
+          },
+          data.text,
+        ),
+      ),
   }
 })

@@ -16,7 +16,11 @@ interface Attrs {
 
 registerComponent('panel', (node: m.Vnode<Attrs>) => {
   function isVisible(data: ControlViewModel) {
-    if (!data || isFunction(data.hidden) && data.hidden() || data.hidden === true) {
+    if (
+      !data ||
+      (isFunction(data.hidden) && data.hidden()) ||
+      data.hidden === true
+    ) {
       return false
     }
     return getComponent(data.type) != null
@@ -28,11 +32,17 @@ registerComponent('panel', (node: m.Vnode<Attrs>) => {
       if (!data || !Array.isArray(data)) {
         return null
       }
-      return m('div',
+      return m(
+        'div',
         {
-          class: ['tweakui-panel', node.attrs.isRoot ? 'tweakui-panel-root' : ''].join(' '),
+          class: [
+            'tweakui-panel',
+            node.attrs.isRoot ? 'tweakui-panel-root' : '',
+          ].join(' '),
         },
-        data.filter(isVisible).map((it) => m(getComponent(it.type), { data: it })),
+        data
+          .filter(isVisible)
+          .map((it) => m(getComponent(it.type), { data: it })),
       )
     },
   }
