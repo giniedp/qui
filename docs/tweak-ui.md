@@ -23,7 +23,7 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  [hsv2rgb(hsv)](./tweak-ui.hsv2rgb.md) | Converts hsv to rgb |
 |  [mount(el, data)](./tweak-ui.mount.md) | Mounts a ui to the given element |
 |  [redraw()](./tweak-ui.redraw.md) | Redraws the ui |
-|  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registeres a component |
+|  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registers a component |
 |  [renderControl(node, view)](./tweak-ui.rendercontrol.md) |  |
 |  [rgb2hsv(rgb)](./tweak-ui.rgb2hsv.md) | Converts rgb to hsv |
 |  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |

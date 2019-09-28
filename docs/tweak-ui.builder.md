@@ -22,10 +22,11 @@ export declare class Builder
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
 |  [add(def)](./tweak-ui.builder.add.md) |  | Adds a button control |
-|  [add(def)](./tweak-ui.builder.add_1.md) |  | Adds a button group control |
+|  [add(def)](./tweak-ui.builder.add_9.md) |  | Adds a color control |
 |  [add(def)](./tweak-ui.builder.add_10.md) |  | Adds a color picker control |
 |  [add(def)](./tweak-ui.builder.add_11.md) |  | Adds an image control |
 |  [add(def)](./tweak-ui.builder.add_12.md) |  | Adds a control |
+|  [add(def)](./tweak-ui.builder.add_1.md) |  | Adds a button group control |
 |  [add(def)](./tweak-ui.builder.add_2.md) |  | Adds a group control |
 |  [add(def)](./tweak-ui.builder.add_3.md) |  | Adds a tabs control |
 |  [add(def)](./tweak-ui.builder.add_4.md) |  | Adds a tab control |
@@ -33,7 +34,6 @@ export declare class Builder
 |  [add(def)](./tweak-ui.builder.add_6.md) |  | Adds a text control |
 |  [add(def)](./tweak-ui.builder.add_7.md) |  | Adds a number control |
 |  [add(def)](./tweak-ui.builder.add_8.md) |  | Adds a select control |
-|  [add(def)](./tweak-ui.builder.add_9.md) |  | Adds a color control |
 |  [button(text, opts)](./tweak-ui.builder.button.md) |  | Adds a button control |
 |  [buttonGroup(label, builder)](./tweak-ui.builder.buttongroup.md) |  | Adds a button group control |
 |  [buttonGroup(label, opts, builder)](./tweak-ui.builder.buttongroup_1.md) |  |  |
