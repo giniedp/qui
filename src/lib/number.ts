@@ -108,6 +108,7 @@ function numberComponent(node: m.Vnode<Attrs>) {
     if (!target) {
       return
     }
+    e.preventDefault()
 
     const rect = target.getBoundingClientRect()
     const tx = window.pageXOffset || document.documentElement.scrollLeft
