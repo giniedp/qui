@@ -4,21 +4,21 @@
 
 ## Builder.add() method
 
-Adds a button control
+Adds a build in control
 
 <b>Signature:</b>
 
 ```typescript
-add(def: ButtonModel & Removable): ButtonModel & Removable;
+add<T extends BuildInComponent>(def: T): T & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | [ButtonModel](./tweak-ui.buttonmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The button control definition |
+|  def | T | The control definition |
 
 <b>Returns:</b>
 
-[ButtonModel](./tweak-ui.buttonmodel.md) &amp; [Removable](./tweak-ui.removable.md)
+T &amp; [Removable](./tweak-ui.removable.md)
 

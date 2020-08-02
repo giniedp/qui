@@ -4,21 +4,21 @@
 
 ## Builder.add() method
 
-Adds a button group control
+Adds a control
 
 <b>Signature:</b>
 
 ```typescript
-add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable;
+add<T extends ComponentModel>(def: T): T & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The button group control definition |
+|  def | T | The control definition |
 
 <b>Returns:</b>
 
-[ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
+T &amp; [Removable](./tweak-ui.removable.md)
 

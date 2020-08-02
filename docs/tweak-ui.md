@@ -82,6 +82,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  --- | --- |
 |  [AccordeonAtts](./tweak-ui.accordeonatts.md) | Accordeon component attribuets |
 |  [ArrayOrSingleOf](./tweak-ui.arrayorsingleof.md) |  |
+|  [BuildInComponent](./tweak-ui.buildincomponent.md) | Union type of all build in models |
 |  [ButtonAttrs](./tweak-ui.buttonattrs.md) | Button component attribuets |
 |  [ButtonGroupAttrs](./tweak-ui.buttongroupattrs.md) | Button group component attributes |
 |  [CheckboxAttrs](./tweak-ui.checkboxattrs.md) | Checkbox component attrs |

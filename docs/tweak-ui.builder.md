@@ -21,19 +21,8 @@ export declare class Builder
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [add(def)](./tweak-ui.builder.add.md) |  | Adds a button control |
-|  [add(def)](./tweak-ui.builder.add_9.md) |  | Adds a color control |
-|  [add(def)](./tweak-ui.builder.add_10.md) |  | Adds a color picker control |
-|  [add(def)](./tweak-ui.builder.add_11.md) |  | Adds an image control |
-|  [add(def)](./tweak-ui.builder.add_12.md) |  | Adds a control |
-|  [add(def)](./tweak-ui.builder.add_1.md) |  | Adds a button group control |
-|  [add(def)](./tweak-ui.builder.add_2.md) |  | Adds a group control |
-|  [add(def)](./tweak-ui.builder.add_3.md) |  | Adds a tabs control |
-|  [add(def)](./tweak-ui.builder.add_4.md) |  | Adds a tab control |
-|  [add(def)](./tweak-ui.builder.add_5.md) |  | Adds a checkbox control |
-|  [add(def)](./tweak-ui.builder.add_6.md) |  | Adds a text control |
-|  [add(def)](./tweak-ui.builder.add_7.md) |  | Adds a number control |
-|  [add(def)](./tweak-ui.builder.add_8.md) |  | Adds a select control |
+|  [add(def)](./tweak-ui.builder.add.md) |  | Adds a build in control |
+|  [add(def)](./tweak-ui.builder.add_1.md) |  | Adds a control |
 |  [button(text, opts)](./tweak-ui.builder.button.md) |  | Adds a button control |
 |  [buttonGroup(label, builder)](./tweak-ui.builder.buttongroup.md) |  | Adds a button group control |
 |  [buttonGroup(label, opts, builder)](./tweak-ui.builder.buttongroup_1.md) |  |  |
@@ -41,12 +30,13 @@ export declare class Builder
 |  [color(target, property, opts)](./tweak-ui.builder.color.md) |  | Adds a color control |
 |  [colorPicker(target, property, opts)](./tweak-ui.builder.colorpicker.md) |  | Adds a color picker control |
 |  [custom(label, text, opts)](./tweak-ui.builder.custom.md) |  | Adds a description text |
+|  [direction(target, property, opts)](./tweak-ui.builder.direction.md) |  | Adds a Direction control |
 |  [group(label, builder)](./tweak-ui.builder.group.md) |  | Adds a button group control |
 |  [group(label, opts, builder)](./tweak-ui.builder.group_1.md) |  |  |
 |  [image(label, opts)](./tweak-ui.builder.image.md) |  | Adds an image control |
 |  [mount(el)](./tweak-ui.builder.mount.md) |  | Mounts the controls of this builder to the given DOM element |
 |  [number(target, property, opts)](./tweak-ui.builder.number.md) |  | Adds a number control |
-|  [Pad(target, property, opts)](./tweak-ui.builder.pad.md) |  | Adds a 2D Pad control |
+|  [pad(target, property, opts)](./tweak-ui.builder.pad.md) |  | Adds a 2D Pad control |
 |  [select(target, property, opts)](./tweak-ui.builder.select.md) |  | Adds a select control |
 |  [slider(target, property, opts)](./tweak-ui.builder.slider.md) |  | Adds a number slider control |
 |  [tab(label, cb)](./tweak-ui.builder.tab.md) |  | Adds a tab control |
