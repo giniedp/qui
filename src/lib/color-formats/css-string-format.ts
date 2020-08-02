@@ -2,7 +2,8 @@ import { ColorFormatter, RGBA } from './types'
 
 export class CssStringFormat implements ColorFormatter<string> {
   constructor(private components: string[]) {}
-  public parse(value: string = 'rgba(0, 0, 0)') {
+  public parse(value: string) {
+    value = value || 'rgba(0, 0, 0)'
     const result: RGBA = { r: 0, g: 0, b: 0, a: 1 }
     const values = value
       .replace(/[rgba\(\)]/gi, '')

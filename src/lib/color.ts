@@ -18,6 +18,7 @@ import {
   use,
   twuiClass,
   cssClass,
+  viewFn,
 } from './utils'
 import { ComponentModel, ValueSource, ComponentAttrs } from './types'
 
@@ -76,26 +77,32 @@ export interface ColorModel<T = any, V = number | string | number[]>
 }
 
 registerComponent<ColorAttrs>('color', (node) => {
+  let data: ColorModel
   let opened = false
+  let value: number | string | number[]
+  let rgba: string
+
+  const rgbaFromatter = getColorFormatter('rgba()')
+  function updateState() {
+    data = node.attrs.data
+    value = getModelValue(data)
+    rgba = rgbaFromatter.format(getColorFormatter(data.format).parse(value))
+  }
 
   function toggle() {
     opened = !opened
   }
-  function onPickerInput(value: any) {
-    const data = node.attrs.data
-    setModelValue(data, value)
-    call(data.onInput, data, value)
+  function onPickerInput(p: ColorPickerModel, v: any) {
+    setModelValue(data, v)
+    call(data.onInput, data, v)
   }
 
-  function onPickerChange(value: any) {
-    const data = node.attrs.data
-    setModelValue(data, value)
-    call(data.onChange, data, value)
+  function onPickerChange(p: ColorPickerModel, v: any) {
+    setModelValue(data, v)
+    call(data.onChange, data, v)
   }
 
   function getText() {
-    const data = node.attrs.data
-    const value = getModelValue(data)
     if (isString(value)) {
       return value
     }
@@ -115,47 +122,40 @@ registerComponent<ColorAttrs>('color', (node) => {
         })
         .join(' ')
     }
-    if (data.value == null) {
+    if (value == null) {
       return 'null'
     }
     return '?'
   }
 
-  function getColor() {
-    const data = node.attrs.data
-    const rgba = getColorFormatter(data.format).parse(getModelValue(data))
-    return getColorFormatter('rgba()').format(rgba)
-  }
-
   return {
-    view: () => {
-      return use(node.attrs.data, (data) => {
-        return m(
-          'div',
-          {
-            class: cssClass({
-              [twuiClass(data.type)]: true,
-              [twuiClass(data.type + '-open')]: opened,
-            }),
-          },
-          m(
-            "button[type='button']",
-            {
-              style: { 'background-color': getColor() },
-              onclick: toggle,
-            },
-            getText() || '?',
-          ),
-          renderModel<ColorPickerModel>({
-            type: 'color-picker',
-            value: getModelValue(data),
-            format: data.format,
-            onInput: onPickerInput,
-            onChange: onPickerChange,
-            hidden: !opened,
+    view: viewFn(() => {
+      updateState()
+      return m(
+        'div',
+        {
+          class: cssClass({
+            [twuiClass(data.type)]: true,
+            [twuiClass(data.type + '-open')]: opened,
           }),
-        )
-      })
-    },
+        },
+        m(
+          "button[type='button']",
+          {
+            style: { 'background-color': rgba },
+            onclick: toggle,
+          },
+          getText() || '?',
+        ),
+        renderModel<ColorPickerModel>({
+          type: 'color-picker',
+          value: value,
+          format: data.format,
+          onInput: onPickerInput,
+          onChange: onPickerChange,
+          hidden: !opened,
+        }),
+      )
+    }),
   }
 })

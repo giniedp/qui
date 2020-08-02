@@ -7,7 +7,7 @@ export class NumberColorFormat implements ColorFormatter<number> {
   constructor(private components: string[]) {
     this.componentsRev = components.slice().reverse()
   }
-  public parse(v: number = 0) {
+  public parse(v: number) {
     v = v || 0
     const result: RGBA = { r: 0, g: 0, b: 0, a: 1 }
     this.components.forEach((key, i) => {
