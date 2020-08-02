@@ -1,13 +1,20 @@
 import m from 'mithril'
 
-import { ControlViewModel, registerComponent, renderControl } from './core'
-import { call } from './utils'
+import { registerComponent } from './core'
+import { call, use, twuiClass, viewFn } from './utils'
+import { ComponentModel, ComponentAttrs } from './types'
 
 /**
- * Describes an image control
+ * Image component attrs
  * @public
  */
-export interface ImageModel extends ControlViewModel {
+export type ImageAttrs = ComponentAttrs<ImageModel>
+
+/**
+ * Image component model
+ * @public
+ */
+export interface ImageModel extends ComponentModel {
   /**
    * The type name of the control
    */
@@ -30,24 +37,21 @@ export interface ImageModel extends ControlViewModel {
   onClick?: (ctrl: ImageModel) => void
 }
 
-interface Attrs {
-  data: ImageModel
-}
-
-registerComponent('image', (node: m.Vnode<Attrs>) => {
-  const onClick = () => call(node.attrs.data.onClick, node.attrs.data)
+registerComponent<ImageAttrs>('image', (node) => {
+  const onClick = () => {
+    use(node.attrs.data, (data) => call(data.onClick, data))
+  }
   return {
-    view: () => {
-      return renderControl(node, (data) => {
-        return (Array.isArray(data.src) ? data.src : [data.src]).map((src) => {
-          return m('img', {
-            src: src,
-            width: data.width,
-            height: data.height,
-            onclick: onClick,
-          })
+    view: viewFn((data) => {
+      return (Array.isArray(data.src) ? data.src : [data.src]).map((src) => {
+        return m('img', {
+          class: twuiClass(data.type),
+          src: src,
+          width: data.width,
+          height: data.height,
+          onclick: onClick,
         })
       })
-    },
+    }),
   }
 })

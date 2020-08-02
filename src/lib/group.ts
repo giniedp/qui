@@ -1,55 +1,62 @@
 import m from 'mithril'
 
-import { ControlViewModel, getComponent, registerComponent } from './core'
-import { controllCssClass } from './utils'
+import { registerComponent, renderModel } from './core'
+import { use, twuiClass, cssClass, viewFn } from './utils'
+import { PanelModel } from './panel'
+import { ComponentAttrs, ComponentGroupModel } from './types'
 
 /**
- * Describes a group control
+ * Group component attributes
+ *
  * @public
  */
-export interface GroupModel extends ControlViewModel {
+export type GroupAttrs = ComponentAttrs<GroupModel>
+
+/**
+ * Group component model
+ *
+ * @public
+ */
+export interface GroupModel extends ComponentGroupModel {
   /**
    * The type name of the control
    */
   type: 'group'
   /**
+   *
+   */
+  title: string
+  /**
    * If true, the children will be rendered
    */
   open?: boolean
-  /**
-   * Definitions of child controls
-   */
-  children?: ControlViewModel[]
 }
 
-type GroupNode = m.Vnode<Attrs>
-
-interface Attrs {
-  data: GroupModel
-}
-
-registerComponent('group', (node: GroupNode) => {
+registerComponent<GroupAttrs>('group', (node) => {
   function onClick() {
-    const data = node.attrs.data
-    data.open = !data.open
+    use(node.attrs.data, (data) => (data.open = !data.open))
   }
   return {
-    view: () => {
-      const data = node.attrs.data
-      return !data
-        ? null
-        : m(
-            'div',
-            { key: data.key, class: controllCssClass('group') },
-            m(
-              'label',
-              { onclick: onClick, class: data.open ? 'is-open' : '' },
-              data.label,
-            ),
-            !data.open || !data.children || !data.children.length
-              ? null
-              : m(getComponent('panel'), { data: data.children }),
-          )
-    },
+    view: viewFn((data) =>
+      m(
+        'div',
+        {
+          class: cssClass({
+            [twuiClass(data.type)]: true,
+            [twuiClass(data.type + 'open')]: data.open,
+          }),
+        },
+        m(
+          'label',
+          { onclick: onClick, class: data.open ? 'is-active' : '' },
+          data.title,
+        ),
+        renderModel<PanelModel>({
+          type: 'panel',
+          children: data.children,
+          hidden: !data.open,
+        }),
+      ),
+    ),
   }
 })

@@ -8,6 +8,7 @@ export class NumberColorFormat implements ColorFormatter<number> {
     this.componentsRev = components.slice().reverse()
   }
   public parse(v: number = 0) {
+    v = v || 0
     const result: RGBA = { r: 0, g: 0, b: 0, a: 1 }
     this.components.forEach((key, i) => {
       result[key] = ((v >> (i * 8)) & 255) / 255

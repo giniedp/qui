@@ -1,49 +1,63 @@
 import m from 'mithril'
 
-import { ControlViewModel, getComponent, registerComponent } from './core'
-import { isFunction } from './utils'
+import { registerComponent, renderModel } from './core'
+import { twuiClass, viewFn, isString } from './utils'
+import {
+  ComponentGroupModel,
+  ComponentAttrs,
+  ComponentModel,
+} from './types'
 
 /**
- * Describes a panel control
+ * Panel component attributes
  * @public
  */
-export type PanelModel = ControlViewModel[]
+export type PanelAttrs = ComponentAttrs<PanelModel>
 
-interface Attrs {
-  isRoot?: boolean
-  data?: PanelModel
+/**
+ * Panel component model
+ * @public
+ */
+export interface PanelModel extends ComponentGroupModel<ComponentModel> {
+  /**
+   * Component type name
+   */
+  type: 'panel'
+  /**
+   * Panel title
+   */
+  title?: string
+  /**
+   * Panel CSS Style
+   */
+  style?: Partial<CSSStyleDeclaration>
 }
 
-registerComponent('panel', (node: m.Vnode<Attrs>) => {
-  function isVisible(data: ControlViewModel) {
-    if (
-      !data ||
-      (isFunction(data.hidden) && data.hidden()) ||
-      data.hidden === true
-    ) {
-      return false
-    }
-    return getComponent(data.type) != null
-  }
-
+const type = 'panel'
+registerComponent<PanelAttrs>(type, () => {
   return {
-    view: () => {
-      const data = node.attrs.data
-      if (!data || !Array.isArray(data)) {
-        return null
-      }
-      return m(
+    view: viewFn((data) =>
+      m(
         'div',
         {
-          class: [
-            'tweakui-panel',
-            node.attrs.isRoot ? 'tweakui-panel-root' : '',
-          ].join(' '),
+          class: twuiClass(type),
+          style: data.style,
         },
-        data
-          .filter(isVisible)
-          .map((it) => m(getComponent(it.type), { data: it })),
-      )
-    },
+        m.fragment({}, [
+          data.title ? m('div', { class: twuiClass(type + '-title') }, data.title) : null,
+        ]),
+        m.fragment({}, data.children?.map((it) => {
+          if (isString(it.label)) {
+            return m(
+              'div',
+              { class: twuiClass('panel-control') },
+              m('label', it.label),
+              m('section', renderModel(it)),
+            )
+          }
+          return renderModel(it)
+        })),
+      ),
+    ),
   }
 })

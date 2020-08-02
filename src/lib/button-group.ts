@@ -1,14 +1,23 @@
 import m from 'mithril'
 
 import { ButtonModel } from './button'
-import { ControlViewModel, registerComponent, renderControl } from './core'
-import { call } from './utils'
+import { registerComponent, renderModel } from './core'
+import { cssClass, twuiClass, viewFn } from './utils'
+import { ComponentModel, ComponentAttrs } from './types'
 
 /**
- * Describes a button group
+ * Button group component attributes
+ *
  * @public
  */
-export interface ButtonGroupModel extends ControlViewModel {
+export type ButtonGroupAttrs = ComponentAttrs<ButtonGroupModel>
+
+/**
+ * Button group component model
+ *
+ * @public
+ */
+export interface ButtonGroupModel extends ComponentModel {
   /**
    * The type name of the control
    */
@@ -16,26 +25,29 @@ export interface ButtonGroupModel extends ControlViewModel {
   /**
    * Buttons for this group
    */
-  children: ButtonModel[]
+  children: Array<ButtonModel>
+  /**
+   * If true, buttons are stacked vertically
+   */
+  vertical?: boolean
 }
 
-interface Attrs {
-  data: ButtonGroupModel
-}
-
-registerComponent('button-group', (node: m.Vnode<Attrs>) => {
+registerComponent<ButtonGroupAttrs>('button-group', () => {
   return {
-    view: () => {
-      return renderControl(node, (data) => {
-        const childern = data.children || []
-        return childern.map((it) => {
-          return m(
-            "button[type='button']",
-            { onclick: () => call(it.onClick, it) },
-            it.text,
-          )
-        })
-      })
-    },
+    view: viewFn((data) =>
+      m(
+        'div',
+        {
+          class: cssClass({
+            [twuiClass(data.type)]: true,
+            [twuiClass(data.type + '-vertical')]: data.vertical,
+          }),
+        },
+        data.children?.map((it) => {
+          it.type = 'button'
+          return renderModel<ButtonModel>(it)
+        }),
+      ),
+    ),
   }
 })

@@ -1,5 +1,7 @@
-import { default as m, Vnode } from 'mithril'
-import { controllCssClass } from './utils'
+import { default as m } from 'mithril'
+import { use } from './utils'
+import type { PanelModel } from './panel'
+import { ComponentModel, ComponentAttrs, ValueSource, ComponentType } from './types'
 
 /**
  * Mithril's hyperscript function.
@@ -11,125 +13,85 @@ import { controllCssClass } from './utils'
 export const h = m
 
 /**
- * Common control properties
- * @public
- */
-export interface ControlViewModel {
-  [key: string]: any
-  /**
-   * The type name of the control
-   */
-  type: string
-  /**
-   * Some sort of an id for a control {@link https://mithril.js.org/keys.html}
-   */
-  key?: string
-  /**
-   * If resolves to `true` this control will not be rendered
-   */
-  hidden?: boolean | (() => boolean)
-  /**
-   * The label text for this control
-   *
-   * @remarks
-   * If this is not set or empty most controls will still render
-   * an empty label element. Set this to `null` or `false` to
-   * completely get rid of a label element.
-   */
-  label?: string
-}
-
-/**
- * Common control group properties
- * @public
- */
-export interface ControlGroupViewModel extends ControlViewModel {
-  children?: ControlViewModel[]
-}
-
-/**
- * @public
- */
-export interface ValueSource<T, V> {
-  /**
-   * The object which is holding a control value
-   *
-   * @remarks
-   * Requires the `property` option to be set.
-   */
-  target?: T
-  /**
-   * The property name in `target` where the control value is stored
-   *
-   * @remarks
-   * Requires the `target` option to be set.
-   */
-  property?: keyof T
-  /**
-   * If `target` and `property` are not set, then this is used as the control value
-   */
-  value?: V
-}
-
-/**
+ * Renders a registered component
  *
  * @public
- * @param node - The virtual node to render
- * @param view - The view rendering function
+ * @param attrs - The component attributes
+ * @param children - The component children
  */
-export function renderControl<T extends ControlViewModel, S>(
-  node: Vnode<{ data: T }, S>,
-  view: (data: T, state: S) => any,
-) {
-  const data = node.attrs.data
-  if (!data) {
-    return null
-  }
-  const label = data.label
-  const content = view ? view(data, node.state) : null
-  return !data
-    ? null
-    : m(
-        'div',
-        { key: data.key, class: controllCssClass(data.type) },
-        label == null ? null : m('label', data.label),
-        content == null ? null : m('section', content),
-      )
+export function renderComponent<T extends ComponentAttrs<ComponentModel>>(attrs: T) {
+  return use(attrs.data, (data) => {
+    if (!data.type) {
+      console.error(new Error('Given data is missing the .type property. Component can resolve the component'), data)
+      return null
+    }
+    if (!registry[data.type]) {
+      console.error(new Error(`Component of type '${data.type}' is not registered. Can not render component`), data)
+      return null
+    }
+    if (data.hidden) {
+      return null
+    }
+    return m(getComponent(data.type), attrs)
+  })
+}
+
+/**
+ * Renders a registered component using the model
+ *
+ * @public
+ * @param model - The model
+ */
+export function renderModel<T extends ComponentModel>(model: T) {
+  return renderComponent({ data: model })
 }
 
 /**
  * Gets a value of a view model
  *
  * @public
- * @param model - The view model of a control
+ * @param model - The model of a component
  */
-export function getModelValue<T, V>(model: ValueSource<T, V>): V {
+export function getModelValue<V>(model: ValueSource<any, V>): V {
   if (
+    'target' in model &&
     model.target &&
     model.property != null &&
     model.property in model.target
   ) {
-    return model.target[model.property] as any
+    return model.target[model.property]
   }
-  return model.value
+  if ('value' in model) {
+    return model.value
+  }
+  return null
 }
 
 /**
  * Sets a value on a view model
  *
  * @public
- * @param model - The view model of a control
+ * @param model - The model of a component
+ * @param value - The value for the component
+ * @returns result of {@link getModelValue} after the value has been set
  */
-export function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V {
-  if (model.target && model.property != null) {
-    model.target[model.property] = value as any
+export function setModelValue<V>(model: ValueSource<any, V>, value: V): V {
+  if (
+    'target' in model &&
+    model.target &&
+    model.property != null
+  ) {
+    model.target[model.property] = value
   }
-  model.value = value
-  return value
+  const desc = Object.getOwnPropertyDescriptor(model, 'value')
+  if (!desc || desc.writable || desc.set) {
+    model.value = value
+  }
+  return getModelValue(model)
 }
 
-const components: {
-  [key: string]: m.FactoryComponent<any> | m.ClassComponent
+const registry: {
+  [key: string]: ComponentType<any>,
 } = {}
 
 /**
@@ -138,30 +100,30 @@ const components: {
  * @public
  * @param type - The component type
  */
-export function getComponent(type: string) {
-  if (components[type]) {
-    return components[type]
+export function getComponent<T extends ComponentAttrs<any>>(type: string): ComponentType<T> {
+  if (registry[type]) {
+    return registry[type]
   }
-  throw new Error(`no component found for type: ${type}`)
+  throw new Error(`Component of type '${type}' was not found`)
 }
 
 /**
  * Registers a component
  *
  * @public
- * @param name - The component type name
+ * @param type - The component type name
  * @param comp - The component
  * @param override - Allows to override an already registered component
  */
-export function registerComponent(
-  name: string,
-  comp: m.FactoryComponent<any> | m.ClassComponent,
-  overrode: boolean = false,
+export function registerComponent<T>(
+  type: string,
+  comp: ComponentType<T>,
+  override: boolean = false,
 ) {
-  if (components[name] && !overrode) {
-    console.warn(`a component named '${name}' is already registered`)
+  if (registry[type] && !override) {
+    console.warn(`Component ignored. Name '${type}' is already registered.`)
   } else {
-    components[name] = comp
+    registry[type] = comp
   }
 }
 
@@ -172,14 +134,21 @@ export function registerComponent(
  * @param el - The ui host element
  * @param data - The ui definition object
  */
-export function mount(el: Element, data: ControlViewModel[]) {
-  const component = {
-    view: () => m(getComponent('panel'), { isRoot: true, data: data }),
-  }
-  if (typeof el === 'string') {
-    m.mount(document.querySelector(el), component)
+export function mount(el: Element | string, data: ComponentModel | ComponentModel[]) {
+  el = typeof el === 'string' ? document.querySelector(el) : el
+  el.classList.add('twui-root')
+
+  if (Array.isArray(data)) {
+    m.mount(el, {
+      view: () => renderModel<PanelModel>({
+        type: 'panel',
+        children: data,
+      }),
+    })
   } else {
-    m.mount(el, component)
+    m.mount(el, {
+      view: () => renderModel(data),
+    })
   }
 }
 
@@ -190,11 +159,8 @@ export function mount(el: Element, data: ControlViewModel[]) {
  * @param el - The ui host element
  */
 export function unmount(el: Element | string) {
-  if (typeof el === 'string') {
-    m.mount(document.querySelector(el), null)
-  } else {
-    m.mount(el, null)
-  }
+  el = typeof el === 'string' ? document.querySelector(el) : el
+  m.mount(el, null)
 }
 
 /**

@@ -10,21 +10,27 @@ import {
   RGBA,
 } from './color-formats'
 import {
-  ControlViewModel,
   getModelValue,
   registerComponent,
-  renderControl,
   setModelValue,
-  ValueSource,
 } from './core'
-import { call, clamp, use } from './utils'
+import { call, clamp, use, twuiClass } from './utils'
+import { ComponentModel, ValueSource, ComponentAttrs } from './types'
 
 /**
- * Describes a color picker control
+ * Color picker component attributes
+ *
+ * @public
+ */
+export type ColorPickerAttrs = ComponentAttrs<ColorPickerModel>
+
+/**
+ * Color picker component model
+ *
  * @public
  */
 export interface ColorPickerModel<T = any, V = number | string | number[]>
-  extends ControlViewModel,
+  extends ComponentModel,
     ValueSource<T, V> {
   /**
    * The type name of the control
@@ -70,11 +76,8 @@ export interface ColorPickerModel<T = any, V = number | string | number[]>
   onChange?: (model: ColorPickerModel<T, V>, value: V) => void
 }
 
-interface Attrs {
-  data: ColorPickerModel
-}
 
-registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
+registerComponent<ColorPickerAttrs>('color-picker', (node) => {
   let hue = 0 // range [0,1]
   let sat = 0 // range [0,1]
   let val = 0 // range [0,1]
@@ -278,9 +281,11 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
       })
     },
     view: () => {
-      return renderControl(node, (data) => {
+      return use(node.attrs.data, (data) => {
         const rgba = getRGBA()
-        return [
+        return m('div', {
+          class: twuiClass(data.type),
+        },
           m(
             '.color-picker-inputs',
             m("input.input-hex[type='text']", {
@@ -401,7 +406,7 @@ registerComponent('color-picker', (node: m.Vnode<Attrs>) => {
                   }),
                 ),
           ),
-        ]
+        )
       })
     },
   }

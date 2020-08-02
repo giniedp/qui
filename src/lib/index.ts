@@ -14,36 +14,46 @@
  * @packageDocumentation
  */
 
+import './accordeon'
 import './button'
 import './button-group'
 import './checkbox'
 import './color'
 import './color-picker'
 import './group'
+import './custom'
 import './image'
 import './number'
 import './panel'
+import './pad'
 import './select'
 import './tabs'
 import './text'
 import './vector'
+import './direction'
 
 export * from './core'
 export * from './color-formats'
 export * from './builder'
+export * from './types'
+
+export * from './accordeon'
 export * from './button'
 export * from './button-group'
 export * from './checkbox'
 export * from './color'
 export * from './color-picker'
 export * from './group'
+export * from './custom'
 export * from './image'
 export * from './number'
 export * from './panel'
+export * from './pad'
 export * from './select'
 export * from './tabs'
 export * from './text'
 export * from './vector'
+export * from './direction'
 
 declare const VERSION_STRING: string
 

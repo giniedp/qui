@@ -10,7 +10,15 @@ $colorMap: (
   "accent": $color-accent,
 );
 
+@function getColor($colorName) {
+  @return map-get($colorMap, $colorName);
+}
+
+@function getColorVar($colorName) {
+  @return var(--tweakui-color-#{$colorName}, getColor($colorName));
+}
+
 @mixin color($property, $colorName) {
-  #{$property}: map-get($colorMap, $colorName);
-  #{$property}: var(--tweakui-color-#{$colorName}, map-get($colorMap, $colorName));
+  #{$property}: getColor($colorName);
+  #{$property}: getColorVar($colorName);
 }

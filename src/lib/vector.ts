@@ -1,29 +1,36 @@
 import m from 'mithril'
 
 import {
-  ControlViewModel,
   getModelValue,
   registerComponent,
-  renderControl,
-  ValueSource,
+  setModelValue,
+  renderModel,
 } from './core'
-import { call, isArray } from './utils'
+import { call, twuiClass, viewFn } from './utils'
+import { ComponentAttrs, ComponentModel, ValueSource } from './types'
+import { NumberModel } from './number'
 
 /**
  * @public
  */
-export type Vector =
+export type VectorValue =
   | number[]
   | { [key: string]: number }
   | { [key: number]: number }
 
 /**
- * Describes a vector picker control
+ * Vector component attributes
+ * @public
+ */
+export type VectorAttrs = ComponentAttrs<VectorModel>
+
+/**
+ * Vector component model
  * @public
  */
 export interface VectorModel<T = any>
-  extends ControlViewModel,
-  ValueSource<T, Vector> {
+  extends ComponentModel,
+    ValueSource<T, VectorValue> {
   /**
    * The type name of the control
    */
@@ -47,63 +54,63 @@ export interface VectorModel<T = any>
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (model: VectorModel<T>, value: Vector) => void
+  onInput?: (
+    model: VectorModel<T>,
+    value: VectorValue,
+    key?: string | number,
+  ) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (model: VectorModel<T>, value: Vector) => void
+  onChange?: (
+    model: VectorModel<T>,
+    value: VectorValue,
+    key?: string | number,
+  ) => void
   /**
-   * Disabled the control input
+   * Disables the control input
    */
   disabled?: boolean
 }
 
-interface Attrs {
-  data: VectorModel
-}
-
-const defaultElements = ['x', 'y', 'z']
-
-registerComponent('vector', (node: m.Vnode<Attrs>) => {
-  function onChange(e: Event, field: string) {
-    const el = e.target as HTMLInputElement
+const defaultKeys = ['x', 'y', 'z']
+const compType = 'vector'
+registerComponent<VectorAttrs>(compType, (node) => {
+  function onChange(type: 'input' | 'change', field: string, v: number) {
     const data = node.attrs.data
     const value: any = getModelValue(data) || {}
-    const v = parseFloat(el.value)
     value[field] = isNaN(v) ? null : v
-    if (e.type === 'input') {
-      call(data.onInput, data, value, field)
-    }
-    if (e.type === 'change') {
-      call(data.onChange, data, value, field)
-    }
+    setModelValue(data, value)
+    call(type === 'input' ? data.onInput : data.onChange, data, value, field)
   }
 
   return {
-    view: () => {
-      return renderControl(node, (data) => {
-        const keys = data.keys || defaultElements
-        const value = getModelValue(data) as any
-        const visible = value && isArray(keys) && keys.length
-        return !visible
-          ? null
-          : keys.map((field) => {
-            return m("input[type='number']", {
-              key: field,
-              min: data.min,
-              max: data.max,
-              step: data.step,
-              value: value[field],
-              disabled: data.disabled,
-              oninput: (e: Event) => onChange(e, field),
-              onchange: (e: Event) => onChange(e, field),
-              placeholder: field,
-            })
+    view: viewFn((data) => {
+      const keys = data.keys || defaultKeys
+      const value = getModelValue(data) as any
+      return m(
+        'div',
+        {
+          class: twuiClass(compType),
+        },
+        keys.map((field) => {
+          return renderModel<NumberModel>({
+            type: 'number',
+            min: data.min,
+            max: data.max,
+            step: data.step,
+            value: value?.[field],
+            disabled: data.disabled,
+            onChange: (_, v) => onChange('change', field, v),
+            onInput: (_, v) => onChange('input', field, v),
+            placeholder: field,
           })
-      })
-    },
+        }),
+      )
+    }),
   }
 })
+

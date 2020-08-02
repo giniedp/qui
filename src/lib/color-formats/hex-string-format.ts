@@ -3,7 +3,8 @@ import { ColorFormatter, RGBA } from './types'
 
 export class HexStringFormat implements ColorFormatter<string> {
   constructor(private components: string[]) {}
-  public parse(value: string = '#000') {
+  public parse(value?: string) {
+    value = value || '#000'
     const result: RGBA = { r: 0, g: 0, b: 0, a: 1 }
     let v: string = value.match(/[0-9a-f]+/i)[0]
     if (v.length === this.components.length) {

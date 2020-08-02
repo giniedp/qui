@@ -8,10 +8,10 @@ head
   meta(property="og:url" content="https://tweakui.ginie.eu/")
   meta(property="og:description" content="a lightweight js library for building input controls with data binding")
   title Tweak UI
-  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
-  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
-  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js' crossorigin='anonymous')
   link(rel='stylesheet' href='https://unpkg.com/prismjs@1.16.0/themes/prism.css')
   script(src='https://unpkg.com/prismjs@1.16.0/prism.js' type='text/javascript')
   style.
@@ -42,16 +42,21 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
             a.dropdown-item(href="#control-button") Button
             a.dropdown-item(href="#control-button-group") Button group
             a.dropdown-item(href="#control-checkbox") Checkbox
-            a.dropdown-item(href="#control-color") Color
-            a.dropdown-item(href="#control-color-picker") Color picker
-            a.dropdown-item(href="#control-image") Image
             a.dropdown-item(href="#control-number") Number
             a.dropdown-item(href="#control-slider") Slider
+            a.dropdown-item(href="#control-vector") Vector
             a.dropdown-item(href="#control-text") Text
             a.dropdown-item(href="#control-select") Select
-            a.dropdown-item(href="#control-vector") Vector
-            a.dropdown-item(href="#control-groups") Groups
+            a.dropdown-item(href="#control-image") Image
+            a.dropdown-item(href="#control-pad") 2D Pad
+            a.dropdown-item(href="#control-direction") Direction Vector
+            a.dropdown-item(href="#control-color") Color
+            a.dropdown-item(href="#control-color-picker") Color picker
+            a.dropdown-item(href="#control-custom") Custom Control
+            a.dropdown-item(href="#control-group") Group
             a.dropdown-item(href="#control-tabs") Tabs
+            a.dropdown-item(href="#control-accordeon") Accordeon
+
         li.nav-item.dropdown
           a.nav-link.dropdown-toggle(data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") Concepts
           .dropdown-menu
@@ -87,7 +92,8 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
       aside.language-html
         script(src='https://unpkg.com/tweak-ui@x.x.x/dist/tweak-ui.umd.js')
         link(href='https://unpkg.com/tweak-ui@x.x.x/dist/tweak-ui.css' rel='stylesheet')
-
+        //- script(src='./tweak-ui.umd.js')
+        //- link(href='./tweak-ui.css' rel='stylesheet')
       p.mt-3 Add a container to your HTML
       aside.language-html
         .my-element
@@ -113,24 +119,23 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           script(type="text/javascript").language-javascript.
             TweakUi.mount("#control-button .gui", [{
               type: "button",
-              text: "Button 1",
+              text: "With label",
               label: "Label",
-              onClick: (it) => console.log("clicked", it)
+              onClick: console.log
             }, {
               type: "button",
-              text: "Button 2",
-              label: "",      // renders empty label
-              onClick: (it) => console.log("clicked", it)
+              text: "Empty label",
+              label: "",
+              onClick: console.log
             }, {
               type: "button",
-              text: "Button 3",
-              label: false,    // omits the label
-              onClick: (it) => console.log("clicked", it)
+              text: "No label",
+              onClick: console.log
             }, {
               type: "button",
-              text: "Button 4",
+              text: "Disabled",
               disabled: true,
-              onClick: (it) => console.log("clicked", it)
+              onClick: console.log
             }])
 
     section#control-button-group
@@ -142,16 +147,21 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
             TweakUi.mount("#control-button-group .gui", [{
               type: "button-group",
               label: "Label",
-              children: [{
-                text: "Btn 1",
-                onClick: (it) => console.log("clicked", it)
-              }, {
-                text: "Btn 2",
-                onClick: (it) => console.log("clicked", it)
-              }, {
-                text: "Btn 3",
-                onClick: (it) => console.log("clicked", it)
-              }]
+              children: [
+                { text: "Btn 1", onClick: console.log },
+                { text: "Btn 2", onClick: console.log },
+                { text: "Btn 3", onClick: console.log },
+                { text: "Btn 4", onClick: console.log },
+                { text: "Btn 5", onClick: console.log },
+                { text: "Btn 6", onClick: console.log },
+              ]
+            }, {
+              type: "button-group",
+              children: [
+                { text: "Btn 1", onClick: console.log },
+                { text: "Btn 2", onClick: console.log },
+                { text: "Btn 3", onClick: console.log },
+              ]
             }])
 
     section#control-checkbox
@@ -167,6 +177,211 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
             }, {
               type: "checkbox",
               label: "Check 2",
+            }, {
+              type: "checkbox",
+              label: "",
+              text: "Check 3"
+            }, {
+              type: "checkbox",
+              text: "Check 4"
+            }, {
+              type: "checkbox",
+              text: "Check 5",
+              disabled: true
+            }])
+
+    section#control-number
+      h3 Number
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-number .gui", [{
+              type: "number",
+              label: "Number 1",
+            }, {
+              type: "number",
+              label: "Number 2",
+              value: 10, min: 1, max: 100, step: 0.5,
+              onInput: (it, value) => console.log(it, value),
+            }, {
+              type: "number",
+              label: "Number 3",
+              disabled: true,
+            }])
+
+    section#control-slider
+      h3 Slider
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-slider .gui", [{
+              type: "slider",
+              label: "Slider",
+              value: 10, min: 1, max: 100, step: 0.5,
+              onInput: console.log, onChange: console.log
+            }, {
+              type: "slider",
+              label: "Slider",
+              value: 10, min: 1, max: 100, step: 0.5,
+              disabled: true,
+            }])
+
+    section#control-vector
+      h3 Vector
+      p.mt-3 Object with x, y, z components (default)
+      .row
+        .col.gui.vec3.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-vector .vec3.gui", [{
+              type: "vector",
+              label: "Vector",
+              value: { x: 0, y: 1, z: 0 },
+              min: -1, max: 1, step: 0.125,
+              onInput: console.log, onChange: console.log
+            }])
+
+      p.mt-3 2D Vector
+      .row
+        .col.gui.vec2.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-vector .vec2.gui", [{
+              type: "vector",
+              label: "Vector",
+              value: { x: 0, y: 1 },
+              keys: ['x', 'y'],
+              min: -1, max: 1, step: 0.125,
+              onInput: console.log, onChange: console.log
+            }])
+
+      p.mt-3 Arbitrary Keys
+      .row
+        .col.gui.arbitrary.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-vector .arbitrary.gui", [{
+              type: "vector",
+              label: "Vector",
+              value: { phi: 0, theta: 1 },
+              keys: ['phi', 'theta'],
+              min: -1, max: 1, step: 0.125,
+              onInput: console.log, onChange: console.log
+            }])
+
+      p.mt-3 Array
+      .row
+        .col.array.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-vector .array.gui", [{
+              type: "vector",
+              label: "Vector",
+              value: [3, 2, 1],
+              keys: [0, 1, 2],
+              min: 0, max: 10, step: 0.25,
+              onInput: console.log, onChange: console.log
+            }])
+
+    section#control-text
+      h3 Text
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-text .gui", [{
+              type: "text",
+              label: "Text",
+              value: "Hello World",
+              onInput: (it, value) => console.log(it, value)
+            }, {
+              type: "text",
+              label: "Text",
+              value: "Hello World",
+              disabled: true,
+            }])
+
+    section#control-select
+      h3 Select
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-select .gui", [{
+              type: "select",
+              label: "Array",
+              value: "foo",
+              options: ["foo", "bar", "baz", { label: "a label", value: {} }],
+              onInput: (it, value) => console.log(it, value)
+            }, {
+              type: "select",
+              label: "Key Value",
+              value: "foo",
+              options: { Foo: "foo", Bar: "bar", Baz: "baz", "A Label": {} },
+              onInput: (it, value) => console.log(it, value)
+            }, {
+              type: "select",
+              label: "Groups",
+              value: "foo",
+              options: [{
+                label: "Group 1",
+                options: { Foo: "foo", Bar: "bar", Baz: "baz" }
+              }, {
+                label: "Group 2",
+                options: [0, 1, 2, 3]
+              }, {
+                label: "Group 3",
+                options: ["A", "B", "C"]
+              }, {
+                label: "Group 4",
+                options: [
+                  { label: "X", value: { foo: "x" } },
+                  { label: "Y", value: { foo: "y" } },
+                  { label: "Z", value: { foo: "z" }, disabled: true }
+                ]
+              }],
+              onInput: (it, value) => console.log(it, value)
+            }])
+
+    section#control-image
+      h3 Image
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-image .gui", [{
+              type: "image",
+              label: "Image",
+              src: "https://picsum.photos/300/300",
+            }])
+
+    section#control-pad
+      h3 2D Pad
+      p.mt-3 an object with 2d coordinates
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-pad .gui", [{
+              type: "pad",
+              label: "2D",
+              value: { x: 0.5, y: 0.5 },
+              onInput: (it, value) => console.log(it, value)
+            }])
+
+    section#control-direction
+      h3 Direction Vector
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-direction .gui", [{
+              label: "Direction",
+              type: "direction",
+              value: { x: 1, y: 1, z: 0 },
+              onChange: console.log,
             }])
 
     section#control-color
@@ -242,101 +457,33 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
               onInput: (it, value) => console.log(value)
             }])
 
-    section#control-image
-      h3 Image
+    section#control-custom
+      h3 Custom Control (the lazy way)
+      p.mt-3 simple text or html output
       .row
         .col.gui.flex-grow-0.order-last
         .col
           script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-image .gui", [{
-              type: "image",
-              label: "Image",
-              src: "https://picsum.photos/300/300",
-            }])
-
-    section#control-number
-      h3 Number
-      .row
-        .col.gui.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-number .gui", [{
-              type: "number",
-              label: "Number",
-              value: 10,
-              min: 1, max: 100, step: 0.5,
-              onInput: (it, value) => console.log(it, value)
-            }])
-
-    section#control-slider
-      h3 Slider
-      .row
-        .col.gui.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-slider .gui", [{
-              type: "slider",
-              label: "Slider",
-              value: 10,
-              min: 1, max: 100, step: 0.5,
-              onInput: (it, value) => console.log(it, value)
-            }])
-
-    section#control-text
-      h3 Text
-      .row
-        .col.gui.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-text .gui", [{
-              type: "text",
+            TweakUi.mount("#control-custom .gui", [{
+              type: "custom",
               label: "Text",
-              value: "Hello World",
-              onInput: (it, value) => console.log(it, value)
-            }])
-
-    section#control-select
-      h3 Select
-      .row
-        .col.gui.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-select .gui", [{
-              type: "select",
-              label: "Select",
-              value: "foo",
-              options: ["foo", "bar", "baz"],
-              onInput: (it, value) => console.log(it, value)
-            }])
-
-    section#control-vector
-      h3 Vector
-      p.mt-3 an object with x, y, z components
-      .row
-        .col.gui.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-vector .gui", [{
-              type: "vector",
-              label: "Vector",
-              value: [3, 2, 1],
-              keys: [0, 1, 2],
-              min: 0, max: 10, step: 0.25,
-              onInput: (it, value) => console.log(it, value)
-            }])
-
-      p.mt-3 an object with x, y, z components
-      .row
-        .col.gui.vec3.flex-grow-0.order-last
-        .col
-          script(type="text/javascript").language-javascript.
-            TweakUi.mount("#control-vector .vec3.gui", [{
-              type: "vector",
-              label: "Vector",
-              value: { x: 0, y: 1, z: 0 },
-              keys: ["x", "y", "z"],
-              min: -1, max: 1, step: 0.125,
-              onInput: (it, value) => console.log(it, value)
+              node: `
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+                sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+              `,
+            }, {
+              type: "custom",
+              label: "HTML",
+              node: TweakUi.h.trust(`
+                <i onclick="alert('hijacked')">Dont do this for untrusted input</i>
+              `)
+            }, {
+              type: "custom",
+              label: "Mithril",
+              node: TweakUi.h('a', {
+                target: "_blank",
+                href: "https://mithril.js.org/"
+              }, 'this is a mithril link')
             }])
 
     section#control-group
@@ -347,14 +494,14 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           script(type="text/javascript").language-javascript.
             TweakUi.mount("#control-group .gui", [{
               type: "group",
-              label: "My Group",
+              title: "A Group",
               open: true,        // will be opened initially
               children: [
                 { type: "text", label: "My Text" },
                 { type: "number", label: "My Number" },
                 {
                   type: "group",
-                  label: "My Sub Group",
+                  title: "Another Group",
                   open: false,   // will be closed initially (default)
                   children: [
                     { type: "text", label: "My Text" },
@@ -389,41 +536,30 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
               }]
             }])
 
-    h2 Complete example
-    section.example.complete.row
-      .col.flex-grow-0.order-last
-        .testbox
-        .gui
-      .col
-        script(type="text/javascript").language-javascript.
-          var testEl = document.querySelector(".example.complete .testbox")
-          TweakUi.mount(".example.complete .gui", [{
-            type: "tabs",
-            children: [{
-              label: "Content",
+    section#control-accordeon
+      h3 Accordeon
+      .row
+        .col.gui.flex-grow-0.order-last
+        .col
+          script(type="text/javascript").language-javascript.
+            TweakUi.mount("#control-accordeon .gui", [{
+              type: "accordeon",
+              active: 1,        // will be opened initially
               children: [{
-                type: "text",
-                label: "Text",
-                get value() { return testEl.textContent },
-                set value(v) { testEl.textContent = v }
-              }]
-            }, {
-              label: "Style",
-              children: [{
-                type: "color",
-                label: "Background",
-                format: "rgb()",
-                get value() { return testEl.style.backgroundColor },
-                set value(v) { testEl.style.backgroundColor = v },
+                label: "Group 1",
+                children: [
+                  { type: "text", label: "My Text" },
+                  { type: "number", label: "My Number" },
+                ]
               }, {
-                type: "color",
-                label: "Color",
-                format: "rgb()",
-                get value() { return testEl.style.color },
-                set value(v) { testEl.style.color = v },
+                label: "Group 2",
+                children: [
+                  { type: "color-picker", label: "My Color" },
+                ]
+              }, {
+                label: "Group 3",
               }]
-            }]
-          }])
+            }])
 
     h2#concepts Concepts
     h3#concept-layout Layout & Labels
@@ -505,12 +641,10 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           TweakUi.registerComponent("embed", (node) => {
             return {
               view: () => {
-                return TweakUi.renderControl(node, (data) => {
-                  return TweakUi.h('embed', {
-                    src: data.src,
-                    width: data.width,
-                    height: data.height
-                  })
+                return TweakUi.h('embed', {
+                  src: node.attrs.data.src,
+                  width: node.attrs.data.width,
+                  height: node.attrs.data.height
                 })
               }
             }
@@ -656,7 +790,7 @@ body(data-spy="scroll" data-target="#navbar" data-offset="56")
           return lines.join("\n")
         }
 
-        document.querySelectorAll("aside,script.language-javascript,style.language-css").forEach((node) => {
+        document.querySelectorAll("aside.language-html,script.language-javascript,style.language-css").forEach((node) => {
           let pre = document.createElement('pre')
           let code = document.createElement('code')
           pre.appendChild(code)

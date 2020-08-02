@@ -1,37 +1,58 @@
-import m from 'mithril'
+import m, { Child } from 'mithril'
 
-import {
-  ControlViewModel,
-  getModelValue,
-  registerComponent,
-  renderControl,
-  setModelValue,
-  ValueSource,
-} from './core'
-import { call, isNumber, isString } from './utils'
+import { getModelValue, registerComponent, setModelValue } from './core'
+import { call, isNumber, isString, use, twuiClass, viewFn } from './utils'
+import { ComponentModel, ValueSource, ComponentAttrs } from './types'
 
 const emptyArray: any[] = []
-const isSimpleArray = (arr: any): arr is Array<string | number> => {
-  if (!arr || !Array.isArray(arr)) {
-    return false
-  }
-  return arr.every((it) => isString(it) || isNumber(it))
+
+/**
+ * @public
+ */
+export type SelectOption = {
+  label: string
+  value: unknown
+  disabled?: boolean
+}
+/**
+ * @public
+ */
+export type SelectOptionArray = Array<
+  SelectOption | SelectOptionGroup | string | number
+>
+/**
+ * @public
+ */
+export type SelectOptionsObject = {
+  [key: string]: unknown
+}
+/**
+ * @public
+ */
+export type SelectOptionGroup<T = SelectOptionArray | SelectOptionsObject> = {
+  label: string
+  options: T
+  disabled?: boolean
 }
 
 /**
+ * Select component select options
  * @public
  */
-export type SelectModelOptions =
-  | { [key: string]: any }
-  | Array<string | number>
-  | Array<{ id: string; label: string; value: any }>
+export type SelectModelOptions = SelectOptionArray | SelectOptionsObject
 
 /**
- * Describes a select control
+ * Select component attributes
+ * @public
+ */
+export type SelectAttrs = ComponentAttrs<SelectModel>
+
+/**
+ * Select component model
  * @public
  */
 export interface SelectModel<T = any, V = any>
-  extends ControlViewModel,
+  extends ComponentModel,
     ValueSource<T, V> {
   /**
    * The type name of the control
@@ -46,126 +67,158 @@ export interface SelectModel<T = any, V = any>
    */
   onChange?: (model: SelectModel<T>, value: V) => void
   /**
-   * Disabled the control input
+   * Disables the control input
    */
   disabled?: boolean
 }
 
-interface Attrs {
-  data: SelectModel
+function optionsFromFlatArray(arr: SelectOptionArray): SelectOption[] {
+  const res: SelectOption[] = []
+  for (const it of arr) {
+    if (isString(it) || isNumber(it)) {
+      res.push({ value: it, label: String(it) })
+      continue
+    }
+    if ('value' in it) {
+      res.push(it)
+      continue
+    }
+  }
+  return res
+}
+
+function optionsFromArray(
+  arr: SelectOptionArray,
+): Array<SelectOption | SelectOptionGroup<SelectOption[]>> {
+  const res: Array<SelectOption | SelectOptionGroup<SelectOption[]>> = []
+  for (const it of arr) {
+    if (isString(it) || isNumber(it) || it == null) {
+      res.push({ value: it, label: String(it) })
+    } else if ('value' in it) {
+      res.push(it)
+    } else if ('options' in it) {
+      res.push({
+        label: it.label,
+        disabled: it.disabled,
+        options: Array.isArray(it.options)
+          ? optionsFromFlatArray(it.options)
+          : optionsFromObject(it.options),
+      })
+    }
+  }
+  return res
+}
+
+function optionsFromObject(obj: SelectOptionsObject): Array<SelectOption> {
+  return Object.keys(obj)
+    .sort()
+    .map((key) => ({ value: obj[key], label: key }))
 }
 
 function getOptions(
-  node: m.Vnode<Attrs>,
-): Array<{ id: string; value: any; label: string }> {
-  const data = node.attrs.data
-  if (!data || !data.options) {
+  node: m.Vnode<SelectAttrs>,
+): Array<SelectOption | SelectOptionGroup<SelectOption[]>> {
+  const options = node.attrs.data.options
+
+  if (!options) {
     return emptyArray
   }
 
-  const opts = data.options
-  if (isSimpleArray(opts)) {
-    return opts.map((it, index) => {
-      return { id: String(index), value: it, label: String(it) }
-    })
+  if (Array.isArray(options)) {
+    return optionsFromArray(options)
   }
-
-  if (Array.isArray(opts)) {
-    return opts as any
-  }
-
-  if (typeof opts === 'object') {
-    return Object.keys(opts)
-      .sort()
-      .map((key) => {
-        return { id: key, value: opts[key], label: key }
-      })
-  }
-  return emptyArray
+  return optionsFromObject(options)
 }
 
-function getSelectedIndex(node: m.Vnode<Attrs>) {
-  const data = node.attrs.data
-  if (!data || !data.options) {
-    return -1
-  }
+registerComponent<SelectAttrs>('select', (node) => {
+  let options: Array<SelectOption | SelectOptionGroup<SelectOption[]>>
 
-  const opts = data.options
-  const value = getModelValue(data)
-  if (isSimpleArray(opts)) {
-    return opts.indexOf(value)
-  }
-
-  if (Array.isArray(opts)) {
-    const found = opts.filter((it) => it.value === value)[0]
-    return opts.indexOf(found)
-  }
-
-  if (typeof opts === 'object') {
-    const keys = Object.keys(opts).sort()
-    for (const key of keys) {
-      if (value === opts[key]) {
-        return keys.indexOf(key)
+  function getSelectedIndex() {
+    const data = node.attrs.data
+    const value = getModelValue(data)
+    let i = 0
+    for (const o0 of options) {
+      if ('options' in o0) {
+        for (const o1 of o0.options) {
+          if (o1.value === value) {
+            return i
+          }
+          i++
+        }
+      } else {
+        if (o0.value === value) {
+          return i
+        }
+        i++
       }
     }
   }
-  return null
-}
 
-function setSelection(node: m.Vnode<Attrs>, selectedIndex: number) {
-  const data = node.attrs.data
-  if (!data || !data.options) {
-    return
+  function getSelectionAt(index: number) {
+    let i = 0
+    for (const o0 of options) {
+      if ('options' in o0) {
+        for (const o1 of o0.options) {
+          if (i === index) {
+            return o1.value
+          }
+          i += 1
+        }
+      } else {
+        if (i === index) {
+          return o0.value
+        }
+        i += 1
+      }
+    }
+    return null
   }
 
-  const opts = data.options
-  if (isSimpleArray(opts)) {
-    setModelValue(data, opts[selectedIndex])
-    return
-  }
-
-  if (Array.isArray(opts)) {
-    const found = opts[selectedIndex]
-    setModelValue(data, found ? found.value : null)
-    return
-  }
-
-  if (typeof opts === 'object') {
-    const key = Object.keys(opts).sort()[selectedIndex]
-    setModelValue(data, key && key in opts ? opts[key] : null)
-  }
-}
-
-registerComponent('select', (node: m.Vnode<Attrs>) => {
   function onChange(e: Event) {
     const el = e.target as HTMLSelectElement
     const data = node.attrs.data
-    setSelection(node, el.selectedIndex)
+    const value = getSelectionAt(el.selectedIndex)
+    setModelValue(data, value)
     call(data.onChange, data, getModelValue(data))
   }
 
   return {
-    view: () => {
-      return renderControl(node, (data) => {
-        return m(
-          'select',
-          {
-            selectedIndex: getSelectedIndex(node),
-            onchange: onChange,
-            disabled: data.disabled,
-          },
-          getOptions(node).map((it: any) =>
-            m(
-              'option',
+    view: viewFn((data) => {
+      options = getOptions(node)
+      return m(
+        'select',
+        {
+          class: twuiClass(data.type),
+          selectedIndex: getSelectedIndex(),
+          onchange: onChange,
+          disabled: data.disabled,
+        },
+        options.map((it) => {
+          if ('options' in it) {
+            return m(
+              'optgroup',
               {
-                value: it.value,
-                label: it.label,
+                disabled: !!it.disabled,
+                label: it.label || '',
               },
-              it.label || '',
-            ),
-          ),
-        )
-      })
-    },
+              it.options.map(option),
+            )
+          }
+          return option(it)
+        }),
+      )
+    }),
   }
 })
+
+function option(it: SelectOption) {
+  return m(
+    'option',
+    {
+      value: it.value,
+      label: it.label,
+      disabled: !!it.disabled,
+    },
+    it.label || '',
+  )
+}

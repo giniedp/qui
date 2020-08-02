@@ -1,108 +1,71 @@
 import m from 'mithril'
 
 import {
-  ControlViewModel,
   getModelValue,
   registerComponent,
-  renderControl,
   setModelValue,
-  ValueSource,
 } from './core'
-import { call, controllCssClass, use } from './utils'
+import { call, twuiClass, cssClass, viewFn } from './utils'
+import { ValueSource, ComponentAttrs, ComponentModel } from './types'
+
+/**
+ * Checkbox component attrs
+ * @public
+ */
+export type CheckboxAttrs = ComponentAttrs<CheckboxModel>
 
 /**
  * Describes a checkbox control
  * @public
  */
 export interface CheckboxModel<T = any>
-  extends ControlViewModel,
+  extends ComponentModel,
     ValueSource<T, boolean> {
   /**
    * The type name of the control
    */
-  type: 'checkbox' | 'checkbutton'
+  type: 'checkbox'
   /**
    * This is called when the control value changes
    */
-  onChange?: (value: CheckboxModel) => void
+  onChange?: (value: CheckboxModel, checked: boolean) => void
   /**
-   * The button text
-   *
-   * @remarks
-   * only used if `type` is `checkbutton`
+   * Text behind the checkbox or inside the buttn
    */
   text?: string
   /**
-   * Disabled the control input
+   * Disables the control input
    */
   disabled?: boolean
 }
 
-interface Attrs {
-  data: CheckboxModel
-}
-
-registerComponent('checkbox', (node: m.Vnode<Attrs>) => {
+registerComponent<CheckboxAttrs>('checkbox', (node) => {
   function onChange(e: Event) {
-    const el = e.target as HTMLInputElement
     const data = node.attrs.data
+    const el = e.target as HTMLInputElement
     setModelValue(data, el.checked)
     call(data.onChange, data, el.checked)
   }
-
   return {
-    view: (vnode: m.Vnode<Attrs>) => {
-      return use(vnode.attrs.data, (data) => {
-        return m(
-          'div',
-          { class: controllCssClass('checkbox'), key: data.key },
-          m(
-            'label',
-            m('span', data.label),
-            m('input', {
-              type: 'checkbox',
-              checked: getModelValue(data) === true,
-              onchange: onChange,
-            }),
-          ),
-        )
-      })
-    },
-  }
-})
-
-registerComponent('checkbutton', (node: m.Vnode<Attrs>) => {
-  function onChange(e: Event) {
-    const el = e.target as HTMLInputElement
-    const data = node.attrs.data
-    setModelValue(data, el.checked)
-    call(data.onChange, data, el.checked)
-  }
-
-  return {
-    view: () => {
-      return renderControl(node, (data) => {
-        const checked = getModelValue(data) === true
-        return [
-          m(
-            "button[type='button']",
-            {
-              class: checked ? 'active' : null,
-              onclick: () => {
-                setModelValue(data, !checked)
-              },
-              disabled: data.disabled,
-            },
-            m('input', {
-              type: 'checkbox',
-              style: { display: 'none' },
-              checked: checked,
-              onchange: onChange,
-            }),
-            data.text,
-          ),
-        ]
-      })
-    },
+    view: viewFn((data) => {
+      const checked = getModelValue(data) === true
+      return m(
+        'label',
+        {
+          class: cssClass({
+            [twuiClass(data.type)]: true,
+            checked: checked,
+            disabled: data.disabled,
+          }),
+        },
+        m('input', {
+          type: 'checkbox',
+          checked: checked,
+          onchange: onChange,
+          disabled: data.disabled,
+        }),
+        data.text,
+      )
+    }),
   }
 })

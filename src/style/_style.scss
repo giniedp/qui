@@ -1,27 +1,20 @@
-
-.tweakui-panel-root {
-  box-sizing: border-box;
-  border-width: 1px;
-  border-style: solid;
+.twui-root {
   @include color(background-color, primary);
   @include color(color, on-primary);
-  @include color(border-color, primary-dark);
 
   font-family: $font-family-base;
   font-size: $font-size-base;
-  width: 20rem;
-  padding-left: $spacer;
-  padding-right: $spacer;
+  padding: 0;
   margin: 0;
+  width: 20rem;
+  flex: auto 0 0; // dont resize in flex context
   overflow: auto;
   overflow-x: hidden;
+  box-sizing: border-box;
 
-  section {
-    flex: auto 1 1;
-    display: flex;
-    flex-direction: row;
-    align-content: stretch;
-  }
+  //
+  // Scrollbars
+  //
 
   &::-webkit-scrollbar {
     width: 0.5rem
@@ -42,60 +35,21 @@
   &::-webkit-scrollbar-thumb:hover {
     @include color(background-color, secondary);
   }
-}
 
-.tweakui-control {
-  display: flex;
-  flex-direction: row;
-  min-height: $line-height;
-  box-sizing: border-box;
+  //
+  // Input Elements
+  //
 
   label {
     user-select: none;
-    // text-transform: uppercase;
-    box-sizing: border-box;
-    width: $label-width - 2 * $label-pad-x;
-    min-width: $label-width - 2 * $label-pad-x;
-    height: $line-height - 2 * $spacer;
-    line-height: $line-height - 2 * $spacer;
-    padding: $label-pad-y $label-pad-x;
-    margin: $spacer;
-
-    overflow: hidden;
-    word-wrap: none;
   }
 
-  button {
-    @include color(background-color, secondary);
-    @include color(color, on-primary);
-
-    cursor: pointer;
-    display: inline-block;
-    flex: auto 1 1;
-
-    height: $line-height - 2 * $spacer;
-    line-height: $line-height - 2 * $spacer - 2 * $button-pad-y;
-    padding: $button-pad-y $button-pad-x;
-    margin: $spacer;
-
-    font-weight: 400;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    outline: none;
-    border: none;
-  }
-
-  button:hover,
-  button.active {
-    @include color(background-color, secondary-dark);
-  }
-
-  select {
+  select, button, a {
     cursor: pointer;
   }
 
   input:not([type="checkbox"]),
+  button,
   select {
     @include color(background-color, secondary);
     @include color(color, on-secondary);
@@ -107,8 +61,6 @@
     outline: none;
     border: none;
     box-sizing: border-box;
-    flex: auto 1 1;
-    width: 0;
 
     height: $line-height - 2 * $spacer;
     line-height: $line-height - 2 * $spacer;
@@ -116,10 +68,20 @@
     margin: $spacer;
   }
 
+  button {
+    line-height: $line-height - 2 * $spacer - 2 * $button-pad-y;
+    padding: $button-pad-y $button-pad-x;
+    margin: $spacer;
+
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+  }
+
   button, select, input:not([type="checkbox"]), .tweakui-progress {
     border-bottom: 1px solid;
     @include color(border-color, primary-dark);
-    transition: border-color  0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 
     &:hover,
     &.checked {
@@ -132,66 +94,129 @@
       outline: none;
       @include color(border-color, accent);
     }
+
+    &:disabled,
+    .disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   }
+
+  .disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   select, input:not([type="checkbox"]) {
     &:focus {
       @include color(color, accent);
     }
   }
-}
 
-.tweakui-control-checkbox {
-  > label {
-    flex: 1;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover { @include color(background-color, secondary); }
-
-    span {
-      box-sizing: border-box;
-      width: $label-width - 3 * $spacer;
-      padding: 0 0.25rem;
-      display: inline-block;
-    }
+  input[type="number"] {
+    padding-right: 0;
   }
 }
 
-.tweakui-control-button-group {
+.twui-panel {
   display: flex;
-  vertical-align: middle;
+  flex-flow: column nowrap;
+  align-items: stretch;
 }
+.twui-panel-title {
+  margin: 0;
+  width: auto;
+  height: $line-height;
+  line-height: $line-height;
+  @include color(background-color, secondary-dark);
+  padding-left: $label-pad-x;
+}
+.twui-panel-control {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  min-height: $line-height;
+  box-sizing: border-box;
 
-.tweakui-control-tabs {
-  @include color(border-color, primary-dark);
-  margin-left: -$spacer;
-  margin-right: -$spacer;
+  > label:first-child {
+    flex: none;
+    box-sizing: border-box;
+    width: $label-width - 2 * $label-pad-x;
+    min-width: $label-width - 2 * $label-pad-x;
+    min-height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $label-pad-y $label-pad-x;
+    margin: $spacer;
 
-  button {
-    border: 0;
-    border-top: 1px solid;
-    margin: 0;
+    overflow: hidden;
+  }
 
-    height: $line-height;
-    line-height: $line-height - 2 * $button-pad-y;
-
-    @include color(background-color, primary-dark);
-    @include color(border-color, primary);
-
-    &:hover {
-      @include color(background-color, primary);
-      @include color(border-color, primary-dark);
-    }
-
-    &.tab-active {
-      @include color(background-color, primary);
-      @include color(border-color, accent);
-    }
+  > section {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
   }
 }
 
-.tweakui-control-slider {
+.twui-direction {
+  max-width: 100%;
+}
+
+//
+// BUTTON GROUP
+//
+.twui-button-group,
+.twui-button-group-vertical {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+.twui-button-group button {
+  flex: auto 1 1;
+}
+.twui-button-group-vertical {
+  flex-direction: column;
+}
+
+//
+// CHECKBOX
+//
+.twui-checkbox {
+  min-height: $line-height - 2 * $spacer;
+  line-height: $line-height - 2 * $spacer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover { @include color(background-color, secondary); }
+
+  input {
+    margin-right: 1ch;
+    margin-left: 1ch;
+  }
+}
+
+//
+// SLIDER
+//
+.twui-number,
+.twui-slider {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+}
+
+.twui-number input {
+  flex: 1;
+}
+
+.twui-slider {
   .tweakui-progress {
     flex: 1;
     display: flex;
@@ -205,6 +230,10 @@
     }
   }
 
+  .tweakui-progress.disabled {
+    cursor: not-allowed;
+  }
+
   .tweakui-progress-bar {
     @include color(background-color, secondary-light);
   }
@@ -215,53 +244,141 @@
   }
 }
 
-.tweakui-control-group {
-  flex-direction: column;
+//
+// VECTOR
+//
+.twui-vector {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+
+  > * {
+    flex: auto 1 1;
+  }
+}
+
+//
+// IMAGE
+//
+
+.twui-image {
+  max-width: 100%;
+  height: auto;
+}
+
+//
+// TABS / ACCORDEON / GROUP
+//
+
+.twui-tabs, .twui-accordeon, .twui-group {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+
+  @include color(border-color, primary-dark);
   margin-left: -$spacer;
   margin-right: -$spacer;
 
-  > .tweakui-panel {
+  > .twui-panel {
     margin-left: $spacer;
     margin-right: $spacer;
   }
+}
 
-  > label {
-    margin: 0;
-    width: auto;
-    cursor: pointer;
-    height: $line-height;
-    line-height: $line-height;
-    @include color(background-color, primary-dark);
+.twui-tabs-list {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
 
-    &::before {
-      content: '►';
-      display: inline-block;
-      width: $line-height;
-      height: $line-height;
-      text-align: center;
-      transition: transform 0.1s ease-in-out
-    }
+.twui-tabs-list > button {
+  flex: auto 1 11;
+  border: 0;
+  border-top: 1px solid;
+  margin: 0;
 
-    &.is-open::before {
-      transform: rotateZ(90deg);
-    }
+  height: $line-height;
+  line-height: $line-height - 2 * $button-pad-y;
+
+  @include color(background-color, primary-dark);
+  @include color(border-color, primary);
+  @include color(color, on-primary);
+
+  &:hover {
+    @include color(background-color, primary);
+    @include color(border-color, primary-dark);
   }
 
-  .tweakui-control-group {
+  &.is-active {
+    @include color(background-color, primary);
+    @include color(border-color, accent);
+  }
+}
+
+.twui-group > label,
+.twui-accordeon > label {
+  margin: 0;
+  width: auto;
+  cursor: pointer;
+  height: $line-height;
+  line-height: $line-height;
+  @include color(background-color, primary-dark);
+
+  &::before {
+    content: '►';
+    display: inline-block;
+    width: $line-height;
+    height: $line-height;
+    text-align: center;
+    transition: transform 0.1s ease-in-out
+  }
+
+  &.is-active::before {
+    transform: rotateZ(90deg);
+  }
+}
+
+.twui-group {
+  .twui-group {
     border-left: 0.25rem solid;
     @include color(border-color, primary-light);
   }
 }
 
-.tweakui-control-image {
-  > section {
-    flex: 1;
-    margin: $spacer;
-    display: block;
+//
+// 2D PAD
+//
+
+.twui-pad {
+  @include color(background-color, secondary);
+  @include color(border-color, primary-dark);
+  background-size: 10px 10px;
+  background-image: linear-gradient(to right, getColor(primary-light) 1px, transparent 1px), linear-gradient(to bottom, getColor(primary-light) 1px, transparent 1px);
+  background-image: linear-gradient(to right, getColorVar(primary-light) 1px, transparent 1px), linear-gradient(to bottom, getColorVar(primary-light) 1px, transparent 1px);
+  background-position: 50% 50%;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  box-sizing: border-box;
+  cursor: crosshair;
+  z-index: 1;
+  border-bottom: 1px solid;
+  overflow: visible;
+
+  .pad-x-axis,
+  .pad-y-axis {
+    @include color(background-color, primary-dark);
   }
-  img {
-    max-width: 100%;
-    height: auto;
+
+  &:focus {
+    .pad-x-axis,
+    .pad-y-axis {
+      @include color(background-color, accent);
+    }
+    @include color(border-color, accent);
+    outline: none;
   }
 }
 
@@ -269,10 +386,12 @@
 // COLOR PICKER
 //
 
-.tweakui-control-color {
-  > section {
-    flex-direction: column;
-  }
+.twui-color {
+  flex: auto 1 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
   button {
     text-shadow: 0 0 10px black;
     color: white;
@@ -281,7 +400,10 @@
   }
 }
 
-.tweakui-control-color-picker {
+.twui-color-picker {
+  flex: auto 1 1;
+  display: flex;
+  flex-direction: row;
 
   .color-picker-panel {
     flex: 1;

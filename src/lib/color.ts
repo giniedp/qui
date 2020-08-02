@@ -3,22 +3,36 @@ import m from 'mithril'
 import { getColorFormatter } from './color-formats'
 import { ColorPickerModel } from './color-picker'
 import {
-  ControlViewModel,
-  getComponent,
   getModelValue,
   registerComponent,
-  renderControl,
   setModelValue,
-  ValueSource,
+  renderModel,
 } from './core'
-import { call, isArray, isNumber, isObject, isString, padLeft } from './utils'
+import {
+  call,
+  isArray,
+  isNumber,
+  isObject,
+  isString,
+  padLeft,
+  use,
+  twuiClass,
+  cssClass,
+} from './utils'
+import { ComponentModel, ValueSource, ComponentAttrs } from './types'
 
 /**
- * Describes a color control
+ * Color component attributes
+ * @public
+ */
+export type ColorAttrs = ComponentAttrs<ColorModel>
+
+/**
+ * Color component model
  * @public
  */
 export interface ColorModel<T = any, V = number | string | number[]>
-  extends ControlViewModel,
+  extends ComponentModel,
     ValueSource<T, V> {
   /**
    * The type name of the control
@@ -61,27 +75,19 @@ export interface ColorModel<T = any, V = number | string | number[]>
   onChange?: (model: ColorModel<T, V>, value: V) => void
 }
 
-type ColorNode = m.Vnode<Attrs, State>
+registerComponent<ColorAttrs>('color', (node) => {
+  let opened = false
 
-interface Attrs {
-  data: ColorModel
-}
-
-interface State {
-  opened: boolean
-}
-
-registerComponent('color', (node: ColorNode) => {
   function toggle() {
-    node.state.opened = !node.state.opened
+    opened = !opened
   }
-  function onPickerInput(it: ColorPickerModel, value: any) {
+  function onPickerInput(value: any) {
     const data = node.attrs.data
     setModelValue(data, value)
     call(data.onInput, data, value)
   }
 
-  function onPickerChange(it: ColorPickerModel, value: any) {
+  function onPickerChange(value: any) {
     const data = node.attrs.data
     setModelValue(data, value)
     call(data.onChange, data, value)
@@ -122,33 +128,33 @@ registerComponent('color', (node: ColorNode) => {
   }
 
   return {
-    state: {
-      opened: false,
-    },
     view: () => {
-      return renderControl(node, (data, state) => {
-        return [
+      return use(node.attrs.data, (data) => {
+        return m(
+          'div',
+          {
+            class: cssClass({
+              [twuiClass(data.type)]: true,
+              [twuiClass(data.type + '-open')]: opened,
+            }),
+          },
           m(
             "button[type='button']",
             {
               style: { 'background-color': getColor() },
               onclick: toggle,
             },
-            getText(),
+            getText() || '?',
           ),
-          state.opened
-            ? m(getComponent('color-picker'), {
-                data: {
-                  type: 'color-picker',
-                  label: null,
-                  value: getModelValue(data),
-                  format: data.format,
-                  onInput: onPickerInput,
-                  onChange: onPickerChange,
-                },
-              })
-            : null,
-        ]
+          renderModel<ColorPickerModel>({
+            type: 'color-picker',
+            value: getModelValue(data),
+            format: data.format,
+            onInput: onPickerInput,
+            onChange: onPickerChange,
+            hidden: !opened,
+          }),
+        )
       })
     },
   }

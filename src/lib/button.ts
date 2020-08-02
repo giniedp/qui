@@ -1,13 +1,20 @@
 import m from 'mithril'
 
-import { ControlViewModel, registerComponent, renderControl } from './core'
-import { call } from './utils'
+import { registerComponent } from './core'
+import { ComponentAttrs, ComponentModel } from './types'
+import { call, twuiClass, viewFn } from './utils'
 
 /**
- * Describes a button control
+ * Button component attribuets
  * @public
  */
-export interface ButtonModel extends ControlViewModel {
+export type ButtonAttrs = ComponentAttrs<ButtonModel>
+
+/**
+ * Button component model
+ * @public
+ */
+export interface ButtonModel extends ComponentModel {
   /**
    * The type name of the control
    */
@@ -21,27 +28,25 @@ export interface ButtonModel extends ControlViewModel {
    */
   onClick?: (ctrl: ButtonModel) => void
   /**
-   * Disabled the control input
+   * Disables the control input
    */
   disabled?: boolean
 }
 
-interface Attrs {
-  data: ButtonModel
-}
-
-registerComponent('button', (node: m.Vnode<Attrs>) => {
+const type = 'button'
+registerComponent<ButtonAttrs>(type, (node) => {
   return {
-    view: () =>
-      renderControl(node, (data) =>
-        m(
-          "button[type='button']",
-          {
-            onclick: () => call(data.onClick, data),
-            disabled: data.disabled,
-          },
-          data.text,
-        ),
+    view: viewFn((data) =>
+      m(
+        type,
+        {
+          type: type,
+          class: twuiClass(type),
+          onclick: () => call(data.onClick, data),
+          disabled: data.disabled,
+        },
+        data.text,
       ),
+    ),
   }
 })

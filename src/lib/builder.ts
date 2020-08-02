@@ -3,18 +3,17 @@ import { ButtonGroupModel } from './button-group'
 import { CheckboxModel } from './checkbox'
 import { ColorModel } from './color'
 import { ColorPickerModel } from './color-picker'
-import {
-  ControlGroupViewModel,
-  ControlViewModel,
-  getComponent,
-  h,
-} from './core'
+import { h, renderModel } from './core'
 import { GroupModel } from './group'
 import { ImageModel } from './image'
 import { NumberModel } from './number'
 import { SelectModel } from './select'
-import { TabData, TabsModel } from './tabs'
+import { TabsModel } from './tabs'
 import { TextModel } from './text'
+import { CustomModel } from './custom'
+import { PadModel } from './pad'
+import { PanelModel } from './panel'
+import { ComponentModel, ComponentGroupModel } from './types'
 
 /**
  *
@@ -29,22 +28,17 @@ export interface Removable {
  * @public
  */
 export interface TabsBuilder {
-  tab(label: string, builder: (b: Builder) => void): TabData & Removable
+  tab(label: string, builder: (b: Builder) => void): PanelModel & Removable
 }
 
-function assign<T extends ControlViewModel>(
-  partial: Partial<T>,
-  extension: T,
-): T {
-  Object.keys(extension).forEach((key: keyof T) => {
-    partial[key] = extension[key]
+function assign<T extends ComponentModel>(partial: Partial<T>, extension: T): T {
+  Object.keys(extension).forEach((key: string) => {
+    partial[key as keyof T] = extension[key as keyof T]
   })
   return partial as T
 }
 
-function buildGroup<T extends ControlGroupViewModel>(
-  ...args: any[]
-): Partial<T> {
+function buildGroup<T extends ComponentGroupModel>(...args: any[]): Partial<T> {
   let cb: (builder: Builder) => void
   let opts: Partial<T> = {}
   if (typeof arguments[0] === 'function') {
@@ -122,7 +116,7 @@ export class Builder {
     return this.add<GroupModel>(
       assign(opts, {
         type: 'group',
-        label: label,
+        title: label,
         children: opts.children,
       }),
     )
@@ -149,17 +143,20 @@ export class Builder {
    * @param label - The tab label
    * @param cb - A callback allowing to build sub controls
    */
-  public tab(label: string, cb: (builder: Builder) => void): TabData & Removable
   public tab(
     label: string,
-    opts: Partial<TabData>,
+    cb: (builder: Builder) => void,
+  ): PanelModel & Removable
+  public tab(
+    label: string,
+    opts: Partial<PanelModel>,
     cb?: (builder: Builder) => void,
-  ): TabData & Removable
-  public tab(label: string): TabData & Removable {
-    const opts = buildGroup<TabData>(arguments[1], arguments[2])
-    return this.add<TabData>(
+  ): PanelModel & Removable
+  public tab(label: string): PanelModel & Removable {
+    const opts = buildGroup<PanelModel>(arguments[1], arguments[2])
+    return this.add<PanelModel>(
       assign(opts, {
-        type: 'tab',
+        type: 'panel',
         label: label,
         children: opts.children,
       }),
@@ -199,30 +196,6 @@ export class Builder {
     return this.add<CheckboxModel>(
       assign(opts, {
         type: 'checkbox',
-        target: target,
-        property: property,
-      }),
-    )
-  }
-
-  /**
-   * Adds a checkbutton control
-   *
-   * @param target - The target object holding the value
-   * @param property - The accessor property
-   * @param opts - Additional options for the control
-   */
-  public checkbutton<T>(
-    target: T,
-    property: keyof T,
-    opts: Partial<CheckboxModel> = {},
-  ) {
-    if (opts.label === undefined) {
-      opts.label = String(property)
-    }
-    return this.add<CheckboxModel>(
-      assign(opts, {
-        type: 'checkbutton',
         target: target,
         property: property,
       }),
@@ -385,6 +358,51 @@ export class Builder {
   }
 
   /**
+   * Adds a description text
+   *
+   * @param label - The control label
+   * @param text - The text message
+   * @param opts - Additional options for the control
+   */
+  public custom(
+    label: string,
+    text: string,
+    opts: Partial<CustomModel> = {},
+  ) {
+    return this.add<CustomModel>(
+      assign(opts, {
+        type: 'custom',
+        label: label,
+        node: text,
+      }),
+    )
+  }
+
+  /**
+   * Adds a 2D Pad control
+   *
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
+   */
+  public Pad<T>(
+    target: T,
+    property: keyof T,
+    opts: Partial<PadModel> = {},
+  ) {
+    if (opts.label === undefined) {
+      opts.label = String(property)
+    }
+    return this.add<PadModel>(
+      assign(opts, {
+        type: 'pad',
+        target: target,
+        property: property,
+      }),
+    )
+  }
+
+  /**
    * Adds a button control
    *
    * @param def - The button control definition
@@ -413,7 +431,7 @@ export class Builder {
    *
    * @param def - The tab control definition
    */
-  public add(def: TabData & Removable): TabData & Removable
+  public add(def: PanelModel & Removable): PanelModel & Removable
   /**
    * Adds a checkbox control
    *
@@ -467,7 +485,7 @@ export class Builder {
    *
    * @param def - The control definition
    */
-  public add<C>(def: C & Removable): C & Removable {
+  public add<C extends ComponentModel>(def: C & Removable): C & Removable {
     def.remove = () => {
       const i = this.controls.indexOf(def)
       if (i >= 0) {
@@ -486,8 +504,7 @@ export class Builder {
   public mount(el: HTMLElement | string) {
     this.el = typeof el === 'string' ? document.querySelector(el) : el
     return h.mount(this.el, {
-      view: () =>
-        h(getComponent('panel'), { isRoot: true, data: this.controls }),
+      view: () => renderModel({ type: 'panel', children: this.controls }),
     })
   }
 

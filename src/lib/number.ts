@@ -1,21 +1,25 @@
-import m from 'mithril'
+import m, { Child } from 'mithril'
 
 import {
-  ControlViewModel,
   getModelValue,
   registerComponent,
-  renderControl,
   setModelValue,
-  ValueSource,
 } from './core'
-import { call, clamp } from './utils'
+import { call, clamp, use, cssClass, twuiClass, viewFn, getMouseXY } from './utils'
+import { ComponentModel, ComponentAttrs, ValueSource } from './types'
 
 /**
- * Describes a number control
+ * Number component attributes
+ * @public
+ */
+export type NumberAttrs = ComponentAttrs<NumberModel>
+
+/**
+ * Number component model
  * @public
  */
 export interface NumberModel<T = any>
-  extends ControlViewModel,
+  extends ComponentModel,
     ValueSource<T, number> {
   /**
    * The type name of the control
@@ -49,59 +53,56 @@ export interface NumberModel<T = any>
    */
   onChange?: (model: NumberModel<T>, value: number) => void
   /**
-   * Disabled the control input
+   * Disables the control input
    */
   disabled?: boolean
 }
 
-interface Attrs {
-  data: NumberModel
-}
+function numberComponent(node: m.Vnode<NumberAttrs>) {
 
-function numberComponent(node: m.Vnode<Attrs>) {
+  let min: number
+  let max: number
+  let isSlider: boolean
+  let value: number
+  let percent: number
+  let data: NumberModel
+
+  function updateState() {
+    data = node.attrs.data
+    value = getModelValue(data)
+    isSlider = data.type === 'slider'
+    min = isSlider && data.min == null ? 0 : data.min
+    max = isSlider && data.max == null ? 1 : data.max
+    percent = isSlider ? ((value - min) / (max - min)) * 100 : 0
+  }
+
+  function setValue(e: 'input' | 'change', v: number) {
+    setModelValue(data, isNaN(v) ? null : v)
+    call(e === 'input' ? data.onInput : data.onChange, data, v)
+    if (v !== value) {
+      m.redraw()
+    }
+  }
+
   function onChange(e: Event) {
     const el = e.target as HTMLInputElement
-    const data = node.attrs.data
-    const value = parseFloat(el.value)
-    setModelValue(data, isNaN(value) ? null : value)
-    if (e.type === 'input') {
-      call(data.onInput, data, value)
-    }
-    if (e.type === 'change') {
-      call(data.onChange, data, value)
-    }
+    setValue('change', parseFloat(el.value))
   }
 
-  function isSlider(data: NumberModel) {
-    return data.type === 'slider'
-  }
-  function min(data: NumberModel) {
-    return isSlider(data) && data.min == null ? 0 : data.min
-  }
-  function max(data: NumberModel) {
-    return isSlider(data) && data.max == null ? 1 : data.max
-  }
-  function getPercent(data: NumberModel) {
-    return Math.floor(
-      ((getModelValue(data) - min(data)) / (max(data) - min(data))) * 100,
-    )
-  }
-
-  function limitValue(data: NumberModel, value: number) {
-    value = clamp(value, min(data), max(data))
+  function limit(v: number) {
+    v = clamp(v, min, max)
     if (data.step != null) {
-      const digits = clamp((data.step % 1).toString(10).length - 2, 0, 100)
-      value = parseFloat(
-        (Math.round(value / data.step) * data.step).toFixed(digits),
-      )
+      v = Math.round(v / data.step) * data.step
     }
-    return value
+    return parseFloat(v.toFixed(5))
   }
 
   let target: HTMLElement
   function dragStart(e: MouseEvent | TouchEvent) {
-    target = e.target as HTMLElement
-    drag(e)
+    if (!data.disabled) {
+      target = e.target as HTMLElement
+      drag(e)
+    }
   }
 
   function drag(e: MouseEvent | TouchEvent) {
@@ -109,38 +110,61 @@ function numberComponent(node: m.Vnode<Attrs>) {
       return
     }
     e.preventDefault()
-
-    const rect = target.getBoundingClientRect()
-    const tx = window.pageXOffset || document.documentElement.scrollLeft
-
-    const cw = target.clientWidth
-    const px = 'touches' in e ? e.touches.item(0).pageX : e.pageX
-    const cx = (px - tx - rect.left) / cw
-    const data = node.attrs.data
-    const value = limitValue(data, (max(data) - min(data)) * cx + min(data))
-    setModelValue(data, value)
-    call(data.onInput, data)
-    m.redraw()
+    const l = (window.pageXOffset || document.documentElement.scrollLeft) + target.getBoundingClientRect().left
+    const w = target.clientWidth
+    const s = (getMouseXY(e)[0] - l) / w
+    setValue('input', limit(min + s * (max - min)))
   }
 
   function dragEnd() {
-    if (target) {
+    if (target && !data.disabled) {
       target = null
-      const data = node.attrs.data
-      call(data.onChange, data)
-      m.redraw()
+      setValue('change', value)
     }
   }
 
-  function keydown(e: KeyboardEvent) {
+  function onKeydown(e: KeyboardEvent) {
     const code = e.key || e.keyCode
-    const step = code === 'ArrowLeft' ? -1 : code === 'ArrowRight' ? 1 : 0
-    const data = node.attrs.data
-    if (step && data) {
-      const value = limitValue(data, data.value + step * (data.step || 1))
-      setModelValue(data, value)
-      call(data.onChange, data, value)
+    const step = (data.step || 1) * (code === 'ArrowLeft' ? -1 : code === 'ArrowRight' ? 1 : 0)
+    if (step) {
+      setValue('change', limit((value || 0) + step))
     }
+  }
+
+  function onWheel(e: WheelEvent) {
+    e.preventDefault()
+    const step = (data.step || 0.2) * (e.ctrlKey ? 0.5 : 1) * clamp(e.deltaY, -1, 1)
+    if (step) {
+      setValue('change', limit((value || 0) - step))
+    }
+  }
+
+  function slider(): Child {
+    return m(
+      '.tweakui-progress',
+      {
+        style: 'user-select: none;',
+        class: cssClass({
+          disabled: !!data.disabled,
+        }),
+        ...(data.disabled ? {} : {
+          tabindex: 0,
+          onmousedown: dragStart,
+          onmousemove: drag,
+          onmouseup: dragEnd,
+
+          ontouchstart: dragStart,
+          ontouchmove: drag,
+          ontouchend: dragEnd,
+          ontouchcancel: dragEnd,
+          onkeydown: onKeydown,
+          onwheel: onWheel,
+        }),
+      },
+      m('.tweakui-progress-bar', {
+        style: `width: ${percent}%; pointer-events: none; user-select: none;`,
+      }),
+    )
   }
 
   return {
@@ -152,45 +176,27 @@ function numberComponent(node: m.Vnode<Attrs>) {
       document.removeEventListener('mousemove', drag)
       document.removeEventListener('mouseup', dragEnd)
     },
-    view: () => {
-      return renderControl(node, (data) => {
-        return [
-          isSlider(data)
-            ? m(
-                '.tweakui-progress',
-                {
-                  style: 'user-select: none;',
-                  tabindex: 0,
-                  onmousedown: dragStart,
-                  onmousemove: drag,
-                  onmouseup: dragEnd,
-
-                  ontouchstart: dragStart,
-                  ontouchmove: drag,
-                  ontouchend: dragEnd,
-                  ontouchcancel: dragEnd,
-                  onkeydown: keydown,
-                },
-                m('.tweakui-progress-bar', {
-                  style: `width: ${getPercent(
-                    data,
-                  )}%; pointer-events: none; user-select: none;`,
-                }),
-              )
-            : null,
-          m("input[type='number']", {
-            min: data.min,
-            max: data.max,
-            step: data.step,
-            value: getModelValue(data),
-            oninput: onChange,
-            onchange: onChange,
-            placeholder: data.placeholder,
-            disabled: data.disabled,
-          }),
-        ]
-      })
-    },
+    view: viewFn(() => {
+      updateState()
+      return m(
+        'div',
+        {
+          class: twuiClass(data.type),
+        },
+        isSlider ? slider() : null,
+        m("input[type='number']", {
+          min: data.min,
+          max: data.max,
+          step: data.step,
+          value: getModelValue(data),
+          oninput: onChange,
+          onchange: onChange,
+          onwheel: onWheel,
+          placeholder: data.placeholder,
+          disabled: data.disabled,
+        }),
+      )
+    }),
   }
 }
 
