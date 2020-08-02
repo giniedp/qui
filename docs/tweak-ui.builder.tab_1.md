@@ -7,18 +7,18 @@
 <b>Signature:</b>
 
 ```typescript
-tab(label: string, opts: Partial<TabData>, cb?: (builder: Builder) => void): TabData & Removable;
+tab(label: string, opts: Partial<PanelModel>, cb?: (builder: Builder) => void): PanelModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  opts | <code>Partial&lt;TabData&gt;</code> |  |
-|  cb | <code>(builder: Builder) =&gt; void</code> |  |
+|  label | string |  |
+|  opts | Partial&lt;[PanelModel](./tweak-ui.panelmodel.md)<!-- -->&gt; |  |
+|  cb | (builder: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
-`TabData & Removable`
+[PanelModel](./tweak-ui.panelmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

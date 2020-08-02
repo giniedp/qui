@@ -4,21 +4,22 @@
 
 ## ColorPickerModel interface
 
-Describes a color picker control
+Color picker component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface ColorPickerModel<T = any, V = number | string | number[]> extends ControlViewModel, ValueSource<T, V> 
+export interface ColorPickerModel<T = any, V = number | string | number[]> extends ComponentModel, ValueSource<T, V> 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, V&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./tweak-ui.colorpickermodel.format.md) | <code>string</code> | The format of the string value. Defaults to 'rgb' |
-|  [onChange](./tweak-ui.colorpickermodel.onchange.md) | <code>(model: ColorPickerModel&lt;T, V&gt;, value: V) =&gt; void</code> | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.colorpickermodel.oninput.md) | <code>(model: ColorPickerModel&lt;T, V&gt;, value: V) =&gt; void</code> | This is called when the control value has been changed. |
-|  [type](./tweak-ui.colorpickermodel.type.md) | <code>'color-picker'</code> | The type name of the control |
-|  [value](./tweak-ui.colorpickermodel.value.md) | <code>V</code> | If <code>target</code> and <code>property</code> are not set, then this is used as the control value |
+|  [format](./tweak-ui.colorpickermodel.format.md) | string | The format of the string value. Defaults to 'rgb' |
+|  [onChange](./tweak-ui.colorpickermodel.onchange.md) | (model: [ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | This is called once the control value is committed by the user. |
+|  [onInput](./tweak-ui.colorpickermodel.oninput.md) | (model: [ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | This is called when the control value has been changed. |
+|  [type](./tweak-ui.colorpickermodel.type.md) | 'color-picker' | The type name of the control |
+|  [value](./tweak-ui.colorpickermodel.value.md) | V | If <code>target</code> and <code>property</code> are not set, then this is used as the control value |
 

@@ -16,11 +16,11 @@ colorPicker<T>(target: T, property: keyof T, opts?: Partial<ColorPickerModel>): 
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> | The target object holding the value |
-|  property | <code>keyof T</code> | The accessor property |
-|  opts | <code>Partial&lt;ColorPickerModel&gt;</code> | Additional options for the control |
+|  target | T | The target object holding the value |
+|  property | keyof T | The accessor property |
+|  opts | Partial&lt;[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`ColorPickerModel<any, string | number | number[]> & Removable`
+[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;any, string \| number \| number\[\]&gt; &amp; [Removable](./tweak-ui.removable.md)
 

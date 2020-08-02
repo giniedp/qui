@@ -16,9 +16,9 @@ add(def: ColorModel & Removable): ColorModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ColorModel &amp; Removable</code> | The color control definition |
+|  def | [ColorModel](./tweak-ui.colormodel.md) &amp; [Removable](./tweak-ui.removable.md) | The color control definition |
 
 <b>Returns:</b>
 
-`ColorModel & Removable`
+[ColorModel](./tweak-ui.colormodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

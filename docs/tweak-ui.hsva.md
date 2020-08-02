@@ -11,10 +11,11 @@ Describes a HSV color value with alpha
 ```typescript
 export interface HSVA extends HSV 
 ```
+<b>Extends:</b> [HSV](./tweak-ui.hsv.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [a](./tweak-ui.hsva.a.md) | <code>number</code> | The alpha component |
+|  [a](./tweak-ui.hsva.a.md) | number | The alpha component |
 

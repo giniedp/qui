@@ -16,9 +16,9 @@ add(def: TabsModel & Removable): TabsModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>TabsModel &amp; Removable</code> | The tabs control definition |
+|  def | [TabsModel](./tweak-ui.tabsmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The tabs control definition |
 
 <b>Returns:</b>
 
-`TabsModel & Removable`
+[TabsModel](./tweak-ui.tabsmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

@@ -4,15 +4,10 @@
 
 ## CheckboxModel.text property
 
-The button text
+Text behind the checkbox or inside the buttn
 
 <b>Signature:</b>
 
 ```typescript
 text?: string;
 ```
-
-## Remarks
-
-only used if `type` is `checkbutton`
-

@@ -9,5 +9,5 @@ Buttons for this group
 <b>Signature:</b>
 
 ```typescript
-children: ButtonModel[];
+children: Array<ButtonModel>;
 ```

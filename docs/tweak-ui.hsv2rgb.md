@@ -16,11 +16,11 @@ export declare function hsv2rgb(hsv: HSV): RGB;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  hsv | <code>HSV</code> | HSV components where H is in range \[0:360\] and S and V are in range \[0:1\] |
+|  hsv | [HSV](./tweak-ui.hsv.md) | HSV components where H is in range \[0:360\] and S and V are in range \[0:1\] |
 
 <b>Returns:</b>
 
-`RGB`
+[RGB](./tweak-ui.rgb.md)
 
 RGB color components in range \[0:1\]
 

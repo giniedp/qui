@@ -9,17 +9,19 @@ Sets a value on a view model
 <b>Signature:</b>
 
 ```typescript
-export declare function setModelValue<T, V>(model: ValueSource<T, V>, value: V): V;
+export declare function setModelValue<V>(model: ValueSource<any, V>, value: V): V;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  model | <code>ValueSource&lt;T, V&gt;</code> | The view model of a control |
-|  value | <code>V</code> |  |
+|  model | [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;any, V&gt; | The model of a component |
+|  value | V | The value for the component |
 
 <b>Returns:</b>
 
-`V`
+V
+
+result of [getModelValue()](./tweak-ui.getmodelvalue.md) after the value has been set
 

@@ -16,11 +16,11 @@ number<T>(target: T, property: keyof T, opts?: Partial<NumberModel>): NumberMode
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> | The target object holding the value |
-|  property | <code>keyof T</code> | The accessor property |
-|  opts | <code>Partial&lt;NumberModel&gt;</code> | Additional options for the control |
+|  target | T | The target object holding the value |
+|  property | keyof T | The accessor property |
+|  opts | Partial&lt;[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`NumberModel<any> & Removable`
+[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
 

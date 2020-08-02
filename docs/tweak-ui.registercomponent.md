@@ -9,18 +9,18 @@ Registers a component
 <b>Signature:</b>
 
 ```typescript
-export declare function registerComponent(name: string, comp: m.FactoryComponent<any> | m.ClassComponent, overrode?: boolean): void;
+export declare function registerComponent<T>(type: string, comp: ComponentType<T>, override?: boolean): void;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  name | <code>string</code> | The component type name |
-|  comp | <code>m.FactoryComponent&lt;any&gt; &#124; m.ClassComponent</code> | The component |
-|  overrode | <code>boolean</code> |  |
+|  type | string | The component type name |
+|  comp | [ComponentType](./tweak-ui.componenttype.md)<!-- -->&lt;T&gt; | The component |
+|  override | boolean | Allows to override an already registered component |
 
 <b>Returns:</b>
 
-`void`
+void
 

@@ -16,9 +16,9 @@ add(def: ColorPickerModel & Removable): ColorPickerModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ColorPickerModel &amp; Removable</code> | The color picker control definition |
+|  def | [ColorPickerModel](./tweak-ui.colorpickermodel.md) &amp; [Removable](./tweak-ui.removable.md) | The color picker control definition |
 
 <b>Returns:</b>
 
-`ColorPickerModel & Removable`
+[ColorPickerModel](./tweak-ui.colorpickermodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

@@ -16,9 +16,9 @@ add<T>(def: T & Removable): T & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>T &amp; Removable</code> | The control definition |
+|  def | T &amp; [Removable](./tweak-ui.removable.md) | The control definition |
 
 <b>Returns:</b>
 
-`T & Removable`
+T &amp; [Removable](./tweak-ui.removable.md)
 

@@ -9,17 +9,17 @@ Adds a tab control
 <b>Signature:</b>
 
 ```typescript
-tab(label: string, cb: (builder: Builder) => void): TabData & Removable;
+tab(label: string, cb: (builder: Builder) => void): PanelModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> | The tab label |
-|  cb | <code>(builder: Builder) =&gt; void</code> | A callback allowing to build sub controls |
+|  label | string | The tab label |
+|  cb | (builder: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 
-`TabData & Removable`
+[PanelModel](./tweak-ui.panelmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

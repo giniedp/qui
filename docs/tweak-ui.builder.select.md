@@ -16,11 +16,11 @@ select<T>(target: T, property: keyof T, opts?: Partial<SelectModel>): SelectMode
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> | The target object holding the value |
-|  property | <code>keyof T</code> | The accessor property |
-|  opts | <code>Partial&lt;SelectModel&gt;</code> | Additional options for the control |
+|  target | T | The target object holding the value |
+|  property | keyof T | The accessor property |
+|  opts | Partial&lt;[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`SelectModel<any, any> & Removable`
+[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&lt;any, any&gt; &amp; [Removable](./tweak-ui.removable.md)
 

@@ -7,17 +7,17 @@
 <b>Signature:</b>
 
 ```typescript
-tab(label: string, builder: (b: Builder) => void): TabData & Removable;
+tab(label: string, builder: (b: Builder) => void): PanelModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  builder | <code>(b: Builder) =&gt; void</code> |  |
+|  label | string |  |
+|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
-`TabData & Removable`
+[PanelModel](./tweak-ui.panelmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

@@ -9,16 +9,16 @@ Adds a tab control
 <b>Signature:</b>
 
 ```typescript
-add(def: TabData & Removable): TabData & Removable;
+add(def: PanelModel & Removable): PanelModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>TabData &amp; Removable</code> | The tab control definition |
+|  def | [PanelModel](./tweak-ui.panelmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The tab control definition |
 
 <b>Returns:</b>
 
-`TabData & Removable`
+[PanelModel](./tweak-ui.panelmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

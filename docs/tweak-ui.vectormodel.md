@@ -4,24 +4,25 @@
 
 ## VectorModel interface
 
-Describes a vector picker control
+Vector component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface VectorModel<T = any> extends ControlViewModel, ValueSource<T, Vector> 
+export interface VectorModel<T = any> extends ComponentModel, ValueSource<T, VectorValue> 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.vectormodel.disabled.md) | <code>boolean</code> | Disabled the control input |
-|  [keys](./tweak-ui.vectormodel.keys.md) | <code>string[]</code> | The vector object field names. Defaults to <code>['x', 'y', 'z']</code> |
-|  [max](./tweak-ui.vectormodel.max.md) | <code>number</code> | The max value |
-|  [min](./tweak-ui.vectormodel.min.md) | <code>number</code> | The min value |
-|  [onChange](./tweak-ui.vectormodel.onchange.md) | <code>(model: VectorModel&lt;T&gt;, value: Vector) =&gt; void</code> | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.vectormodel.oninput.md) | <code>(model: VectorModel&lt;T&gt;, value: Vector) =&gt; void</code> | This is called when the control value has been changed. |
-|  [step](./tweak-ui.vectormodel.step.md) | <code>number</code> | The step value |
-|  [type](./tweak-ui.vectormodel.type.md) | <code>'vector'</code> | The type name of the control |
+|  [disabled](./tweak-ui.vectormodel.disabled.md) | boolean | Disables the control input |
+|  [keys](./tweak-ui.vectormodel.keys.md) | string\[\] | The vector object field names. Defaults to <code>['x', 'y', 'z']</code> |
+|  [max](./tweak-ui.vectormodel.max.md) | number | The max value |
+|  [min](./tweak-ui.vectormodel.min.md) | number | The min value |
+|  [onChange](./tweak-ui.vectormodel.onchange.md) | (model: [VectorModel](./tweak-ui.vectormodel.md)<!-- -->&lt;T&gt;, value: [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->, key?: string \| number) =&gt; void | This is called once the control value is committed by the user. |
+|  [onInput](./tweak-ui.vectormodel.oninput.md) | (model: [VectorModel](./tweak-ui.vectormodel.md)<!-- -->&lt;T&gt;, value: [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->, key?: string \| number) =&gt; void | This is called when the control value has been changed. |
+|  [step](./tweak-ui.vectormodel.step.md) | number | The step value |
+|  [type](./tweak-ui.vectormodel.type.md) | 'vector' | The type name of the control |
 

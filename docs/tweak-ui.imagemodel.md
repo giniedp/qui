@@ -4,21 +4,22 @@
 
 ## ImageModel interface
 
-Describes an image control
+Image component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface ImageModel extends ControlViewModel 
+export interface ImageModel extends ComponentModel 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [height](./tweak-ui.imagemodel.height.md) | <code>number</code> | The height attribute |
-|  [onClick](./tweak-ui.imagemodel.onclick.md) | <code>(ctrl: ImageModel) =&gt; void</code> | This is callend when the control is clicked |
-|  [src](./tweak-ui.imagemodel.src.md) | <code>string &#124; string[]</code> | The image source url |
-|  [type](./tweak-ui.imagemodel.type.md) | <code>'image'</code> | The type name of the control |
-|  [width](./tweak-ui.imagemodel.width.md) | <code>number</code> | The width attribute |
+|  [height](./tweak-ui.imagemodel.height.md) | number | The height attribute |
+|  [onClick](./tweak-ui.imagemodel.onclick.md) | (ctrl: [ImageModel](./tweak-ui.imagemodel.md)<!-- -->) =&gt; void | This is callend when the control is clicked |
+|  [src](./tweak-ui.imagemodel.src.md) | string \| string\[\] | The image source url |
+|  [type](./tweak-ui.imagemodel.type.md) | 'image' | The type name of the control |
+|  [width](./tweak-ui.imagemodel.width.md) | number | The width attribute |
 

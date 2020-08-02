@@ -16,7 +16,7 @@ export interface HSV
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [h](./tweak-ui.hsv.h.md) | <code>number</code> | The hue component |
-|  [s](./tweak-ui.hsv.s.md) | <code>number</code> | The saturation component |
-|  [v](./tweak-ui.hsv.v.md) | <code>number</code> | The value component |
+|  [h](./tweak-ui.hsv.h.md) | number | The hue component |
+|  [s](./tweak-ui.hsv.s.md) | number | The saturation component |
+|  [v](./tweak-ui.hsv.v.md) | number | The value component |
 

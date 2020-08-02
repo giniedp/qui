@@ -16,9 +16,9 @@ add(def: ButtonModel & Removable): ButtonModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ButtonModel &amp; Removable</code> | The button control definition |
+|  def | [ButtonModel](./tweak-ui.buttonmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The button control definition |
 
 <b>Returns:</b>
 
-`ButtonModel & Removable`
+[ButtonModel](./tweak-ui.buttonmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

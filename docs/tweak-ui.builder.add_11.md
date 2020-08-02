@@ -16,9 +16,9 @@ add(def: ImageModel & Removable): ImageModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ImageModel &amp; Removable</code> | The image control definition |
+|  def | [ImageModel](./tweak-ui.imagemodel.md) &amp; [Removable](./tweak-ui.removable.md) | The image control definition |
 
 <b>Returns:</b>
 
-`ImageModel & Removable`
+[ImageModel](./tweak-ui.imagemodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

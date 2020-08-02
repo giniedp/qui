@@ -16,11 +16,11 @@ color<T>(target: T, property: keyof T, opts?: Partial<ColorModel>): ColorModel<a
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> | The target object holding the value |
-|  property | <code>keyof T</code> | The accessor property |
-|  opts | <code>Partial&lt;ColorModel&gt;</code> | Additional options for the control |
+|  target | T | The target object holding the value |
+|  property | keyof T | The accessor property |
+|  opts | Partial&lt;[ColorModel](./tweak-ui.colormodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`ColorModel<any, string | number | number[]> & Removable`
+[ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;any, string \| number \| number\[\]&gt; &amp; [Removable](./tweak-ui.removable.md)
 

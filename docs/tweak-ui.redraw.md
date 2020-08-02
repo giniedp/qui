@@ -13,7 +13,7 @@ export declare function redraw(): void;
 ```
 <b>Returns:</b>
 
-`void`
+void
 
 ## Remarks
 

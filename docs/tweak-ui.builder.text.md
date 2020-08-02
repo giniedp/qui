@@ -16,11 +16,11 @@ text<T>(target: T, property: keyof T, opts?: Partial<TextModel>): TextModel<any>
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  target | <code>T</code> | The target object holding the value |
-|  property | <code>keyof T</code> | The accessor property |
-|  opts | <code>Partial&lt;TextModel&gt;</code> | Additional options for the control |
+|  target | T | The target object holding the value |
+|  property | keyof T | The accessor property |
+|  opts | Partial&lt;[TextModel](./tweak-ui.textmodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`TextModel<any> & Removable`
+[TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
 

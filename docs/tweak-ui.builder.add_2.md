@@ -16,9 +16,9 @@ add(def: GroupModel & Removable): GroupModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>GroupModel &amp; Removable</code> | The group control definition |
+|  def | [GroupModel](./tweak-ui.groupmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The group control definition |
 
 <b>Returns:</b>
 
-`GroupModel & Removable`
+[GroupModel](./tweak-ui.groupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

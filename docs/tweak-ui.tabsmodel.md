@@ -4,19 +4,19 @@
 
 ## TabsModel interface
 
-Describes a tabs control
+Tabs component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface TabsModel extends ControlViewModel 
+export interface TabsModel extends ComponentGroupModel<PanelModel> 
 ```
+<b>Extends:</b> [ComponentGroupModel](./tweak-ui.componentgroupmodel.md)<!-- -->&lt;[PanelModel](./tweak-ui.panelmodel.md)<!-- -->&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [active](./tweak-ui.tabsmodel.active.md) | <code>number</code> | The index of the opened tab |
-|  [children](./tweak-ui.tabsmodel.children.md) | <code>TabData[]</code> | Buttons for this group |
-|  [type](./tweak-ui.tabsmodel.type.md) | <code>'tabs'</code> | The type name of the control |
+|  [active](./tweak-ui.tabsmodel.active.md) | number | The index of the opened tab |
+|  [type](./tweak-ui.tabsmodel.type.md) | 'tabs' | The type name of the control |
 

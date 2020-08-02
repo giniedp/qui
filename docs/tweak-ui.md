@@ -6,6 +6,12 @@
 
 Tweak UI is a lightweight js library for building input controls with data binding
 
+## Remarks
+
+The library provides a set of common ui components built with mithriljs. The main objective is to allow a developer to rapidly scaffold input interfaces for manipulating javascript objects at runtime.
+
+Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit](https://github.com/automat/controlkit.js) [guify](https://github.com/colejd/guify)
+
 ## Classes
 
 |  Class | Description |
@@ -23,8 +29,9 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 |  [hsv2rgb(hsv)](./tweak-ui.hsv2rgb.md) | Converts hsv to rgb |
 |  [mount(el, data)](./tweak-ui.mount.md) | Mounts a ui to the given element |
 |  [redraw()](./tweak-ui.redraw.md) | Redraws the ui |
-|  [registerComponent(name, comp, overrode)](./tweak-ui.registercomponent.md) | Registers a component |
-|  [renderControl(node, view)](./tweak-ui.rendercontrol.md) |  |
+|  [registerComponent(type, comp, override)](./tweak-ui.registercomponent.md) | Registers a component |
+|  [renderComponent(attrs)](./tweak-ui.rendercomponent.md) | Renders a registered component |
+|  [renderModel(model)](./tweak-ui.rendermodel.md) | Renders a registered component using the model |
 |  [rgb2hsv(rgb)](./tweak-ui.rgb2hsv.md) | Converts rgb to hsv |
 |  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |
 |  [unmount(el)](./tweak-ui.unmount.md) | Unmounts the ui from given host element |
@@ -33,31 +40,34 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 
 |  Interface | Description |
 |  --- | --- |
-|  [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) | Describes a button group |
-|  [ButtonModel](./tweak-ui.buttonmodel.md) | Describes a button control |
+|  [AccordeonModel](./tweak-ui.accordeonmodel.md) | Accordeon component model |
+|  [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) | Button group component model |
+|  [ButtonModel](./tweak-ui.buttonmodel.md) | Button component model |
 |  [CheckboxModel](./tweak-ui.checkboxmodel.md) | Describes a checkbox control |
 |  [ColorFormatter](./tweak-ui.colorformatter.md) | An implementation to parse and format specific color format |
-|  [ColorModel](./tweak-ui.colormodel.md) | Describes a color control |
-|  [ColorPickerModel](./tweak-ui.colorpickermodel.md) | Describes a color picker control |
-|  [ControlGroupViewModel](./tweak-ui.controlgroupviewmodel.md) | Common control group properties |
-|  [ControlViewModel](./tweak-ui.controlviewmodel.md) | Common control properties |
-|  [GroupModel](./tweak-ui.groupmodel.md) | Describes a group control |
+|  [ColorModel](./tweak-ui.colormodel.md) | Color component model |
+|  [ColorPickerModel](./tweak-ui.colorpickermodel.md) | Color picker component model |
+|  [ComponentGroupModel](./tweak-ui.componentgroupmodel.md) | Base model for a component with children |
+|  [ComponentModel](./tweak-ui.componentmodel.md) | Base model for a component |
+|  [CustomModel](./tweak-ui.custommodel.md) | Custom component model |
+|  [DirectionModel](./tweak-ui.directionmodel.md) | Direction component model |
+|  [GroupModel](./tweak-ui.groupmodel.md) | Group component model |
 |  [HSL](./tweak-ui.hsl.md) | Describes a HSL color value |
 |  [HSLA](./tweak-ui.hsla.md) | Describes a HSL color value with alpha |
 |  [HSV](./tweak-ui.hsv.md) | Describes a HSV color value |
 |  [HSVA](./tweak-ui.hsva.md) | Describes a HSV color value with alpha |
-|  [ImageModel](./tweak-ui.imagemodel.md) | Describes an image control |
-|  [NumberModel](./tweak-ui.numbermodel.md) | Describes a number control |
+|  [ImageModel](./tweak-ui.imagemodel.md) | Image component model |
+|  [NumberModel](./tweak-ui.numbermodel.md) | Number component model |
+|  [PadModel](./tweak-ui.padmodel.md) | Pad component model |
+|  [PanelModel](./tweak-ui.panelmodel.md) | Panel component model |
 |  [Removable](./tweak-ui.removable.md) |  |
 |  [RGB](./tweak-ui.rgb.md) | Describes an RGB color value |
 |  [RGBA](./tweak-ui.rgba.md) | Describes an RGB color value with alpha |
-|  [SelectModel](./tweak-ui.selectmodel.md) | Describes a select control |
-|  [TabData](./tweak-ui.tabdata.md) | Describes a tab control |
+|  [SelectModel](./tweak-ui.selectmodel.md) | Select component model |
 |  [TabsBuilder](./tweak-ui.tabsbuilder.md) |  |
-|  [TabsModel](./tweak-ui.tabsmodel.md) | Describes a tabs control |
-|  [TextModel](./tweak-ui.textmodel.md) | Describes a text control |
-|  [ValueSource](./tweak-ui.valuesource.md) |  |
-|  [VectorModel](./tweak-ui.vectormodel.md) | Describes a vector picker control |
+|  [TabsModel](./tweak-ui.tabsmodel.md) | Tabs component model |
+|  [TextModel](./tweak-ui.textmodel.md) | Text component model |
+|  [VectorModel](./tweak-ui.vectormodel.md) | Vector component model |
 
 ## Variables
 
@@ -70,13 +80,31 @@ Tweak UI is a lightweight js library for building input controls with data bindi
 
 |  Type Alias | Description |
 |  --- | --- |
-|  [PanelModel](./tweak-ui.panelmodel.md) | Describes a panel control |
-|  [SelectModelOptions](./tweak-ui.selectmodeloptions.md) |  |
-|  [Vector](./tweak-ui.vector.md) |  |
-
-## Remarks
-
-The library provides a set of common ui components built with mithriljs. The main objective is to allow a developer to rapidly scaffold input interfaces for manipulating javascript objects at runtime.
-
-Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit](https://github.com/automat/controlkit.js) [guify](https://github.com/colejd/guify)
+|  [AccordeonAtts](./tweak-ui.accordeonatts.md) | Accordeon component attribuets |
+|  [ArrayOrSingleOf](./tweak-ui.arrayorsingleof.md) |  |
+|  [ButtonAttrs](./tweak-ui.buttonattrs.md) | Button component attribuets |
+|  [ButtonGroupAttrs](./tweak-ui.buttongroupattrs.md) | Button group component attributes |
+|  [CheckboxAttrs](./tweak-ui.checkboxattrs.md) | Checkbox component attrs |
+|  [ColorAttrs](./tweak-ui.colorattrs.md) | Color component attributes |
+|  [ColorPickerAttrs](./tweak-ui.colorpickerattrs.md) | Color picker component attributes |
+|  [ComponentAttrs](./tweak-ui.componentattrs.md) | Common component attributes |
+|  [ComponentType](./tweak-ui.componenttype.md) |  |
+|  [CustomAttrs](./tweak-ui.customattrs.md) | Custom component attributes |
+|  [DirectionAttrs](./tweak-ui.directionattrs.md) | Direction component attributes |
+|  [GroupAttrs](./tweak-ui.groupattrs.md) | Group component attributes |
+|  [ImageAttrs](./tweak-ui.imageattrs.md) | Image component attrs |
+|  [NumberAttrs](./tweak-ui.numberattrs.md) | Number component attributes |
+|  [PadAttrs](./tweak-ui.padattrs.md) | Pad component attributes |
+|  [PanelAttrs](./tweak-ui.panelattrs.md) | Panel component attributes |
+|  [SelectAttrs](./tweak-ui.selectattrs.md) | Select component attributes |
+|  [SelectModelOptions](./tweak-ui.selectmodeloptions.md) | Select component select options |
+|  [SelectOption](./tweak-ui.selectoption.md) |  |
+|  [SelectOptionArray](./tweak-ui.selectoptionarray.md) |  |
+|  [SelectOptionGroup](./tweak-ui.selectoptiongroup.md) |  |
+|  [SelectOptionsObject](./tweak-ui.selectoptionsobject.md) |  |
+|  [TabsAtts](./tweak-ui.tabsatts.md) | Tabs component attributes |
+|  [TextAttrs](./tweak-ui.textattrs.md) | Text component attributes |
+|  [ValueSource](./tweak-ui.valuesource.md) |  |
+|  [VectorAttrs](./tweak-ui.vectorattrs.md) | Vector component attributes |
+|  [VectorValue](./tweak-ui.vectorvalue.md) |  |
 

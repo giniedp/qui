@@ -9,17 +9,17 @@ Mounts a ui to the given element
 <b>Signature:</b>
 
 ```typescript
-export declare function mount(el: Element, data: ControlViewModel[]): void;
+export declare function mount(el: Element | string, data: ComponentModel | ComponentModel[]): void;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  el | <code>Element</code> | The ui host element |
-|  data | <code>ControlViewModel[]</code> | The ui definition object |
+|  el | Element \| string | The ui host element |
+|  data | [ComponentModel](./tweak-ui.componentmodel.md) \| [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->\[\] | The ui definition object |
 
 <b>Returns:</b>
 
-`void`
+void
 

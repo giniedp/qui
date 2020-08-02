@@ -16,10 +16,10 @@ buttonGroup(label: string, builder: (b: Builder) => void): ButtonGroupModel & Re
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> | The group label |
-|  builder | <code>(b: Builder) =&gt; void</code> | A callback allowing to build sub controls |
+|  label | string | The group label |
+|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 
-`ButtonGroupModel & Removable`
+[ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

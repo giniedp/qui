@@ -4,19 +4,20 @@
 
 ## GroupModel interface
 
-Describes a group control
+Group component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface GroupModel extends ControlViewModel 
+export interface GroupModel extends ComponentGroupModel 
 ```
+<b>Extends:</b> [ComponentGroupModel](./tweak-ui.componentgroupmodel.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [children](./tweak-ui.groupmodel.children.md) | <code>ControlViewModel[]</code> | Definitions of child controls |
-|  [open](./tweak-ui.groupmodel.open.md) | <code>boolean</code> | If true, the children will be rendered |
-|  [type](./tweak-ui.groupmodel.type.md) | <code>'group'</code> | The type name of the control |
+|  [open](./tweak-ui.groupmodel.open.md) | boolean | If true, the children will be rendered |
+|  [title](./tweak-ui.groupmodel.title.md) | string |  |
+|  [type](./tweak-ui.groupmodel.type.md) | 'group' | The type name of the control |
 

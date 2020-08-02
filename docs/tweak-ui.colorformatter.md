@@ -16,6 +16,6 @@ export interface ColorFormatter<T>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./tweak-ui.colorformatter.format.md) | <code>(rgba: RGBA) =&gt; T</code> | Formats an RGBA color value into a target color format |
-|  [parse](./tweak-ui.colorformatter.parse.md) | <code>(v: T) =&gt; RGBA</code> | Parses a color value and returns an RGBA object with all components normalized to \[0:1\] |
+|  [format](./tweak-ui.colorformatter.format.md) | (rgba: [RGBA](./tweak-ui.rgba.md)<!-- -->) =&gt; T | Formats an RGBA color value into a target color format |
+|  [parse](./tweak-ui.colorformatter.parse.md) | (v: T) =&gt; [RGBA](./tweak-ui.rgba.md) | Parses a color value and returns an RGBA object with all components normalized to \[0:1\] |
 

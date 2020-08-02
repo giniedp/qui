@@ -16,9 +16,9 @@ add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>ButtonGroupModel &amp; Removable</code> | The button group control definition |
+|  def | [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The button group control definition |
 
 <b>Returns:</b>
 
-`ButtonGroupModel & Removable`
+[ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

@@ -14,11 +14,11 @@ buttonGroup(label: string, opts: Partial<ButtonGroupModel>, builder: (b: Builder
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  opts | <code>Partial&lt;ButtonGroupModel&gt;</code> |  |
-|  builder | <code>(b: Builder) =&gt; void</code> |  |
+|  label | string |  |
+|  opts | Partial&lt;[ButtonGroupModel](./tweak-ui.buttongroupmodel.md)<!-- -->&gt; |  |
+|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
-`ButtonGroupModel & Removable`
+[ButtonGroupModel](./tweak-ui.buttongroupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

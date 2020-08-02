@@ -16,10 +16,10 @@ image(label: string, opts?: Partial<ImageModel>): ImageModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> | The control label |
-|  opts | <code>Partial&lt;ImageModel&gt;</code> | Additional options for the control |
+|  label | string | The control label |
+|  opts | Partial&lt;[ImageModel](./tweak-ui.imagemodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`ImageModel & Removable`
+[ImageModel](./tweak-ui.imagemodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

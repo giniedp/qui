@@ -9,5 +9,5 @@ The type name of the control
 <b>Signature:</b>
 
 ```typescript
-type: 'checkbox' | 'checkbutton';
+type: 'checkbox';
 ```

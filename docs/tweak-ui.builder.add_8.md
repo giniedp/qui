@@ -16,9 +16,9 @@ add(def: SelectModel & Removable): SelectModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>SelectModel &amp; Removable</code> | The select control definition |
+|  def | [SelectModel](./tweak-ui.selectmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The select control definition |
 
 <b>Returns:</b>
 
-`SelectModel & Removable`
+[SelectModel](./tweak-ui.selectmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

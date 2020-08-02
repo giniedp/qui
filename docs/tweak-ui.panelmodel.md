@@ -2,12 +2,22 @@
 
 [Home](./index.md) &gt; [tweak-ui](./tweak-ui.md) &gt; [PanelModel](./tweak-ui.panelmodel.md)
 
-## PanelModel type
+## PanelModel interface
 
-Describes a panel control
+Panel component model
 
 <b>Signature:</b>
 
 ```typescript
-export declare type PanelModel = ControlViewModel[];
+export interface PanelModel extends ComponentGroupModel<ComponentModel> 
 ```
+<b>Extends:</b> [ComponentGroupModel](./tweak-ui.componentgroupmodel.md)<!-- -->&lt;[ComponentModel](./tweak-ui.componentmodel.md)<!-- -->&gt;
+
+## Properties
+
+|  Property | Type | Description |
+|  --- | --- | --- |
+|  [style](./tweak-ui.panelmodel.style.md) | Partial&lt;CSSStyleDeclaration&gt; | Panel CSS Style |
+|  [title](./tweak-ui.panelmodel.title.md) | string | Panel title |
+|  [type](./tweak-ui.panelmodel.type.md) | 'panel' | Component type name |
+

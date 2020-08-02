@@ -14,11 +14,11 @@ group(label: string, opts: Partial<GroupModel>, builder?: (b: Builder) => void):
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  label | <code>string</code> |  |
-|  opts | <code>Partial&lt;GroupModel&gt;</code> |  |
-|  builder | <code>(b: Builder) =&gt; void</code> |  |
+|  label | string |  |
+|  opts | Partial&lt;[GroupModel](./tweak-ui.groupmodel.md)<!-- -->&gt; |  |
+|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
-`GroupModel & Removable`
+[GroupModel](./tweak-ui.groupmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

@@ -4,20 +4,21 @@
 
 ## SelectModel interface
 
-Describes a select control
+Select component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface SelectModel<T = any, V = any> extends ControlViewModel, ValueSource<T, V> 
+export interface SelectModel<T = any, V = any> extends ComponentModel, ValueSource<T, V> 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, V&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.selectmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
-|  [onChange](./tweak-ui.selectmodel.onchange.md) | <code>(model: SelectModel&lt;T&gt;, value: V) =&gt; void</code> | This is called once the control value is committed by the user. |
-|  [options](./tweak-ui.selectmodel.options.md) | <code>SelectModelOptions</code> | The select options |
-|  [type](./tweak-ui.selectmodel.type.md) | <code>'select'</code> | The type name of the control |
+|  [disabled](./tweak-ui.selectmodel.disabled.md) | boolean | Disables the control input |
+|  [onChange](./tweak-ui.selectmodel.onchange.md) | (model: [SelectModel](./tweak-ui.selectmodel.md)<!-- -->&lt;T&gt;, value: V) =&gt; void | This is called once the control value is committed by the user. |
+|  [options](./tweak-ui.selectmodel.options.md) | [SelectModelOptions](./tweak-ui.selectmodeloptions.md) | The select options |
+|  [type](./tweak-ui.selectmodel.type.md) | 'select' | The type name of the control |
 

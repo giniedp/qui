@@ -11,10 +11,11 @@ Describes a HSL color value with alpha
 ```typescript
 export interface HSLA extends HSL 
 ```
+<b>Extends:</b> [HSL](./tweak-ui.hsl.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [a](./tweak-ui.hsla.a.md) | <code>number</code> | The alpha component |
+|  [a](./tweak-ui.hsla.a.md) | number | The alpha component |
 

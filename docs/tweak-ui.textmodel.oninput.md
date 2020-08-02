@@ -9,5 +9,5 @@ This is called when the control value has been changed.
 <b>Signature:</b>
 
 ```typescript
-onInput?: (model: TextModel<T>, value: number) => void;
+onInput?: (model: TextModel<T>, value: string) => void;
 ```

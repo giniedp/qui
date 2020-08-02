@@ -9,7 +9,7 @@ This is called once the control value is committed by the user.
 <b>Signature:</b>
 
 ```typescript
-onChange?: (model: VectorModel<T>, value: Vector) => void;
+onChange?: (model: VectorModel<T>, value: VectorValue, key?: string | number) => void;
 ```
 
 ## Remarks

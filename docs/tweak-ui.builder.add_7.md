@@ -16,9 +16,9 @@ add(def: NumberModel & Removable): NumberModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>NumberModel &amp; Removable</code> | The number control definition |
+|  def | [NumberModel](./tweak-ui.numbermodel.md) &amp; [Removable](./tweak-ui.removable.md) | The number control definition |
 
 <b>Returns:</b>
 
-`NumberModel & Removable`
+[NumberModel](./tweak-ui.numbermodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

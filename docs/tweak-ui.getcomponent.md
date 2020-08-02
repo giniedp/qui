@@ -9,16 +9,16 @@ Gets a registered component for a given type name
 <b>Signature:</b>
 
 ```typescript
-export declare function getComponent(type: string): m.FactoryComponent<any> | m.ClassComponent<{}>;
+export declare function getComponent<T extends ComponentAttrs<any>>(type: string): ComponentType<T>;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  type | <code>string</code> | The component type |
+|  type | string | The component type |
 
 <b>Returns:</b>
 
-`m.FactoryComponent<any> | m.ClassComponent<{}>`
+[ComponentType](./tweak-ui.componenttype.md)<!-- -->&lt;T&gt;
 

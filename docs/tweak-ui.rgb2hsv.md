@@ -16,11 +16,11 @@ export declare function rgb2hsv(rgb: RGB): HSV;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  rgb | <code>RGB</code> |  |
+|  rgb | [RGB](./tweak-ui.rgb.md) |  |
 
 <b>Returns:</b>
 
-`HSV`
+[HSV](./tweak-ui.hsv.md)
 
 ## Remarks
 

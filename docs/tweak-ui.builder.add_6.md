@@ -16,9 +16,9 @@ add(def: TextModel & Removable): TextModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>TextModel &amp; Removable</code> | The text control definition |
+|  def | [TextModel](./tweak-ui.textmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The text control definition |
 
 <b>Returns:</b>
 
-`TextModel & Removable`
+[TextModel](./tweak-ui.textmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

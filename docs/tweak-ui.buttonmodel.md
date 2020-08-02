@@ -4,20 +4,21 @@
 
 ## ButtonModel interface
 
-Describes a button control
+Button component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface ButtonModel extends ControlViewModel 
+export interface ButtonModel extends ComponentModel 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.buttonmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
-|  [onClick](./tweak-ui.buttonmodel.onclick.md) | <code>(ctrl: ButtonModel) =&gt; void</code> | This is callend when the control is clicked |
-|  [text](./tweak-ui.buttonmodel.text.md) | <code>string</code> | The button text |
-|  [type](./tweak-ui.buttonmodel.type.md) | <code>'button'</code> | The type name of the control |
+|  [disabled](./tweak-ui.buttonmodel.disabled.md) | boolean | Disables the control input |
+|  [onClick](./tweak-ui.buttonmodel.onclick.md) | (ctrl: [ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->) =&gt; void | This is callend when the control is clicked |
+|  [text](./tweak-ui.buttonmodel.text.md) | string | The button text |
+|  [type](./tweak-ui.buttonmodel.type.md) | 'button' | The type name of the control |
 

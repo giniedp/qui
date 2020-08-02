@@ -16,10 +16,10 @@ button(text: string, opts?: Partial<ButtonModel>): ButtonModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  text | <code>string</code> | The button text |
-|  opts | <code>Partial&lt;ButtonModel&gt;</code> | Additional options for the control |
+|  text | string | The button text |
+|  opts | Partial&lt;[ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-`ButtonModel & Removable`
+[ButtonModel](./tweak-ui.buttonmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

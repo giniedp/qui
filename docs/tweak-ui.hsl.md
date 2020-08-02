@@ -16,7 +16,7 @@ export interface HSL
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [h](./tweak-ui.hsl.h.md) | <code>number</code> | The hue component |
-|  [l](./tweak-ui.hsl.l.md) | <code>number</code> | The value component |
-|  [s](./tweak-ui.hsl.s.md) | <code>number</code> | The saturation component |
+|  [h](./tweak-ui.hsl.h.md) | number | The hue component |
+|  [l](./tweak-ui.hsl.l.md) | number | The value component |
+|  [s](./tweak-ui.hsl.s.md) | number | The saturation component |
 

@@ -9,5 +9,5 @@ This is called when the control value changes
 <b>Signature:</b>
 
 ```typescript
-onChange?: (value: CheckboxModel) => void;
+onChange?: (value: CheckboxModel, checked: boolean) => void;
 ```

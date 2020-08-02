@@ -16,9 +16,9 @@ tabs(cb: (b: TabsBuilder) => void): TabsModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  cb | <code>(b: TabsBuilder) =&gt; void</code> | A callback allowing to build sub controls |
+|  cb | (b: [TabsBuilder](./tweak-ui.tabsbuilder.md)<!-- -->) =&gt; void | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 
-`TabsModel & Removable`
+[TabsModel](./tweak-ui.tabsmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

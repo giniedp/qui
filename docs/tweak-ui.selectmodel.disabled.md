@@ -4,7 +4,7 @@
 
 ## SelectModel.disabled property
 
-Disabled the control input
+Disables the control input
 
 <b>Signature:</b>
 

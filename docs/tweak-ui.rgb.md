@@ -16,7 +16,7 @@ export interface RGB
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [b](./tweak-ui.rgb.b.md) | <code>number</code> | The blue component |
-|  [g](./tweak-ui.rgb.g.md) | <code>number</code> | The green component |
-|  [r](./tweak-ui.rgb.r.md) | <code>number</code> | The red component |
+|  [b](./tweak-ui.rgb.b.md) | number | The blue component |
+|  [g](./tweak-ui.rgb.g.md) | number | The green component |
+|  [r](./tweak-ui.rgb.r.md) | number | The red component |
 

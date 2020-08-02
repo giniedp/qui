@@ -16,9 +16,9 @@ add(def: CheckboxModel & Removable): CheckboxModel & Removable;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  def | <code>CheckboxModel &amp; Removable</code> | The checkbox control definition |
+|  def | [CheckboxModel](./tweak-ui.checkboxmodel.md) &amp; [Removable](./tweak-ui.removable.md) | The checkbox control definition |
 
 <b>Returns:</b>
 
-`CheckboxModel & Removable`
+[CheckboxModel](./tweak-ui.checkboxmodel.md) &amp; [Removable](./tweak-ui.removable.md)
 

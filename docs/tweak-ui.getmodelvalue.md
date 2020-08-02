@@ -9,16 +9,16 @@ Gets a value of a view model
 <b>Signature:</b>
 
 ```typescript
-export declare function getModelValue<T, V>(model: ValueSource<T, V>): V;
+export declare function getModelValue<V>(model: ValueSource<any, V>): V;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  model | <code>ValueSource&lt;T, V&gt;</code> | The view model of a control |
+|  model | [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;any, V&gt; | The model of a component |
 
 <b>Returns:</b>
 
-`V`
+V
 

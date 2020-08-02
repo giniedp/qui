@@ -9,15 +9,16 @@ Describes a checkbox control
 <b>Signature:</b>
 
 ```typescript
-export interface CheckboxModel<T = any> extends ControlViewModel, ValueSource<T, boolean> 
+export interface CheckboxModel<T = any> extends ComponentModel, ValueSource<T, boolean> 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, boolean&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.checkboxmodel.disabled.md) | <code>boolean</code> | Disabled the control input |
-|  [onChange](./tweak-ui.checkboxmodel.onchange.md) | <code>(value: CheckboxModel) =&gt; void</code> | This is called when the control value changes |
-|  [text](./tweak-ui.checkboxmodel.text.md) | <code>string</code> | The button text |
-|  [type](./tweak-ui.checkboxmodel.type.md) | <code>'checkbox' &#124; 'checkbutton'</code> | The type name of the control |
+|  [disabled](./tweak-ui.checkboxmodel.disabled.md) | boolean | Disables the control input |
+|  [onChange](./tweak-ui.checkboxmodel.onchange.md) | (value: [CheckboxModel](./tweak-ui.checkboxmodel.md)<!-- -->, checked: boolean) =&gt; void | This is called when the control value changes |
+|  [text](./tweak-ui.checkboxmodel.text.md) | string | Text behind the checkbox or inside the buttn |
+|  [type](./tweak-ui.checkboxmodel.type.md) | 'checkbox' | The type name of the control |
 

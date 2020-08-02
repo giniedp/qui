@@ -11,10 +11,11 @@ Describes an RGB color value with alpha
 ```typescript
 export interface RGBA extends RGB 
 ```
+<b>Extends:</b> [RGB](./tweak-ui.rgb.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [a](./tweak-ui.rgba.a.md) | <code>number</code> | The alpha component |
+|  [a](./tweak-ui.rgba.a.md) | number | The alpha component |
 

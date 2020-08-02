@@ -16,9 +16,9 @@ export declare function getColorFormatter(format?: string): ColorFormatter<any>;
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  format | <code>string</code> | The format code |
+|  format | string | The format code |
 
 <b>Returns:</b>
 
-`ColorFormatter<any>`
+[ColorFormatter](./tweak-ui.colorformatter.md)<!-- -->&lt;any&gt;
 

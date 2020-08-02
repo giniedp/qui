@@ -4,18 +4,20 @@
 
 ## ButtonGroupModel interface
 
-Describes a button group
+Button group component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface ButtonGroupModel extends ControlViewModel 
+export interface ButtonGroupModel extends ComponentModel 
 ```
+<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [children](./tweak-ui.buttongroupmodel.children.md) | <code>ButtonModel[]</code> | Buttons for this group |
-|  [type](./tweak-ui.buttongroupmodel.type.md) | <code>'button-group'</code> | The type name of the control |
+|  [children](./tweak-ui.buttongroupmodel.children.md) | Array&lt;[ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->&gt; | Buttons for this group |
+|  [type](./tweak-ui.buttongroupmodel.type.md) | 'button-group' | The type name of the control |
+|  [vertical](./tweak-ui.buttongroupmodel.vertical.md) | boolean | If true, buttons are stacked vertically |
 

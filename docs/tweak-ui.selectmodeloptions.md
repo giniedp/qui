@@ -4,15 +4,10 @@
 
 ## SelectModelOptions type
 
+Select component select options
 
 <b>Signature:</b>
 
 ```typescript
-export declare type SelectModelOptions = {
-    [key: string]: any;
-} | Array<string | number> | Array<{
-    id: string;
-    label: string;
-    value: any;
-}>;
+export declare type SelectModelOptions = SelectOptionArray | SelectOptionsObject;
 ```
