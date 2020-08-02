@@ -15,7 +15,7 @@ $colorMap: (
 }
 
 @function getColorVar($colorName) {
-  @return var(--tweakui-color-#{$colorName}, getColor($colorName));
+  @return var(--twui-color-#{$colorName}, getColor($colorName));
 }
 
 @mixin color($property, $colorName) {

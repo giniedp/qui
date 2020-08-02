@@ -78,7 +78,7 @@
     white-space: nowrap;
   }
 
-  button, select, input:not([type="checkbox"]), .tweakui-progress {
+  button, select, input:not([type="checkbox"]), .twui-progress {
     border-bottom: 1px solid;
     @include color(border-color, primary-dark);
     transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -217,7 +217,7 @@
 }
 
 .twui-slider {
-  .tweakui-progress {
+  .twui-progress {
     flex: 1;
     display: flex;
     margin: $spacer;
@@ -230,11 +230,11 @@
     }
   }
 
-  .tweakui-progress.disabled {
+  .twui-progress.disabled {
     cursor: not-allowed;
   }
 
-  .tweakui-progress-bar {
+  .twui-progress-bar {
     @include color(background-color, secondary-light);
   }
 

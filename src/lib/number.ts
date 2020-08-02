@@ -141,7 +141,7 @@ function numberComponent(node: m.Vnode<NumberAttrs>) {
 
   function slider(): Child {
     return m(
-      '.tweakui-progress',
+      '.twui-progress',
       {
         style: 'user-select: none;',
         class: cssClass({
@@ -161,7 +161,7 @@ function numberComponent(node: m.Vnode<NumberAttrs>) {
           onwheel: onWheel,
         }),
       },
-      m('.tweakui-progress-bar', {
+      m('.twui-progress-bar', {
         style: `width: ${percent}%; pointer-events: none; user-select: none;`,
       }),
     )
