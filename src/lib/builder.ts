@@ -1,19 +1,22 @@
-import { ButtonModel } from './button'
+import { h, mount } from './core'
+import { ComponentModel, ComponentGroupModel } from './types'
+
 import { ButtonGroupModel } from './button-group'
+import { ButtonModel } from './button'
 import { CheckboxModel } from './checkbox'
 import { ColorModel } from './color'
 import { ColorPickerModel } from './color-picker'
-import { h, renderModel } from './core'
+import { CustomModel } from './custom'
+import { DirectionModel } from './direction'
 import { GroupModel } from './group'
 import { ImageModel } from './image'
 import { NumberModel } from './number'
+import { PadModel } from './pad'
+import { PanelModel } from './panel'
 import { SelectModel } from './select'
 import { TabsModel } from './tabs'
 import { TextModel } from './text'
-import { CustomModel } from './custom'
-import { PadModel } from './pad'
-import { PanelModel } from './panel'
-import { ComponentModel, ComponentGroupModel } from './types'
+import { VectorModel } from './vector'
 
 /**
  *
@@ -24,6 +27,28 @@ export interface Removable {
 }
 
 /**
+ * Union type of all build in models
+ * @public
+ */
+export type BuildInComponent =
+  | ButtonGroupModel
+  | ButtonModel
+  | CheckboxModel
+  | ColorModel
+  | ColorPickerModel
+  | CustomModel
+  | DirectionModel
+  | GroupModel
+  | ImageModel
+  | NumberModel
+  | PadModel
+  | PanelModel
+  | SelectModel
+  | TabsModel
+  | TextModel
+  | VectorModel
+
+/**
  *
  * @public
  */
@@ -31,7 +56,12 @@ export interface TabsBuilder {
   tab(label: string, builder: (b: Builder) => void): PanelModel & Removable
 }
 
-function assign<T extends ComponentModel>(partial: Partial<T>, extension: T): T {
+function extend<T extends ComponentModel, E>(partial: T, extension: E): T & E
+function extend<T extends ComponentModel>(partial: Partial<T>, extension: T): T
+function extend<T extends ComponentModel>(
+  partial: Partial<T>,
+  extension: T,
+): T {
   Object.keys(extension).forEach((key: string) => {
     partial[key as keyof T] = extension[key as keyof T]
   })
@@ -88,7 +118,7 @@ export class Builder {
   public buttonGroup(label: string): ButtonGroupModel & Removable {
     const opts = buildGroup<ButtonGroupModel>(arguments[1], arguments[2])
     return this.add<ButtonGroupModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'button-group',
         label: label,
         children: opts.children,
@@ -114,7 +144,7 @@ export class Builder {
   public group(label: string): GroupModel & Removable {
     const opts = buildGroup<GroupModel>(arguments[1], arguments[2])
     return this.add<GroupModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'group',
         title: label,
         children: opts.children,
@@ -155,7 +185,7 @@ export class Builder {
   public tab(label: string): PanelModel & Removable {
     const opts = buildGroup<PanelModel>(arguments[1], arguments[2])
     return this.add<PanelModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'panel',
         label: label,
         children: opts.children,
@@ -171,7 +201,7 @@ export class Builder {
    */
   public button(text: string, opts: Partial<ButtonModel> = {}) {
     return this.add<ButtonModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'button',
         text: text,
       }),
@@ -194,7 +224,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<CheckboxModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'checkbox',
         target: target,
         property: property,
@@ -214,7 +244,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<TextModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'text',
         target: target,
         property: property,
@@ -238,7 +268,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<NumberModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'number',
         target: target,
         property: property,
@@ -262,7 +292,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<NumberModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'slider',
         target: target,
         property: property,
@@ -286,7 +316,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<SelectModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'select',
         target: target,
         property: property,
@@ -310,7 +340,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<ColorModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'color',
         target: target,
         property: property,
@@ -334,7 +364,7 @@ export class Builder {
       opts.label = String(property)
     }
     return this.add<ColorPickerModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'color-picker',
         target: target,
         property: property,
@@ -350,7 +380,7 @@ export class Builder {
    */
   public image(label: string, opts: Partial<ImageModel> = {}) {
     return this.add<ImageModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'image',
         label: label,
       }),
@@ -364,13 +394,9 @@ export class Builder {
    * @param text - The text message
    * @param opts - Additional options for the control
    */
-  public custom(
-    label: string,
-    text: string,
-    opts: Partial<CustomModel> = {},
-  ) {
+  public custom(label: string, text: string, opts: Partial<CustomModel> = {}) {
     return this.add<CustomModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'custom',
         label: label,
         node: text,
@@ -385,16 +411,12 @@ export class Builder {
    * @param property - The accessor property
    * @param opts - Additional options for the control
    */
-  public Pad<T>(
-    target: T,
-    property: keyof T,
-    opts: Partial<PadModel> = {},
-  ) {
+  public pad<T>(target: T, property: keyof T, opts: Partial<PadModel> = {}) {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
     return this.add<PadModel>(
-      assign(opts, {
+      extend(opts, {
         type: 'pad',
         target: target,
         property: property,
@@ -403,96 +425,53 @@ export class Builder {
   }
 
   /**
-   * Adds a button control
+   * Adds a Direction control
    *
-   * @param def - The button control definition
+   * @param target - The target object holding the value
+   * @param property - The accessor property
+   * @param opts - Additional options for the control
    */
-  public add(def: ButtonModel & Removable): ButtonModel & Removable
-  /**
-   * Adds a button group control
-   *
-   * @param def - The button group control definition
-   */
-  public add(def: ButtonGroupModel & Removable): ButtonGroupModel & Removable
-  /**
-   * Adds a group control
-   *
-   * @param def - The group control definition
-   */
-  public add(def: GroupModel & Removable): GroupModel & Removable
-  /**
-   * Adds a tabs control
-   *
-   * @param def - The tabs control definition
-   */
-  public add(def: TabsModel & Removable): TabsModel & Removable
-  /**
-   * Adds a tab control
-   *
-   * @param def - The tab control definition
-   */
-  public add(def: PanelModel & Removable): PanelModel & Removable
-  /**
-   * Adds a checkbox control
-   *
-   * @param def - The checkbox control definition
-   */
-  public add(def: CheckboxModel & Removable): CheckboxModel & Removable
-  /**
-   * Adds a text control
-   *
-   * @param def - The text control definition
-   */
-  public add(def: TextModel & Removable): TextModel & Removable
-  /**
-   * Adds a number control
-   *
-   * @param def - The number control definition
-   */
-  public add(def: NumberModel & Removable): NumberModel & Removable
-  /**
-   * Adds a select control
-   *
-   * @param def - The select control definition
-   */
-  public add(def: SelectModel & Removable): SelectModel & Removable
-  /**
-   * Adds a color control
-   *
-   * @param def - The color control definition
-   */
-  public add(def: ColorModel & Removable): ColorModel & Removable
-  /**
-   * Adds a color picker control
-   *
-   * @param def - The color picker control definition
-   */
-  public add(def: ColorPickerModel & Removable): ColorPickerModel & Removable
-  /**
-   * Adds an image control
-   *
-   * @param def - The image control definition
-   */
-  public add(def: ImageModel & Removable): ImageModel & Removable
-  /**
-   * Adds a control
-   *
-   * @param def - The control definition
-   */
-  public add<T>(def: T & Removable): T & Removable
-  /**
-   * Adds a control
-   *
-   * @param def - The control definition
-   */
-  public add<C extends ComponentModel>(def: C & Removable): C & Removable {
-    def.remove = () => {
-      const i = this.controls.indexOf(def)
-      if (i >= 0) {
-        this.controls.splice(i, 1)
-      }
+  public direction<T>(target: T, property: keyof T, opts: Partial<DirectionModel> = {}) {
+    if (opts.label === undefined) {
+      opts.label = String(property)
     }
-    this.controls.push(def)
+    return this.add(
+      extend(opts, {
+        type: 'direction',
+        target: target,
+        property: property,
+      }),
+    )
+  }
+
+  /**
+   * Adds a build in control
+   *
+   * @param def - The control definition
+   */
+  public add<T extends BuildInComponent>(def: T): T & Removable
+  /**
+   * Adds a control
+   *
+   * @param def - The control definition
+   */
+  public add<T extends ComponentModel>(def: T): T & Removable
+  /**
+   * Adds a control
+   *
+   * @param def - The control definition
+   */
+  public add<T extends ComponentModel>(def: T): T & Removable {
+    this.controls.push(
+      extend(def, {
+        remove: () => {
+          const i = this.controls.indexOf(def)
+          if (i >= 0) {
+            this.controls.splice(i, 1)
+          }
+        },
+      }),
+    )
     return def
   }
 
@@ -503,9 +482,7 @@ export class Builder {
    */
   public mount(el: HTMLElement | string) {
     this.el = typeof el === 'string' ? document.querySelector(el) : el
-    return h.mount(this.el, {
-      view: () => renderModel({ type: 'panel', children: this.controls }),
-    })
+    return mount(this.el, this.controls)
   }
 
   /**
