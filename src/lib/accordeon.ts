@@ -24,6 +24,10 @@ export interface AccordeonModel extends ComponentGroupModel<PanelModel> {
    * The index of the opened tab
    */
   active?: number
+  /**
+   * If true, scrolls the opened panel into view on click
+   */
+  autoscroll?: boolean
 }
 
 const emptyArray: PanelModel[] = []
@@ -45,9 +49,11 @@ registerComponent<AccordeonAtts>('accordeon', (node) => {
               'label',
               {
                 class: isActive ? 'is-active' : '',
-                onclick: () => {
-                  data.active = isActive ? -1 : i;
-                  (node as any).dom.scrollIntoView?.({ behavior: 'smooth', block: 'start'})
+                onclick: (e: MouseEvent) => {
+                  data.active = isActive ? -1 : i
+                  if (data.autoscroll) {
+                    (e.target as any).scrollIntoView?.({ behavior: 'smooth', block: 'start'})
+                  }
                 },
               },
               item.label,

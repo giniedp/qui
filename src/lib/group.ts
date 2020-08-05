@@ -30,14 +30,18 @@ export interface GroupModel extends ComponentGroupModel {
    * If true, the children will be rendered
    */
   open?: boolean
+  /**
+   * If true, scrolls the opened panel into view on click
+   */
+  autoscroll?: boolean
 }
 
 registerComponent<GroupAttrs>('group', (node) => {
-  function onClick() {
+  function onClick(e: MouseEvent) {
     use(node.attrs.data, (data) => {
       data.open = !data.open
-      if (data.open) {
-        (node as any).dom.scrollIntoView?.({ behavior: 'smooth', block: 'start'})
+      if (data.open && data.autoscroll) {
+        (e.target as any).scrollIntoView?.({ behavior: 'smooth', block: 'start'})
       }
     })
   }
@@ -65,3 +69,4 @@ registerComponent<GroupAttrs>('group', (node) => {
     ),
   }
 })
+

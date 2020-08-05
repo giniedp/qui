@@ -201,18 +201,32 @@ export class Builder {
   }
 
   /**
-   * Adds a tabs panel control
+   * Adds an accordeon control
    *
    * @param cb - A callback allowing to build sub controls
    */
-  public accordeon(cb: (b: AccordeonBuilder) => void) {
-    const sub = new Builder()
-    cb(sub)
-    return this.add<AccordeonModel>({
-      type: 'accordeon',
-      active: null,
-      children: sub.controls,
-    })
+  public accordeon(
+    builder: (b: Builder) => void,
+  ): AccordeonModel & Removable
+  /**
+   * Adds an accordeon control
+   *
+   * @param opts - Additional options for the control
+   * @param cb - A callback allowing to build sub controls
+   */
+  public accordeon(
+    opts: Partial<AccordeonModel>,
+    builder?: (b: Builder) => void,
+  ): AccordeonModel & Removable
+  public accordeon() {
+    const opts = buildGroup<AccordeonModel>(arguments[0], arguments[1])
+    return this.add<AccordeonModel>(
+      extend(opts, {
+        type: 'accordeon',
+        active: null,
+        children: opts.children,
+      }),
+    )
   }
 
   /**
