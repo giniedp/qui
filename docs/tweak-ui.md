@@ -40,6 +40,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 
 |  Interface | Description |
 |  --- | --- |
+|  [AccordeonBuilder](./tweak-ui.accordeonbuilder.md) |  |
 |  [AccordeonModel](./tweak-ui.accordeonmodel.md) | Accordeon component model |
 |  [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) | Button group component model |
 |  [ButtonModel](./tweak-ui.buttonmodel.md) | Button component model |

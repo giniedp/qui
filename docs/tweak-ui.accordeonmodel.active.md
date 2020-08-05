@@ -9,5 +9,5 @@ The index of the opened tab
 <b>Signature:</b>
 
 ```typescript
-active: number;
+active?: number;
 ```
