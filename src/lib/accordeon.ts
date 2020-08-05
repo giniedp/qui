@@ -46,7 +46,6 @@ registerComponent<AccordeonAtts>('accordeon', (node) => {
               {
                 class: isActive ? 'is-active' : '',
                 onclick: () => {
-                  (node as any)['dom'].scrollIntoViewIfNeeded?.()
                   data.active = isActive ? -1 : i
                 },
               },

@@ -35,7 +35,6 @@ export interface GroupModel extends ComponentGroupModel {
 registerComponent<GroupAttrs>('group', (node) => {
   function onClick() {
     use(node.attrs.data, (data) => {
-      (node as any)['dom'].scrollIntoViewIfNeeded?.()
       data.open = !data.open
     })
   }

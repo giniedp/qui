@@ -1,6 +1,6 @@
 {
   "name": "tweak-ui",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "main": "dist/tweak-ui.umd.js",
   "module": "dist/tweak-ui.module.js",
   "typings": "dist/lib/index.d.ts",

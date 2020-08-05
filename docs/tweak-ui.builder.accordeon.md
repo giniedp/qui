@@ -9,14 +9,14 @@ Adds a tabs panel control
 <b>Signature:</b>
 
 ```typescript
-accordeon(cb: (b: TabsBuilder) => void): AccordeonModel & Removable;
+accordeon(cb: (b: AccordeonBuilder) => void): AccordeonModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  cb | (b: [TabsBuilder](./tweak-ui.tabsbuilder.md)<!-- -->) =&gt; void | A callback allowing to build sub controls |
+|  cb | (b: [AccordeonBuilder](./tweak-ui.accordeonbuilder.md)<!-- -->) =&gt; void | A callback allowing to build sub controls |
 
 <b>Returns:</b>
 

@@ -205,7 +205,7 @@ export class Builder {
    *
    * @param cb - A callback allowing to build sub controls
    */
-  public accordeon(cb: (b: TabsBuilder) => void) {
+  public accordeon(cb: (b: AccordeonBuilder) => void) {
     const sub = new Builder()
     cb(sub)
     return this.add<AccordeonModel>({
