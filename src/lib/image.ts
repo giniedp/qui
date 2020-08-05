@@ -44,13 +44,16 @@ registerComponent<ImageAttrs>('image', (node) => {
   return {
     view: viewFn((data) => {
       return (Array.isArray(data.src) ? data.src : [data.src]).map((src) => {
-        return m('img', {
-          class: twuiClass(data.type),
-          src: src,
-          width: data.width,
-          height: data.height,
-          onclick: onClick,
-        })
+        return m(
+          'div',
+          { class: twuiClass(data.type) },
+          m('img', {
+            src: src,
+            width: data.width,
+            height: data.height,
+            onclick: onClick,
+          }),
+        )
       })
     }),
   }
