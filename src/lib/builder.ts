@@ -17,6 +17,7 @@ import { SelectModel } from './select'
 import { TabsModel } from './tabs'
 import { TextModel } from './text'
 import { VectorModel } from './vector'
+import { AccordeonModel } from './accordeon'
 
 /**
  *
@@ -49,11 +50,17 @@ export type BuildInComponent =
   | VectorModel
 
 /**
- *
  * @public
  */
 export interface TabsBuilder {
   tab(label: string, builder: (b: Builder) => void): PanelModel & Removable
+}
+
+/**
+ * @public
+ */
+export interface AccordeonBuilder {
+  panel(label: string, builder: (b: Builder) => void): PanelModel & Removable
 }
 
 function extend<T extends ComponentModel, E>(partial: T, extension: E): T & E
@@ -127,7 +134,7 @@ export class Builder {
   }
 
   /**
-   * Adds a button group control
+   * Adds a group control
    *
    * @param label - The group label
    * @param builder - A callback allowing to build sub controls
@@ -153,6 +160,32 @@ export class Builder {
   }
 
   /**
+   * Adds a panel control
+   *
+   * @param label - The group label
+   * @param builder - A callback allowing to build sub controls
+   */
+  public panel(
+    label: string,
+    builder: (b: Builder) => void,
+  ): PanelModel & Removable
+  public panel(
+    label: string,
+    opts: Partial<PanelModel>,
+    builder?: (b: Builder) => void,
+  ): PanelModel & Removable
+  public panel(label: string): PanelModel & Removable {
+    const opts = buildGroup<PanelModel>(arguments[1], arguments[2])
+    return this.add<PanelModel>(
+      extend(opts, {
+        type: 'panel',
+        label: label,
+        children: opts.children,
+      }),
+    )
+  }
+
+  /**
    * Adds a tabs panel control
    *
    * @param cb - A callback allowing to build sub controls
@@ -163,6 +196,21 @@ export class Builder {
     return this.add<TabsModel>({
       type: 'tabs',
       active: 0,
+      children: sub.controls,
+    })
+  }
+
+  /**
+   * Adds a tabs panel control
+   *
+   * @param cb - A callback allowing to build sub controls
+   */
+  public accordeon(cb: (b: TabsBuilder) => void) {
+    const sub = new Builder()
+    cb(sub)
+    return this.add<AccordeonModel>({
+      type: 'accordeon',
+      active: null,
       children: sub.controls,
     })
   }
