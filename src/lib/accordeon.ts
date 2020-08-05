@@ -23,17 +23,16 @@ export interface AccordeonModel extends ComponentGroupModel<PanelModel> {
   /**
    * The index of the opened tab
    */
-  active: number
+  active?: number
 }
 
 const emptyArray: PanelModel[] = []
 
-registerComponent<AccordeonAtts>('accordeon', () => {
+registerComponent<AccordeonAtts>('accordeon', (node) => {
   return {
     view: viewFn((data) => {
-      const active = data.active || 0
       const children = data.children || emptyArray
-      const child = children[active]
+      const child = children[data.active]
       return m(
         'div',
         {
@@ -46,7 +45,10 @@ registerComponent<AccordeonAtts>('accordeon', () => {
               'label',
               {
                 class: isActive ? 'is-active' : '',
-                onclick: () => (data.active = isActive ? -1 : i),
+                onclick: () => {
+                  (node as any)['dom'].scrollIntoViewIfNeeded?.()
+                  data.active = isActive ? -1 : i
+                },
               },
               item.label,
             ),
@@ -55,6 +57,7 @@ registerComponent<AccordeonAtts>('accordeon', () => {
             renderModel<PanelModel>({
               type: 'panel',
               children: item.children,
+              style: item.style,
               hidden: !isActive,
             }),
           )
