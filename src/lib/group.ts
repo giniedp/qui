@@ -36,6 +36,9 @@ registerComponent<GroupAttrs>('group', (node) => {
   function onClick() {
     use(node.attrs.data, (data) => {
       data.open = !data.open
+      if (data.open) {
+        (node as any).dom.scrollIntoView?.({ behavior: 'smooth', block: 'start'})
+      }
     })
   }
   return {
