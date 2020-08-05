@@ -17,6 +17,7 @@ export interface GroupModel extends ComponentGroupModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
+|  [autoscroll](./tweak-ui.groupmodel.autoscroll.md) | boolean | If true, scrolls the opened panel into view on click |
 |  [open](./tweak-ui.groupmodel.open.md) | boolean | If true, the children will be rendered |
 |  [title](./tweak-ui.groupmodel.title.md) | string |  |
 |  [type](./tweak-ui.groupmodel.type.md) | 'group' | The type name of the control |

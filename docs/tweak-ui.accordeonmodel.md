@@ -18,5 +18,6 @@ export interface AccordeonModel extends ComponentGroupModel<PanelModel>
 |  Property | Type | Description |
 |  --- | --- | --- |
 |  [active](./tweak-ui.accordeonmodel.active.md) | number | The index of the opened tab |
+|  [autoscroll](./tweak-ui.accordeonmodel.autoscroll.md) | boolean | If true, scrolls the opened panel into view on click |
 |  [type](./tweak-ui.accordeonmodel.type.md) | 'accordeon' | The type name of the control |
 

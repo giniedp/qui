@@ -21,7 +21,8 @@ export declare class Builder
 
 |  Method | Modifiers | Description |
 |  --- | --- | --- |
-|  [accordeon(cb)](./tweak-ui.builder.accordeon.md) |  | Adds a tabs panel control |
+|  [accordeon(builder)](./tweak-ui.builder.accordeon.md) |  | Adds an accordeon control |
+|  [accordeon(opts, builder)](./tweak-ui.builder.accordeon_1.md) |  | Adds an accordeon control |
 |  [add(def)](./tweak-ui.builder.add.md) |  | Adds a build in control |
 |  [add(def)](./tweak-ui.builder.add_1.md) |  | Adds a control |
 |  [button(text, opts)](./tweak-ui.builder.button.md) |  | Adds a button control |
