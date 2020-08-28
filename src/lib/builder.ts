@@ -60,7 +60,22 @@ export interface TabsBuilder {
  * @public
  */
 export interface AccordeonBuilder {
-  panel(label: string, builder: (b: Builder) => void): PanelModel & Removable
+  /**
+   * Adds a control group
+   *
+   * @param title - The group label
+   * @param builder - A callback allowing to build sub controls
+   */
+  group(title: string, builder: (b: Builder) => void ): GroupModel & Removable
+  /**
+   * Adds a control group
+   *
+   * @param title - The group label
+   * @param opts - Additional control options
+   * @param builder - A callback allowing to build sub controls
+   */
+  group(title: string, opts: Partial<GroupModel>, builder?: (b: Builder) => void): GroupModel & Removable
+  group(title: string, builder: (b: Builder) => void): GroupModel & Removable
 }
 
 function extend<T extends ComponentModel, E>(partial: T, extension: E): T & E
@@ -206,7 +221,7 @@ export class Builder {
    * @param cb - A callback allowing to build sub controls
    */
   public accordeon(
-    builder: (b: Builder) => void,
+    builder: (b: AccordeonBuilder) => void,
   ): AccordeonModel & Removable
   /**
    * Adds an accordeon control
@@ -216,14 +231,13 @@ export class Builder {
    */
   public accordeon(
     opts: Partial<AccordeonModel>,
-    builder?: (b: Builder) => void,
+    builder?: (b: AccordeonBuilder) => void,
   ): AccordeonModel & Removable
   public accordeon() {
     const opts = buildGroup<AccordeonModel>(arguments[0], arguments[1])
     return this.add<AccordeonModel>(
       extend(opts, {
         type: 'accordeon',
-        active: null,
         children: opts.children,
       }),
     )

@@ -131,3 +131,10 @@ export function getMouseXY(e: MouseEvent | TouchEvent) {
 export function viewFn<T extends ComponentModel>(fn: (data: T, node: Vnode<ComponentAttrs<T>>) => Children) {
   return (node: Vnode<ComponentAttrs<T>>): Children => use(node.attrs.data, (data) => fn(data, node))
 }
+
+/**
+ * @interlnal
+ */
+export function scrollIntoView(el: HTMLElement) {
+  el.scrollIntoView?.({ behavior: 'auto', block: 'start'})
+}

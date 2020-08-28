@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { registerComponent, renderModel } from './core'
-import { use, twuiClass, cssClass, viewFn } from './utils'
+import { use, twuiClass, cssClass, viewFn, call, scrollIntoView } from './utils'
 import { PanelModel } from './panel'
 import { ComponentAttrs, ComponentGroupModel } from './types'
 
@@ -32,16 +32,32 @@ export interface GroupModel extends ComponentGroupModel {
   open?: boolean
   /**
    * If true, scrolls the opened panel into view on click
+   *
+   * @remarks
+   * if this is a number, this is used as setTimeout delay
    */
-  autoscroll?: boolean
+  autoscroll?: boolean | number
+  /**
+   * Is called when this group has been opened
+   */
+  onOpen?: (group: GroupModel) => void
+  /**
+   * Is called when this group has been closed
+   */
+  onClose?: (group: GroupModel) => void
 }
 
 registerComponent<GroupAttrs>('group', (node) => {
   function onClick(e: MouseEvent) {
     use(node.attrs.data, (data) => {
       data.open = !data.open
-      if (data.open && data.autoscroll) {
-        (e.target as any).scrollIntoView?.({ behavior: 'smooth', block: 'start'})
+      if (data.open) {
+        call(data.onOpen, data)
+        if (data.autoscroll) {
+          setTimeout(() => scrollIntoView(e.target as HTMLElement), Number(data.autoscroll))
+        }
+      } else {
+        call(data.onClose, data)
       }
     })
   }
