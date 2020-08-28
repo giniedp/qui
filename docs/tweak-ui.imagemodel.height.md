@@ -4,7 +4,7 @@
 
 ## ImageModel.height property
 
-The height attribute
+The image height attribute
 
 <b>Signature:</b>
 

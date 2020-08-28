@@ -9,14 +9,14 @@ Adds an accordeon control
 <b>Signature:</b>
 
 ```typescript
-accordeon(builder: (b: Builder) => void): AccordeonModel & Removable;
+accordeon(builder: (b: AccordeonBuilder) => void): AccordeonModel & Removable;
 ```
 
 ## Parameters
 
 |  Parameter | Type | Description |
 |  --- | --- | --- |
-|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
+|  builder | (b: [AccordeonBuilder](./tweak-ui.accordeonbuilder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 

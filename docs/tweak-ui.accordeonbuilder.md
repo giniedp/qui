@@ -15,5 +15,7 @@ export interface AccordeonBuilder
 
 |  Method | Description |
 |  --- | --- |
-|  [panel(label, builder)](./tweak-ui.accordeonbuilder.panel.md) |  |
+|  [group(title, builder)](./tweak-ui.accordeonbuilder.group.md) | Adds a control group |
+|  [group(title, opts, builder)](./tweak-ui.accordeonbuilder.group_1.md) | Adds a control group |
+|  [group(title, builder)](./tweak-ui.accordeonbuilder.group_2.md) |  |
 

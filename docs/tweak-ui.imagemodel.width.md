@@ -4,7 +4,7 @@
 
 ## ImageModel.width property
 
-The width attribute
+The image width attribute
 
 <b>Signature:</b>
 

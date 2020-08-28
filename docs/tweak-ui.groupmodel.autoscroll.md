@@ -9,5 +9,10 @@ If true, scrolls the opened panel into view on click
 <b>Signature:</b>
 
 ```typescript
-autoscroll?: boolean;
+autoscroll?: boolean | number;
 ```
+
+## Remarks
+
+if this is a number, this is used as setTimeout delay
+

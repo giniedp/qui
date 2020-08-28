@@ -9,15 +9,14 @@ Accordeon component model
 <b>Signature:</b>
 
 ```typescript
-export interface AccordeonModel extends ComponentGroupModel<PanelModel> 
+export interface AccordeonModel extends ComponentGroupModel<GroupModel> 
 ```
-<b>Extends:</b> [ComponentGroupModel](./tweak-ui.componentgroupmodel.md)<!-- -->&lt;[PanelModel](./tweak-ui.panelmodel.md)<!-- -->&gt;
+<b>Extends:</b> [ComponentGroupModel](./tweak-ui.componentgroupmodel.md)<!-- -->&lt;[GroupModel](./tweak-ui.groupmodel.md)<!-- -->&gt;
 
 ## Properties
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [active](./tweak-ui.accordeonmodel.active.md) | number | The index of the opened tab |
-|  [autoscroll](./tweak-ui.accordeonmodel.autoscroll.md) | boolean | If true, scrolls the opened panel into view on click |
+|  [autoscroll](./tweak-ui.accordeonmodel.autoscroll.md) | boolean \| number | If true, scrolls the opened group into view on click |
 |  [type](./tweak-ui.accordeonmodel.type.md) | 'accordeon' | The type name of the control |
 

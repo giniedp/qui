@@ -9,7 +9,7 @@ Adds an accordeon control
 <b>Signature:</b>
 
 ```typescript
-accordeon(opts: Partial<AccordeonModel>, builder?: (b: Builder) => void): AccordeonModel & Removable;
+accordeon(opts: Partial<AccordeonModel>, builder?: (b: AccordeonBuilder) => void): AccordeonModel & Removable;
 ```
 
 ## Parameters
@@ -17,7 +17,7 @@ accordeon(opts: Partial<AccordeonModel>, builder?: (b: Builder) => void): Accord
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  opts | Partial&lt;[AccordeonModel](./tweak-ui.accordeonmodel.md)<!-- -->&gt; | Additional options for the control |
-|  builder | (b: [Builder](./tweak-ui.builder.md)<!-- -->) =&gt; void |  |
+|  builder | (b: [AccordeonBuilder](./tweak-ui.accordeonbuilder.md)<!-- -->) =&gt; void |  |
 
 <b>Returns:</b>
 
