@@ -24,11 +24,19 @@ export interface ImageModel extends ComponentModel {
    */
   src?: string | string[]
   /**
-   * The width attribute
+   * CSS rules for the image element
+   */
+  style?: Partial<CSSStyleDeclaration>
+  /**
+   * CSS rules for the image wrapper
+   */
+  styleWrapper?: Partial<CSSStyleDeclaration>
+  /**
+   * The image width attribute
    */
   width?: number
   /**
-   * The height attribute
+   * The image height attribute
    */
   height?: number
   /**
@@ -46,9 +54,10 @@ registerComponent<ImageAttrs>('image', (node) => {
       return (Array.isArray(data.src) ? data.src : [data.src]).map((src) => {
         return m(
           'div',
-          { class: twuiClass(data.type) },
+          { class: twuiClass(data.type), style: data.styleWrapper },
           m('img', {
             src: src,
+            style: data.style,
             width: data.width,
             height: data.height,
             onclick: onClick,

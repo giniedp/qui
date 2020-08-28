@@ -263,10 +263,9 @@
 
 .twui-image {
   max-width: 100%;
-  img {
-    width: 100%;
-    height: auto;
-  }
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
 }
 
 //
