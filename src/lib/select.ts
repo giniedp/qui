@@ -51,7 +51,7 @@ export type SelectAttrs = ComponentAttrs<SelectModel>
  * Select component model
  * @public
  */
-export interface SelectModel<T = any, V = any>
+export interface SelectModel<T = unknown, V = any>
   extends ComponentModel,
     ValueSource<T, V> {
   /**

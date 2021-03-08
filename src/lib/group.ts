@@ -23,7 +23,7 @@ export interface GroupModel extends ComponentGroupModel {
    */
   type: 'group'
   /**
-   *
+   * The group title to display
    */
   title: string
   /**

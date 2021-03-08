@@ -53,9 +53,18 @@ export type ComponentAttrs<T extends ComponentModel> = {
   data: T
 }
 
+export type KeyMatchingType<T, V> = { [K in keyof T]: T[K] extends V ? K : never }[keyof T]
+
 /**
+ * Utility to convert a value type
+ *
  * @public
  */
+export type ValueCodec<Encoded, Decoded> = {
+  decode: (value: Encoded) => Decoded
+  encode: (value: Decoded) => Encoded
+}
+
 export type ValueSource<T, V> = {
   /**
    * The object which is holding a control value
@@ -74,7 +83,8 @@ export type ValueSource<T, V> = {
   /**
    * If `target` and `property` are not set, then this is used as the control value
    */
-  value?: V
+  value?: V | unknown
+  codec?: ValueCodec<unknown, V>
 }
 
 /**

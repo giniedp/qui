@@ -1,0 +1,87 @@
+.twui-spherical {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  .left-container {
+    flex: 1;
+  }
+
+  .right-container {
+    flex: none;
+    display: grid;
+    grid-template-columns: max-content max-content;
+
+    .twui-checkbox {
+      grid-column: span 2;
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+
+  label {
+    text-align: right;
+    line-height: $input-height;
+    padding: 0 $label-pad-x;
+  }
+  input[type=number] {
+    width: 3.5rem;
+  }
+
+  .pane {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    &::before {
+      position: absolute;
+      content: '';
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+      left: 1rem;
+      top: 1rem;
+      border: 1px solid;
+      border-radius: 50%;
+      @include color(border-color, primary-light);
+      box-sizing: border-box;
+      // background-image: radial-gradient(getColorVar(primary-light), transparent);
+    }
+    &::after {
+      position: absolute;
+      content: '';
+      top: 50%;
+      left: 50%;
+      width: calc(50% - 1rem);
+      height: 1px;
+      @include color(background-color, primary-light);
+      transform-origin: left center;
+      transform: rotate(var(--spherical-phi))
+    }
+  }
+
+  .phi-knob {
+    border: 0px solid transparent;
+    border-radius: 100%;
+    @include color(background-color, primary-light);
+
+    &:hover {
+      @include color(background-color, secondary-light);
+    }
+  }
+  .phi-pane.is-dragging .phi-knob {
+    @include color(background-color, accent);
+  }
+
+  .theta-knob {
+    border: 1px solid transparent;
+    border-radius: 100%;
+    @include color(border-color, primary-light);
+
+    &:hover {
+      @include color(border-color, secondary-light);
+    }
+  }
+  .theta-pane.is-dragging .theta-knob {
+    @include color(border-color, accent);
+  }
+}

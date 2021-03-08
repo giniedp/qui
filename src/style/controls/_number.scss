@@ -1,0 +1,38 @@
+.twui-number,
+.twui-slider {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+}
+
+.twui-number input {
+  flex: 1;
+}
+
+.twui-slider {
+  .twui-progress {
+    flex: 1;
+    display: flex;
+    margin: $spacer;
+    cursor: ew-resize;
+    transition: background-color 0.2s ease-in-out;
+
+    @include color(background-color, secondary);
+    &:hover {
+      @include color(background-color, secondary-dark);
+    }
+  }
+
+  .twui-progress.disabled {
+    cursor: not-allowed;
+  }
+
+  .twui-progress-bar {
+    @include color(background-color, secondary-light);
+  }
+
+  input[type="number"] {
+    flex: none;
+    width: 3.5rem;
+  }
+}

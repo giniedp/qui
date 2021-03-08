@@ -78,14 +78,14 @@ export interface AccordeonBuilder {
   group(title: string, builder: (b: Builder) => void): GroupModel & Removable
 }
 
-function extend<T extends ComponentModel, E>(partial: T, extension: E): T & E
-function extend<T extends ComponentModel>(partial: Partial<T>, extension: T): T
-function extend<T extends ComponentModel>(
+function override<T extends ComponentModel, E>(partial: T, overrides: E): T & E
+function override<T extends ComponentModel>(partial: Partial<T>, overrides: T): T
+function override<T extends ComponentModel>(
   partial: Partial<T>,
-  extension: T,
+  overrides: T,
 ): T {
-  Object.keys(extension).forEach((key: string) => {
-    partial[key as keyof T] = extension[key as keyof T]
+  Object.keys(overrides).forEach((key: string) => {
+    partial[key as keyof T] = overrides[key as keyof T]
   })
   return partial as T
 }
@@ -140,7 +140,7 @@ export class Builder {
   public buttonGroup(label: string): ButtonGroupModel & Removable {
     const opts = buildGroup<ButtonGroupModel>(arguments[1], arguments[2])
     return this.add<ButtonGroupModel>(
-      extend(opts, {
+      override(opts, {
         type: 'button-group',
         label: label,
         children: opts.children,
@@ -166,7 +166,7 @@ export class Builder {
   public group(label: string): GroupModel & Removable {
     const opts = buildGroup<GroupModel>(arguments[1], arguments[2])
     return this.add<GroupModel>(
-      extend(opts, {
+      override(opts, {
         type: 'group',
         title: label,
         children: opts.children,
@@ -192,7 +192,7 @@ export class Builder {
   public panel(label: string): PanelModel & Removable {
     const opts = buildGroup<PanelModel>(arguments[1], arguments[2])
     return this.add<PanelModel>(
-      extend(opts, {
+      override(opts, {
         type: 'panel',
         label: label,
         children: opts.children,
@@ -236,7 +236,7 @@ export class Builder {
   public accordeon() {
     const opts = buildGroup<AccordeonModel>(arguments[0], arguments[1])
     return this.add<AccordeonModel>(
-      extend(opts, {
+      override(opts, {
         type: 'accordeon',
         children: opts.children,
       }),
@@ -261,7 +261,7 @@ export class Builder {
   public tab(label: string): PanelModel & Removable {
     const opts = buildGroup<PanelModel>(arguments[1], arguments[2])
     return this.add<PanelModel>(
-      extend(opts, {
+      override(opts, {
         type: 'panel',
         label: label,
         children: opts.children,
@@ -277,7 +277,7 @@ export class Builder {
    */
   public button(text: string, opts: Partial<ButtonModel> = {}) {
     return this.add<ButtonModel>(
-      extend(opts, {
+      override(opts, {
         type: 'button',
         text: text,
       }),
@@ -294,13 +294,13 @@ export class Builder {
   public checkbox<T>(
     target: T,
     property: keyof T,
-    opts: Partial<CheckboxModel> = {},
-  ) {
+    opts: Partial<CheckboxModel<T>> = {},
+  ): CheckboxModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<CheckboxModel>(
-      extend(opts, {
+    return this.add<CheckboxModel<T>>(
+      override(opts, {
         type: 'checkbox',
         target: target,
         property: property,
@@ -315,12 +315,12 @@ export class Builder {
    * @param property - The accessor property
    * @param opts - Additional options for the control
    */
-  public text<T>(target: T, property: keyof T, opts: Partial<TextModel> = {}) {
+  public text<T>(target: T, property: keyof T, opts: Partial<TextModel<T>> = {}): TextModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<TextModel>(
-      extend(opts, {
+    return this.add<TextModel<T>>(
+      override(opts, {
         type: 'text',
         target: target,
         property: property,
@@ -338,13 +338,13 @@ export class Builder {
   public number<T>(
     target: T,
     property: keyof T,
-    opts: Partial<NumberModel> = {},
-  ) {
+    opts: Partial<NumberModel<T>> = {},
+  ): NumberModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<NumberModel>(
-      extend(opts, {
+    return this.add<NumberModel<T>>(
+      override(opts, {
         type: 'number',
         target: target,
         property: property,
@@ -362,13 +362,13 @@ export class Builder {
   public slider<T>(
     target: T,
     property: keyof T,
-    opts: Partial<NumberModel> = {},
-  ) {
+    opts: Partial<NumberModel<T>> = {},
+  ): NumberModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<NumberModel>(
-      extend(opts, {
+    return this.add<NumberModel<T>>(
+      override(opts, {
         type: 'slider',
         target: target,
         property: property,
@@ -386,13 +386,13 @@ export class Builder {
   public select<T>(
     target: T,
     property: keyof T,
-    opts: Partial<SelectModel> = {},
-  ) {
+    opts: Partial<SelectModel<T>> = {},
+  ): SelectModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<SelectModel>(
-      extend(opts, {
+    return this.add<SelectModel<T>>(
+      override(opts, {
         type: 'select',
         target: target,
         property: property,
@@ -410,13 +410,13 @@ export class Builder {
   public color<T>(
     target: T,
     property: keyof T,
-    opts: Partial<ColorModel> = {},
-  ) {
+    opts: Partial<ColorModel<T>> = {},
+  ): ColorModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<ColorModel>(
-      extend(opts, {
+    return this.add<ColorModel<T>>(
+      override(opts, {
         type: 'color',
         target: target,
         property: property,
@@ -434,13 +434,13 @@ export class Builder {
   public colorPicker<T>(
     target: T,
     property: keyof T,
-    opts: Partial<ColorPickerModel> = {},
-  ) {
+    opts: Partial<ColorPickerModel<T>> = {},
+  ): ColorPickerModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<ColorPickerModel>(
-      extend(opts, {
+    return this.add<ColorPickerModel<T>>(
+      override(opts, {
         type: 'color-picker',
         target: target,
         property: property,
@@ -456,7 +456,7 @@ export class Builder {
    */
   public image(label: string, opts: Partial<ImageModel> = {}) {
     return this.add<ImageModel>(
-      extend(opts, {
+      override(opts, {
         type: 'image',
         label: label,
       }),
@@ -472,7 +472,7 @@ export class Builder {
    */
   public custom(label: string, text: string, opts: Partial<CustomModel> = {}) {
     return this.add<CustomModel>(
-      extend(opts, {
+      override(opts, {
         type: 'custom',
         label: label,
         node: text,
@@ -487,12 +487,12 @@ export class Builder {
    * @param property - The accessor property
    * @param opts - Additional options for the control
    */
-  public pad<T>(target: T, property: keyof T, opts: Partial<PadModel> = {}) {
+  public pad<T>(target: T, property: keyof T, opts: Partial<PadModel<T>> = {}): PadModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
-    return this.add<PadModel>(
-      extend(opts, {
+    return this.add(
+      override(opts, {
         type: 'pad',
         target: target,
         property: property,
@@ -507,12 +507,12 @@ export class Builder {
    * @param property - The accessor property
    * @param opts - Additional options for the control
    */
-  public direction<T>(target: T, property: keyof T, opts: Partial<DirectionModel> = {}) {
+  public direction<T>(target: T, property: keyof T, opts: Partial<DirectionModel<T>> = {}): DirectionModel<T> {
     if (opts.label === undefined) {
       opts.label = String(property)
     }
     return this.add(
-      extend(opts, {
+      override(opts, {
         type: 'direction',
         target: target,
         property: property,
@@ -539,7 +539,7 @@ export class Builder {
    */
   public add<T extends ComponentModel>(def: T): T & Removable {
     this.controls.push(
-      extend(def, {
+      override(def, {
         remove: () => {
           const i = this.controls.indexOf(def)
           if (i >= 0) {

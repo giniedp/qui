@@ -28,9 +28,7 @@ export type VectorAttrs = ComponentAttrs<VectorModel>
  * Vector component model
  * @public
  */
-export interface VectorModel<T = any>
-  extends ComponentModel,
-    ValueSource<T, VectorValue> {
+export type VectorModel<T = unknown> = ComponentModel & ValueSource<T, VectorValue> & {
   /**
    * The type name of the control
    */
@@ -104,8 +102,8 @@ registerComponent<VectorAttrs>(compType, (node) => {
             step: data.step,
             value: value?.[field],
             disabled: data.disabled,
-            onChange: (_, v) => onChange('change', field, v),
             onInput: (_, v) => onChange('input', field, v),
+            onChange: (_, v) => onChange('change', field, v),
             placeholder: field,
           })
         }),

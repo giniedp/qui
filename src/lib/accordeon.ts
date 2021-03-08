@@ -1,8 +1,7 @@
 import m from 'mithril'
 
 import { registerComponent, renderModel } from './core'
-import { twuiClass, viewFn, scrollIntoView } from './utils'
-import { PanelModel } from './panel'
+import { viewFn } from './utils'
 import { ComponentAttrs, ComponentGroupModel } from './types'
 import { GroupModel } from './group'
 
@@ -22,6 +21,10 @@ export interface AccordeonModel extends ComponentGroupModel<GroupModel> {
    */
   type: 'accordeon'
   /**
+   * The index of the group that should be open initially
+   */
+  active?: number
+  /**
    * If true, scrolls the opened group into view on click
    *
    * @remarks
@@ -33,23 +36,25 @@ export interface AccordeonModel extends ComponentGroupModel<GroupModel> {
 const emptyArray: GroupModel[] = []
 
 registerComponent<AccordeonAtts>('accordeon', () => {
-  let opened: number
   return {
     view: viewFn((data) => {
       const children = data.children || emptyArray
-      let justOpened
-      children.forEach((group, i) => {
-        if (group.open && i !== opened) {
-          justOpened = i
-        }
-      })
-      opened = justOpened ?? opened
+      data.active = detectOpened(data.active ?? 0, children)
       return m.fragment({}, children.map((group, i) => {
         group.type = 'group'
-        group.open = i === opened
+        group.open = i === data.active
         group.autoscroll = group.autoscroll ?? data.autoscroll
         return renderModel<GroupModel>(group)
       }))
     }),
   }
 })
+
+function detectOpened(opened: number, list: GroupModel[]) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].open && i !== opened) {
+      return i
+    }
+  }
+  return opened
+}

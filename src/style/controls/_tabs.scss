@@ -1,0 +1,45 @@
+
+.twui-tabs, .twui-accordeon, .twui-group {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+
+  @include color(border-color, primary-dark);
+  margin-left: -$spacer;
+  margin-right: -$spacer;
+
+  > .twui-panel {
+    margin-left: $spacer;
+    margin-right: $spacer;
+  }
+}
+
+.twui-tabs-list {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.twui-tabs-list > button {
+  flex: auto 1 11;
+  border: 0;
+  border-top: 1px solid;
+  margin: 0;
+
+  height: $line-height;
+  line-height: $line-height - 2 * $button-pad-y;
+
+  @include color(background-color, primary-dark);
+  @include color(border-color, primary);
+  @include color(color, on-primary);
+
+  &:hover {
+    @include color(background-color, primary);
+    @include color(border-color, primary-dark);
+  }
+
+  &.is-active {
+    @include color(background-color, primary);
+    @include color(border-color, accent);
+  }
+}

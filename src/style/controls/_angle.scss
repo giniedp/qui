@@ -1,0 +1,64 @@
+.twui-angle {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  .left-container {
+    flex: 1;
+  }
+
+  .right-container {
+    flex: none;
+    display: grid;
+    grid-template-columns: max-content max-content;
+
+    .twui-checkbox {
+      grid-column: span 2;
+      input {
+        margin-left: 0;
+      }
+    }
+  }
+
+  label {
+    text-align: right;
+    line-height: $input-height;
+    padding: 0 $label-pad-x;
+  }
+  input[type=number] {
+    width: 3.5rem;
+  }
+
+  .pane {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    &::before {
+      position: absolute;
+      content: '';
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+      left: 1rem;
+      top: 1rem;
+      border: 1px solid;
+      border-radius: 50%;
+      @include color(border-color, primary-light);
+      box-sizing: border-box;
+      background-image: conic-gradient(getColorVar(primary-light) var(--angle-percent), transparent 0);
+      transform: scaleX(-1) rotate(180deg);
+    }
+  }
+
+  .angle-knob {
+    border: 0px solid transparent;
+    border-radius: 100%;
+    @include color(background-color, primary-light);
+
+    &:hover {
+      @include color(background-color, secondary-light);
+    }
+  }
+  .angle-pane.is-dragging .angle-knob {
+    @include color(background-color, accent);
+  }
+}

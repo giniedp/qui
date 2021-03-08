@@ -48,9 +48,7 @@ export type DirectionAttrs = ComponentAttrs<DirectionModel>
  * Direction component model
  * @public
  */
-export interface DirectionModel<T = any>
-  extends ComponentModel,
-    ValueSource<T, number> {
+export interface DirectionModel<T = unknown> extends ComponentModel, ValueSource<T, number> {
   /**
    * The type name of the control
    */
@@ -226,7 +224,7 @@ registerComponent<DirectionAttrs>('direction', (node) => {
     onMouseMove(e)
   }
 
-  function onMouseMove(e: MouseEvent | TouchEvent) {
+  function onMouseMove(e: MouseEvent) {
     if (!target) {
       return
     }

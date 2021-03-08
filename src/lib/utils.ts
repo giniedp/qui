@@ -40,8 +40,10 @@ export function isObject(v: any): v is object {
  * Calls a function if it is not null
  * @internal
  */
-export function call<T extends (...args: any) => any>(cb: T, ...args: Parameters<T>) {
-
+export function call<T extends (...args: any) => any>(
+  cb: T,
+  ...args: Parameters<T>
+) {
   return isFunction(cb) ? cb(...args) : null
 }
 /**
@@ -64,13 +66,23 @@ export function use<T, R>(obj: T | null, cb: (it: T) => R): R | null {
  * @internal
  */
 export function clamp(v: number, min: number, max: number) {
-  return v < min ? min : v > max ? max : v
+  if (v != null) {
+    if (min != null && v < min) {
+      return min
+    }
+    if (max != null && v > max) {
+      return max
+    }
+  }
+  return v
 }
 /**
  * Builds a css class from various argument types
  * @param exp
  */
-export function cssClass(exp: ArrayOrSingleOf<string | { [k: string]: boolean | (() => boolean) }>): string {
+export function cssClass(
+  exp: ArrayOrSingleOf<string | { [k: string]: boolean | (() => boolean) }>,
+): string {
   if (!exp) {
     return null
   }
@@ -80,7 +92,10 @@ export function cssClass(exp: ArrayOrSingleOf<string | { [k: string]: boolean | 
   if (isArray(exp)) {
     return exp.map(cssClass).join(' ')
   }
-  return Object.keys(exp).filter((it) => resolve(exp[it])).filter((it) => isString(it) && !!it).join(' ')
+  return Object.keys(exp)
+    .filter((it) => resolve(exp[it]))
+    .filter((it) => isString(it) && !!it)
+    .join(' ')
 }
 
 /**
@@ -92,13 +107,6 @@ export function padLeft(value: string, length: number, char: string) {
     value = `${char}${value}`
   }
   return value
-}
-
-/**
- * @internal
- */
-export function ctrlCss(name: string) {
-  return 'twui-ctl-' + name
 }
 
 /**
@@ -125,16 +133,85 @@ export function getMouseXY(e: MouseEvent | TouchEvent) {
   return [cx, cy]
 }
 
+export function getTouchPosition(target: HTMLElement, e: MouseEvent) {
+  const rect = target.getBoundingClientRect()
+  const tx = window.pageXOffset || document.documentElement.scrollLeft
+  const ty = window.pageYOffset || document.documentElement.scrollTop
+
+  const cw = target.clientWidth
+  const ch = target.clientHeight
+  let [cx, cy] = getMouseXY(e)
+  const x = cx - tx - rect.left
+  const y = cy - ty - rect.top
+  return {
+    width: cw,
+    height: ch,
+    x: x,
+    y: y,
+    normalizedX: x / cw,
+    normalizedY: y / ch,
+  }
+}
+
 /**
  * @internal
  */
-export function viewFn<T extends ComponentModel>(fn: (data: T, node: Vnode<ComponentAttrs<T>>) => Children) {
-  return (node: Vnode<ComponentAttrs<T>>): Children => use(node.attrs.data, (data) => fn(data, node))
+export function viewFn<T extends ComponentModel>(
+  fn: (data: T, node: Vnode<ComponentAttrs<T>>) => Children,
+) {
+  return (node: Vnode<ComponentAttrs<T>>): Children =>
+    use(node.attrs.data, (data) => fn(data, node))
 }
 
 /**
  * @interlnal
  */
 export function scrollIntoView(el: HTMLElement) {
-  el.scrollIntoView?.({ behavior: 'auto', block: 'start'})
+  el.scrollIntoView?.({ behavior: 'auto', block: 'start' })
+}
+
+export function dragUtil({
+  onStart,
+  onMove,
+  onEnd,
+}: {
+  onStart?: (e: MouseEvent) => void
+  onMove?: (e: MouseEvent) => void
+  onEnd?: (e: MouseEvent) => void
+}) {
+  const util = {
+    target: null as HTMLElement,
+    activate: (e: MouseEvent) => {
+      util.deactivate()
+      util.target = e.target as HTMLElement
+      if (onStart) {
+        onStart(e)
+      }
+      if (onMove) {
+        document.addEventListener('mousemove', onMove, { passive: false })
+        document.addEventListener('touchmove', onMove, { passive: false })
+      }
+      if (onEnd) {
+        document.addEventListener('mouseup', onEnd)
+        document.addEventListener('touchend', onEnd)
+        document.addEventListener('touchcancel', onEnd)
+      }
+    },
+    deactivate: () => {
+      util.target = null
+      if (onMove) {
+        document.removeEventListener('mousemove', onMove)
+        document.removeEventListener('touchmove', onMove)
+      }
+      if (onEnd) {
+        document.removeEventListener('mouseup', onEnd)
+        document.removeEventListener('touchend', onEnd)
+        document.removeEventListener('touchcancel', onEnd)
+      }
+    },
+    onStart,
+    onMove,
+    onEnd,
+  }
+  return util
 }

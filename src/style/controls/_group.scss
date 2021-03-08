@@ -1,0 +1,29 @@
+.twui-group > label,
+.twui-accordeon > label {
+  margin: 0;
+  width: auto;
+  cursor: pointer;
+  height: $line-height;
+  line-height: $line-height;
+  @include color(background-color, primary-dark);
+
+  &::before {
+    content: '►';
+    display: inline-block;
+    width: $line-height;
+    height: $line-height;
+    text-align: center;
+    transition: transform 0.1s ease-in-out
+  }
+
+  &.is-active::before {
+    transform: rotateZ(90deg);
+  }
+}
+
+.twui-group {
+  .twui-group {
+    border-left: 0.25rem solid;
+    @include color(border-color, primary-light);
+  }
+}

@@ -1,4 +1,4 @@
-import m from 'mithril'
+import m, { Vnode } from 'mithril'
 
 import { getColorFormatter } from './color-formats'
 import { ColorPickerModel } from './color-picker'
@@ -32,7 +32,7 @@ export type ColorAttrs = ComponentAttrs<ColorModel>
  * Color component model
  * @public
  */
-export interface ColorModel<T = any, V = number | string | number[]>
+export interface ColorModel<T = unknown, V = number | string | number[]>
   extends ComponentModel,
     ValueSource<T, V> {
   /**
@@ -76,14 +76,15 @@ export interface ColorModel<T = any, V = number | string | number[]>
   onChange?: (model: ColorModel<T, V>, value: V) => void
 }
 
-registerComponent<ColorAttrs>('color', (node) => {
+registerComponent<ColorAttrs>('color', () => {
   let data: ColorModel
   let opened = false
   let value: number | string | number[]
   let rgba: string
 
   const rgbaFromatter = getColorFormatter('rgba()')
-  function updateState() {
+
+  function fetchState(node: Vnode<ColorAttrs>) {
     data = node.attrs.data
     value = getModelValue(data)
     rgba = rgbaFromatter.format(getColorFormatter(data.format).parse(value))
@@ -129,9 +130,14 @@ registerComponent<ColorAttrs>('color', (node) => {
   }
 
   return {
-    view: viewFn(() => {
-      updateState()
-      return m(
+    oninit: (node) => {
+      fetchState(node)
+    },
+    onupdate: (node) => {
+      fetchState(node)
+    },
+    view: () =>
+      m(
         'div',
         {
           class: cssClass({
@@ -155,7 +161,6 @@ registerComponent<ColorAttrs>('color', (node) => {
           onChange: onPickerChange,
           hidden: !opened,
         }),
-      )
-    }),
+      ),
   }
 })

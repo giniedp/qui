@@ -1,0 +1,9 @@
+.twui-vector {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+
+  > * {
+    flex: auto 1 1;
+  }
+}

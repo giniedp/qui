@@ -18,7 +18,7 @@ export type TextAttrs = ComponentAttrs<TextModel>
  * Text component model
  * @public
  */
-export interface TextModel<T = any>
+export interface TextModel<T = unknown>
   extends ComponentModel,
   ValueSource<T, string> {
   /**

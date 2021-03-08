@@ -14,7 +14,7 @@ import {
   registerComponent,
   setModelValue,
 } from './core'
-import { call, clamp, use, twuiClass } from './utils'
+import { call, clamp, use, twuiClass, getMouseXY, getTouchPosition } from './utils'
 import { ComponentModel, ValueSource, ComponentAttrs } from './types'
 
 /**
@@ -29,9 +29,7 @@ export type ColorPickerAttrs = ComponentAttrs<ColorPickerModel>
  *
  * @public
  */
-export interface ColorPickerModel<T = any, V = number | string | number[]>
-  extends ComponentModel,
-    ValueSource<T, V> {
+export interface ColorPickerModel<T = unknown, V = number | string | number[]> extends ComponentModel, ValueSource<T, V> {
   /**
    * The type name of the control
    */
@@ -197,24 +195,43 @@ registerComponent<ColorPickerAttrs>('color-picker', (node) => {
   let target: HTMLElement
   let kind: 'sv' | 'h' | 'a'
   function beginPickSV(e: MouseEvent) {
-    target = e.target as HTMLElement
     kind = 'sv'
+    enableDrag(e.target as HTMLElement)
     onMouseMove(e)
   }
 
   function beginPickH(e: MouseEvent) {
-    target = e.target as HTMLElement
     kind = 'h'
+    enableDrag(e.target as HTMLElement)
     onMouseMove(e)
   }
 
   function beginPickA(e: MouseEvent) {
-    target = e.target as HTMLElement
     kind = 'a'
+    enableDrag(e.target as HTMLElement)
     onMouseMove(e)
   }
 
-  function onMouseMove(e: MouseEvent | TouchEvent) {
+  function enableDrag(el: HTMLElement) {
+    disableDrag()
+    target = el
+    const options = { passive: false }
+    document.addEventListener('mousemove', onMouseMove, options)
+    document.addEventListener('mouseup', onMouseUp, options)
+    document.addEventListener('touchmove', onMouseMove, options)
+    document.addEventListener('touchend', onMouseUp, options)
+    document.addEventListener('touchcancel', onMouseUp, options)
+  }
+
+  function disableDrag() {
+    document.removeEventListener('mousemove', onMouseMove)
+    document.removeEventListener('mouseup', onMouseUp)
+    document.removeEventListener('touchmove', onMouseMove)
+    document.removeEventListener('touchend', onMouseUp)
+    document.removeEventListener('touchcancel', onMouseUp)
+  }
+
+  function onMouseMove(e: MouseEvent) {
     if (!target) {
       return
     }
@@ -223,18 +240,9 @@ registerComponent<ColorPickerAttrs>('color-picker', (node) => {
     const rect = target.getBoundingClientRect()
     const tx = window.pageXOffset || document.documentElement.scrollLeft
     const ty = window.pageYOffset || document.documentElement.scrollTop
-
     const cw = target.clientWidth
     const ch = target.clientHeight
-    let cx = 0
-    let cy = 0
-    if ('touches' in e) {
-      cx = e.touches.item(0).pageX
-      cy = e.touches.item(0).pageY
-    } else {
-      cx = e.pageX
-      cy = e.pageY
-    }
+    let [cx, cy] = getMouseXY(e)
     cx = clamp((cx - tx - rect.left) / cw, 0, 1)
     cy = clamp((cy - ty - rect.top) / ch, 0, 1)
 
@@ -256,24 +264,14 @@ registerComponent<ColorPickerAttrs>('color-picker', (node) => {
   function onMouseUp() {
     if (target != null) {
       target = null
+      disableDrag()
       triggerChange()
     }
   }
 
   return {
-    oncreate: () => {
-      document.addEventListener('mousemove', onMouseMove)
-      document.addEventListener('mouseup', onMouseUp)
-      document.addEventListener('touchmove', onMouseMove)
-      document.addEventListener('touchend', onMouseUp)
-      document.addEventListener('touchcancel', onMouseUp)
-    },
     onremove: () => {
-      document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseup', onMouseUp)
-      document.removeEventListener('touchmove', onMouseMove)
-      document.removeEventListener('touchend', onMouseUp)
-      document.removeEventListener('touchcancel', onMouseUp)
+      disableDrag()
     },
     oninit: () => {
       use(node.attrs.data, (data) => {

@@ -1,4 +1,4 @@
-import { default as m } from 'mithril'
+import { ClassComponent, default as m } from 'mithril'
 import { use } from './utils'
 import type { PanelModel } from './panel'
 import { ComponentModel, ComponentAttrs, ValueSource, ComponentType } from './types'
@@ -53,18 +53,22 @@ export function renderModel<T extends ComponentModel>(model: T) {
  * @param model - The model of a component
  */
 export function getModelValue<V>(model: ValueSource<any, V>): V {
+  let result: unknown = null
   if (
     'target' in model &&
     model.target &&
     model.property != null &&
     model.property in model.target
   ) {
-    return model.target[model.property]
+    result = model.target[model.property]
+  } else if ('value' in model) {
+    result = model.value
   }
-  if ('value' in model) {
-    return model.value
+  if ('codec' in model) {
+    return model.codec.decode(result)
+  } else {
+    return result as V
   }
-  return null
 }
 
 /**
@@ -76,16 +80,17 @@ export function getModelValue<V>(model: ValueSource<any, V>): V {
  * @returns result of {@link getModelValue} after the value has been set
  */
 export function setModelValue<V>(model: ValueSource<any, V>, value: V): V {
+  const encoded = 'codec' in model ? model.codec.encode(value) : value
   if (
     'target' in model &&
     model.target &&
     model.property != null
   ) {
-    model.target[model.property] = value
+    model.target[model.property] = encoded
   }
   const desc = Object.getOwnPropertyDescriptor(model, 'value')
   if (!desc || desc.writable || desc.set) {
-    model.value = value
+    model.value = encoded
   }
   return getModelValue(model)
 }
@@ -125,6 +130,12 @@ export function registerComponent<T>(
   } else {
     registry[type] = comp
   }
+}
+
+export function TwuiComponent<T>(type: string): ClassDecorator {
+  return ((target: ClassComponent<T>) => {
+    registerComponent(type, target)
+  }) as any
 }
 
 /**

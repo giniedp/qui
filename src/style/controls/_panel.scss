@@ -1,0 +1,41 @@
+
+.twui-panel {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+.twui-panel-title {
+  margin: 0;
+  width: auto;
+  height: $line-height;
+  line-height: $line-height;
+  @include color(background-color, secondary-dark);
+  padding-left: $label-pad-x;
+}
+.twui-panel-control {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: stretch;
+  min-height: $line-height;
+  box-sizing: border-box;
+
+  > label:first-child {
+    flex: none;
+    box-sizing: border-box;
+    width: $label-width - 2 * $label-pad-x;
+    min-width: $label-width - 2 * $label-pad-x;
+    min-height: $line-height - 2 * $spacer;
+    line-height: $line-height - 2 * $spacer;
+    padding: $label-pad-y $label-pad-x;
+    margin: $spacer;
+
+    overflow: hidden;
+  }
+
+  > section {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,19 @@
+.twui-checkbox {
+  min-height: $line-height - 2 * $spacer;
+  line-height: $line-height - 2 * $spacer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover { @include color(background-color, secondary); }
+
+  input {
+    margin-right: 1ch;
+    margin-left: 1ch;
+  }
+}

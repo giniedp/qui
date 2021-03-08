@@ -1,4 +1,4 @@
-import m from 'mithril'
+import m, { FactoryComponent } from 'mithril'
 
 import {
   getModelValue,
@@ -18,9 +18,7 @@ export type CheckboxAttrs = ComponentAttrs<CheckboxModel>
  * Describes a checkbox control
  * @public
  */
-export interface CheckboxModel<T = any>
-  extends ComponentModel,
-    ValueSource<T, boolean> {
+export interface CheckboxModel<T = unknown> extends ComponentModel, ValueSource<T, boolean> {
   /**
    * The type name of the control
    */
@@ -39,12 +37,13 @@ export interface CheckboxModel<T = any>
   disabled?: boolean
 }
 
-registerComponent<CheckboxAttrs>('checkbox', (node) => {
+const TYPE = 'checkbox'
+export const CheckboxComponent: FactoryComponent<CheckboxAttrs> = (node) => {
   function onChange(e: Event) {
     const data = node.attrs.data
-    const el = e.target as HTMLInputElement
-    setModelValue(data, el.checked)
-    call(data.onChange, data, el.checked)
+    const checked = (e.target as HTMLInputElement).checked
+    setModelValue(data, checked)
+    call(data.onChange, data, checked)
   }
   return {
     view: viewFn((data) => {
@@ -53,7 +52,7 @@ registerComponent<CheckboxAttrs>('checkbox', (node) => {
         'label',
         {
           class: cssClass({
-            [twuiClass(data.type)]: true,
+            [twuiClass(TYPE)]: true,
             checked: checked,
             disabled: data.disabled,
           }),
@@ -68,4 +67,6 @@ registerComponent<CheckboxAttrs>('checkbox', (node) => {
       )
     }),
   }
-})
+}
+
+registerComponent(TYPE, CheckboxComponent)
