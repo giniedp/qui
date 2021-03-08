@@ -1,7 +1,7 @@
 'use strict'
 
-const IS_COVERAGE = !!process.env.IS_COVERAGE;
-const IS_TRAVIS = !!process.env.TRAVIS;
+const IS_COVERAGE = !!process.env.IS_COVERAGE
+const IS_TRAVIS = !!process.env.TRAVIS
 
 module.exports = function (config) {
   config.set({
@@ -14,19 +14,16 @@ module.exports = function (config) {
       'karma-typescript',
     ],
     logLevel: 'info',
-    frameworks: [
-      'jasmine',
-      'karma-typescript',
+    frameworks: ['jasmine', 'karma-typescript'],
+    browsers: [IS_TRAVIS ? 'Firefox' : 'Chrome'],
+    files: [
+      {
+        pattern: 'src/**/*.ts',
+        watched: true,
+        served: true,
+        included: true,
+      },
     ],
-    browsers: [
-      IS_TRAVIS ? 'Firefox' : 'Chrome'
-    ],
-    files: [{
-      pattern: 'src/**/*.ts',
-      watched: true,
-      served: true,
-      included: true,
-    }],
     exclude: [],
     preprocessors: {
       '**/*.ts': ['karma-typescript'],
@@ -37,7 +34,7 @@ module.exports = function (config) {
       'karma-typescript',
     ],
     mochaReporter: {
-      output: 'minimal'
+      output: 'minimal',
     },
 
     karmaTypescriptConfig: {
@@ -49,16 +46,15 @@ module.exports = function (config) {
       exclude: ['dist'],
       // compilerOptions: tsconfig.compilerOptions,
       tsconfig: './tsconfig.cjs.json',
-      // Pass options to remap-istanbul.
-      remapOptions: {
-        // a regex for excluding files from remapping
-        // exclude: '',
-        // a function for handling error messages
-        warn: (msg) => console.log(msg)
-      },
       converageOptions: {
         instrumentation: IS_COVERAGE,
         exclude: /\.(d|spec|test)\.ts/i,
+        instrumenterOptions: {
+          // a regex for excluding files from remapping
+          // exclude: '',
+          // a function for handling error messages
+          warn: (msg) => console.log(msg),
+        },
       },
       reports: {
         'text-summary': '',
@@ -71,8 +67,7 @@ module.exports = function (config) {
           subdirectory: 'lcov',
           filename: 'lcov.info',
         },
-
       },
     },
-  });
-};
+  })
+}
