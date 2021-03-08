@@ -19,5 +19,5 @@ export interface ButtonGroupModel extends ComponentModel
 |  --- | --- | --- |
 |  [children](./tweak-ui.buttongroupmodel.children.md) | Array&lt;[ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->&gt; | Buttons for this group |
 |  [type](./tweak-ui.buttongroupmodel.type.md) | 'button-group' | The type name of the control |
-|  [vertical](./tweak-ui.buttongroupmodel.vertical.md) | boolean | If true, buttons are stacked vertically |
+|  [vertical?](./tweak-ui.buttongroupmodel.vertical.md) | boolean | <i>(Optional)</i> If true, buttons are stacked vertically |
 

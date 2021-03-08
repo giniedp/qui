@@ -11,3 +11,5 @@ Accordeon component attribuets
 ```typescript
 export declare type AccordeonAtts = ComponentAttrs<AccordeonModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [AccordeonModel](./tweak-ui.accordeonmodel.md)
+

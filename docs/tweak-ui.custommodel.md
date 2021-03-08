@@ -17,6 +17,6 @@ export interface CustomModel extends ComponentModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [node](./tweak-ui.custommodel.node.md) | Child | The custom child node |
+|  [node?](./tweak-ui.custommodel.node.md) | Child | <i>(Optional)</i> The custom child node |
 |  [type](./tweak-ui.custommodel.type.md) | 'custom' | The type name of the control |
 

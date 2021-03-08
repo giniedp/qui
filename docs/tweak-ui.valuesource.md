@@ -4,13 +4,15 @@
 
 ## ValueSource type
 
-
 <b>Signature:</b>
 
 ```typescript
 export declare type ValueSource<T, V> = {
     target?: T;
     property?: keyof T;
-    value?: V;
+    value?: V | unknown;
+    codec?: ValueCodec<unknown, V>;
 };
 ```
+<b>References:</b> [ValueCodec](./tweak-ui.valuecodec.md)
+

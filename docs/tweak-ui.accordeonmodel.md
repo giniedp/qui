@@ -17,6 +17,7 @@ export interface AccordeonModel extends ComponentGroupModel<GroupModel>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [autoscroll](./tweak-ui.accordeonmodel.autoscroll.md) | boolean \| number | If true, scrolls the opened group into view on click |
+|  [active?](./tweak-ui.accordeonmodel.active.md) | number | <i>(Optional)</i> The index of the group that should be open initially |
+|  [autoscroll?](./tweak-ui.accordeonmodel.autoscroll.md) | boolean \| number | <i>(Optional)</i> If true, scrolls the opened group into view on click |
 |  [type](./tweak-ui.accordeonmodel.type.md) | 'accordeon' | The type name of the control |
 

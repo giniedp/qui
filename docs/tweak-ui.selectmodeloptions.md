@@ -11,3 +11,5 @@ Select component select options
 ```typescript
 export declare type SelectModelOptions = SelectOptionArray | SelectOptionsObject;
 ```
+<b>References:</b> [SelectOptionArray](./tweak-ui.selectoptionarray.md)<!-- -->, [SelectOptionsObject](./tweak-ui.selectoptionsobject.md)
+

@@ -16,7 +16,7 @@ export interface ComponentModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [hidden](./tweak-ui.componentmodel.hidden.md) | boolean \| (() =&gt; boolean) | If true, the component will not be rendered |
-|  [label](./tweak-ui.componentmodel.label.md) | string | The label for this component when rendered as a control |
+|  [hidden?](./tweak-ui.componentmodel.hidden.md) | boolean \| (() =&gt; boolean) | <i>(Optional)</i> If true, the component will not be rendered |
+|  [label?](./tweak-ui.componentmodel.label.md) | string | <i>(Optional)</i> The label for this component when rendered as a control |
 |  [type](./tweak-ui.componentmodel.type.md) | string | The type name of the component |
 

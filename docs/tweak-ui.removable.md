@@ -15,5 +15,5 @@ export interface Removable
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [remove](./tweak-ui.removable.remove.md) | () =&gt; void |  |
+|  [remove?](./tweak-ui.removable.remove.md) | () =&gt; void | <i>(Optional)</i> |
 

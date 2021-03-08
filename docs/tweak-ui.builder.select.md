@@ -9,7 +9,7 @@ Adds a select control
 <b>Signature:</b>
 
 ```typescript
-select<T>(target: T, property: keyof T, opts?: Partial<SelectModel>): SelectModel<any, any> & Removable;
+select<T>(target: T, property: keyof T, opts?: Partial<SelectModel<T>>): SelectModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ select<T>(target: T, property: keyof T, opts?: Partial<SelectModel>): SelectMode
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&lt;any, any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[SelectModel](./tweak-ui.selectmodel.md)<!-- -->&lt;T&gt;
 

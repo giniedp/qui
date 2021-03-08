@@ -11,3 +11,5 @@ Image component attrs
 ```typescript
 export declare type ImageAttrs = ComponentAttrs<ImageModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [ImageModel](./tweak-ui.imagemodel.md)
+

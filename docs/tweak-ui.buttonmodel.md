@@ -17,8 +17,8 @@ export interface ButtonModel extends ComponentModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.buttonmodel.disabled.md) | boolean | Disables the control input |
-|  [onClick](./tweak-ui.buttonmodel.onclick.md) | (ctrl: [ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->) =&gt; void | This is callend when the control is clicked |
-|  [text](./tweak-ui.buttonmodel.text.md) | string | The button text |
+|  [disabled?](./tweak-ui.buttonmodel.disabled.md) | boolean | <i>(Optional)</i> Disables the control input |
+|  [onClick?](./tweak-ui.buttonmodel.onclick.md) | (ctrl: [ButtonModel](./tweak-ui.buttonmodel.md)<!-- -->) =&gt; void | <i>(Optional)</i> This is callend when the control is clicked |
+|  [text?](./tweak-ui.buttonmodel.text.md) | string | <i>(Optional)</i> The button text |
 |  [type](./tweak-ui.buttonmodel.type.md) | 'button' | The type name of the control |
 

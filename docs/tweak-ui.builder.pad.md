@@ -9,7 +9,7 @@ Adds a 2D Pad control
 <b>Signature:</b>
 
 ```typescript
-pad<T>(target: T, property: keyof T, opts?: Partial<PadModel>): PadModel<any> & Removable;
+pad<T>(target: T, property: keyof T, opts?: Partial<PadModel<T>>): PadModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ pad<T>(target: T, property: keyof T, opts?: Partial<PadModel>): PadModel<any> & 
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[PadModel](./tweak-ui.padmodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;
 

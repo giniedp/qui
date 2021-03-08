@@ -17,10 +17,10 @@ export interface GroupModel extends ComponentGroupModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [autoscroll](./tweak-ui.groupmodel.autoscroll.md) | boolean \| number | If true, scrolls the opened panel into view on click |
-|  [onClose](./tweak-ui.groupmodel.onclose.md) | (group: [GroupModel](./tweak-ui.groupmodel.md)<!-- -->) =&gt; void | Is called when this group has been closed |
-|  [onOpen](./tweak-ui.groupmodel.onopen.md) | (group: [GroupModel](./tweak-ui.groupmodel.md)<!-- -->) =&gt; void | Is called when this group has been opened |
-|  [open](./tweak-ui.groupmodel.open.md) | boolean | If true, the children will be rendered |
-|  [title](./tweak-ui.groupmodel.title.md) | string |  |
+|  [autoscroll?](./tweak-ui.groupmodel.autoscroll.md) | boolean \| number | <i>(Optional)</i> If true, scrolls the opened panel into view on click |
+|  [onClose?](./tweak-ui.groupmodel.onclose.md) | (group: [GroupModel](./tweak-ui.groupmodel.md)<!-- -->) =&gt; void | <i>(Optional)</i> Is called when this group has been closed |
+|  [onOpen?](./tweak-ui.groupmodel.onopen.md) | (group: [GroupModel](./tweak-ui.groupmodel.md)<!-- -->) =&gt; void | <i>(Optional)</i> Is called when this group has been opened |
+|  [open?](./tweak-ui.groupmodel.open.md) | boolean | <i>(Optional)</i> If true, the children will be rendered |
+|  [title](./tweak-ui.groupmodel.title.md) | string | The group title to display |
 |  [type](./tweak-ui.groupmodel.type.md) | 'group' | The type name of the control |
 

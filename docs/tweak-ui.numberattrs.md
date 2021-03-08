@@ -11,3 +11,5 @@ Number component attributes
 ```typescript
 export declare type NumberAttrs = ComponentAttrs<NumberModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [NumberModel](./tweak-ui.numbermodel.md)
+

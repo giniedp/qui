@@ -11,3 +11,5 @@ Direction component attributes
 ```typescript
 export declare type DirectionAttrs = ComponentAttrs<DirectionModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [DirectionModel](./tweak-ui.directionmodel.md)
+

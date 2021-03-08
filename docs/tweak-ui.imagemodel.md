@@ -17,11 +17,11 @@ export interface ImageModel extends ComponentModel
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [height](./tweak-ui.imagemodel.height.md) | number | The image height attribute |
-|  [onClick](./tweak-ui.imagemodel.onclick.md) | (ctrl: [ImageModel](./tweak-ui.imagemodel.md)<!-- -->) =&gt; void | This is callend when the control is clicked |
-|  [src](./tweak-ui.imagemodel.src.md) | string \| string\[\] | The image source url |
-|  [style](./tweak-ui.imagemodel.style.md) | Partial&lt;CSSStyleDeclaration&gt; | CSS rules for the image element |
-|  [styleWrapper](./tweak-ui.imagemodel.stylewrapper.md) | Partial&lt;CSSStyleDeclaration&gt; | CSS rules for the image wrapper |
+|  [height?](./tweak-ui.imagemodel.height.md) | number | <i>(Optional)</i> The image height attribute |
+|  [onClick?](./tweak-ui.imagemodel.onclick.md) | (ctrl: [ImageModel](./tweak-ui.imagemodel.md)<!-- -->) =&gt; void | <i>(Optional)</i> This is callend when the control is clicked |
+|  [src?](./tweak-ui.imagemodel.src.md) | string \| string\[\] | <i>(Optional)</i> The image source url |
+|  [style?](./tweak-ui.imagemodel.style.md) | Partial&lt;CSSStyleDeclaration&gt; | <i>(Optional)</i> CSS rules for the image element |
+|  [styleWrapper?](./tweak-ui.imagemodel.stylewrapper.md) | Partial&lt;CSSStyleDeclaration&gt; | <i>(Optional)</i> CSS rules for the image wrapper |
 |  [type](./tweak-ui.imagemodel.type.md) | 'image' | The type name of the control |
-|  [width](./tweak-ui.imagemodel.width.md) | number | The image width attribute |
+|  [width?](./tweak-ui.imagemodel.width.md) | number | <i>(Optional)</i> The image width attribute |
 

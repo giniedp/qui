@@ -11,3 +11,5 @@ Vector component attributes
 ```typescript
 export declare type VectorAttrs = ComponentAttrs<VectorModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [VectorModel](./tweak-ui.vectormodel.md)
+

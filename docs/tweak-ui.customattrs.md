@@ -11,3 +11,5 @@ Custom component attributes
 ```typescript
 export declare type CustomAttrs = ComponentAttrs<CustomModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [CustomModel](./tweak-ui.custommodel.md)
+

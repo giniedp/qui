@@ -9,7 +9,7 @@ Adds a text control
 <b>Signature:</b>
 
 ```typescript
-text<T>(target: T, property: keyof T, opts?: Partial<TextModel>): TextModel<any> & Removable;
+text<T>(target: T, property: keyof T, opts?: Partial<TextModel<T>>): TextModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ text<T>(target: T, property: keyof T, opts?: Partial<TextModel>): TextModel<any>
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[TextModel](./tweak-ui.textmodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;
 

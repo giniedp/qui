@@ -9,7 +9,7 @@ Adds a Direction control
 <b>Signature:</b>
 
 ```typescript
-direction<T>(target: T, property: keyof T, opts?: Partial<DirectionModel>): DirectionModel<any> & Removable;
+direction<T>(target: T, property: keyof T, opts?: Partial<DirectionModel<T>>): DirectionModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ direction<T>(target: T, property: keyof T, opts?: Partial<DirectionModel>): Dire
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;
 

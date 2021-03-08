@@ -14,3 +14,5 @@ export declare type SelectOptionGroup<T = SelectOptionArray | SelectOptionsObjec
     disabled?: boolean;
 };
 ```
+<b>References:</b> [SelectOptionArray](./tweak-ui.selectoptionarray.md)<!-- -->, [SelectOptionsObject](./tweak-ui.selectoptionsobject.md)
+

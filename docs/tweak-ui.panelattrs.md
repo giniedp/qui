@@ -11,3 +11,5 @@ Panel component attributes
 ```typescript
 export declare type PanelAttrs = ComponentAttrs<PanelModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [PanelModel](./tweak-ui.panelmodel.md)
+

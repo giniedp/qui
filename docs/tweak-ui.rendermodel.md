@@ -9,7 +9,7 @@ Renders a registered component using the model
 <b>Signature:</b>
 
 ```typescript
-export declare function renderModel<T extends ComponentModel>(model: T): m.Vnode<ComponentAttrs<any>, m.ClassComponent<ComponentAttrs<any>>>;
+export declare function renderModel<T extends ComponentModel>(model: T): m.Vnode<ComponentAttrs<any>, ClassComponent<ComponentAttrs<any>>>;
 ```
 
 ## Parameters
@@ -20,5 +20,5 @@ export declare function renderModel<T extends ComponentModel>(model: T): m.Vnode
 
 <b>Returns:</b>
 
-m.Vnode&lt;[ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->&lt;any&gt;, m.ClassComponent&lt;[ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->&lt;any&gt;&gt;&gt;
+m.Vnode&lt;[ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->&lt;any&gt;, ClassComponent&lt;[ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->&lt;any&gt;&gt;&gt;
 

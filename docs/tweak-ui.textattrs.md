@@ -11,3 +11,5 @@ Text component attributes
 ```typescript
 export declare type TextAttrs = ComponentAttrs<TextModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [TextModel](./tweak-ui.textmodel.md)
+

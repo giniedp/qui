@@ -11,3 +11,5 @@ Button component attribuets
 ```typescript
 export declare type ButtonAttrs = ComponentAttrs<ButtonModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [ButtonModel](./tweak-ui.buttonmodel.md)
+

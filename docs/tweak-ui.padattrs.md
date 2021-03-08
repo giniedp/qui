@@ -11,3 +11,5 @@ Pad component attributes
 ```typescript
 export declare type PadAttrs = ComponentAttrs<PadModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [PadModel](./tweak-ui.padmodel.md)
+

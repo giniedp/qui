@@ -17,5 +17,5 @@ export interface ComponentGroupModel<T extends ComponentModel = ComponentModel> 
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [children](./tweak-ui.componentgroupmodel.children.md) | T\[\] | Collection of child components |
+|  [children?](./tweak-ui.componentgroupmodel.children.md) | T\[\] | <i>(Optional)</i> Collection of child components |
 

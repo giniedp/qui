@@ -9,7 +9,7 @@ Adds a color picker control
 <b>Signature:</b>
 
 ```typescript
-colorPicker<T>(target: T, property: keyof T, opts?: Partial<ColorPickerModel>): ColorPickerModel<any, string | number | number[]> & Removable;
+colorPicker<T>(target: T, property: keyof T, opts?: Partial<ColorPickerModel<T>>): ColorPickerModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ colorPicker<T>(target: T, property: keyof T, opts?: Partial<ColorPickerModel>): 
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;any, string \| number \| number\[\]&gt; &amp; [Removable](./tweak-ui.removable.md)
+[ColorPickerModel](./tweak-ui.colorpickermodel.md)<!-- -->&lt;T&gt;
 

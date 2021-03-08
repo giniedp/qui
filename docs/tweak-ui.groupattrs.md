@@ -11,3 +11,5 @@ Group component attributes
 ```typescript
 export declare type GroupAttrs = ComponentAttrs<GroupModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [GroupModel](./tweak-ui.groupmodel.md)
+

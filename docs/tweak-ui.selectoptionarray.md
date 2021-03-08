@@ -10,3 +10,5 @@
 ```typescript
 export declare type SelectOptionArray = Array<SelectOption | SelectOptionGroup | string | number>;
 ```
+<b>References:</b> [SelectOption](./tweak-ui.selectoption.md)<!-- -->, [SelectOptionGroup](./tweak-ui.selectoptiongroup.md)
+

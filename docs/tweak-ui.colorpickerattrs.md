@@ -11,3 +11,5 @@ Color picker component attributes
 ```typescript
 export declare type ColorPickerAttrs = ComponentAttrs<ColorPickerModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [ColorPickerModel](./tweak-ui.colorpickermodel.md)
+

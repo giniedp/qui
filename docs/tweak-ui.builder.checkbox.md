@@ -9,7 +9,7 @@ Adds a checkbox control
 <b>Signature:</b>
 
 ```typescript
-checkbox<T>(target: T, property: keyof T, opts?: Partial<CheckboxModel>): CheckboxModel<any> & Removable;
+checkbox<T>(target: T, property: keyof T, opts?: Partial<CheckboxModel<T>>): CheckboxModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ checkbox<T>(target: T, property: keyof T, opts?: Partial<CheckboxModel>): Checkb
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[CheckboxModel](./tweak-ui.checkboxmodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[CheckboxModel](./tweak-ui.checkboxmodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[CheckboxModel](./tweak-ui.checkboxmodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[CheckboxModel](./tweak-ui.checkboxmodel.md)<!-- -->&lt;T&gt;
 

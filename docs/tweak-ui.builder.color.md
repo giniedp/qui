@@ -9,7 +9,7 @@ Adds a color control
 <b>Signature:</b>
 
 ```typescript
-color<T>(target: T, property: keyof T, opts?: Partial<ColorModel>): ColorModel<any, string | number | number[]> & Removable;
+color<T>(target: T, property: keyof T, opts?: Partial<ColorModel<T>>): ColorModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ color<T>(target: T, property: keyof T, opts?: Partial<ColorModel>): ColorModel<a
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[ColorModel](./tweak-ui.colormodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;any, string \| number \| number\[\]&gt; &amp; [Removable](./tweak-ui.removable.md)
+[ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T&gt;
 

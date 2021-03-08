@@ -11,3 +11,5 @@ Color component attributes
 ```typescript
 export declare type ColorAttrs = ComponentAttrs<ColorModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [ColorModel](./tweak-ui.colormodel.md)
+

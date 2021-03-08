@@ -9,7 +9,7 @@ Direction component model
 <b>Signature:</b>
 
 ```typescript
-export interface DirectionModel<T = any> extends ComponentModel, ValueSource<T, number> 
+export interface DirectionModel<T = unknown> extends ComponentModel, ValueSource<T, number> 
 ```
 <b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, number&gt;
 
@@ -17,9 +17,9 @@ export interface DirectionModel<T = any> extends ComponentModel, ValueSource<T, 
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.directionmodel.disabled.md) | boolean | Disables the control input |
-|  [keys](./tweak-ui.directionmodel.keys.md) | string\[\] | The value property names. Defaults to <code>['x', 'y', 'z']</code> |
-|  [onChange](./tweak-ui.directionmodel.onchange.md) | (model: [DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.directionmodel.oninput.md) | (model: [DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called when the control value has been changed. |
+|  [disabled?](./tweak-ui.directionmodel.disabled.md) | boolean | <i>(Optional)</i> Disables the control input |
+|  [keys?](./tweak-ui.directionmodel.keys.md) | string\[\] | <i>(Optional)</i> The value property names. Defaults to <code>['x', 'y', 'z']</code> |
+|  [onChange?](./tweak-ui.directionmodel.onchange.md) | (model: [DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called once the control value is committed by the user. |
+|  [onInput?](./tweak-ui.directionmodel.oninput.md) | (model: [DirectionModel](./tweak-ui.directionmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called when the control value has been changed. |
 |  [type](./tweak-ui.directionmodel.type.md) | 'direction' | The type name of the control |
 

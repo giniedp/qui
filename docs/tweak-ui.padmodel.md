@@ -9,7 +9,7 @@ Pad component model
 <b>Signature:</b>
 
 ```typescript
-export interface PadModel<T = any> extends ComponentModel, ValueSource<T, any> 
+export interface PadModel<T = unknown> extends ComponentModel, ValueSource<T, any> 
 ```
 <b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, any&gt;
 
@@ -17,10 +17,12 @@ export interface PadModel<T = any> extends ComponentModel, ValueSource<T, any>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [keys](./tweak-ui.padmodel.keys.md) | string\[\] | The object field names. Defaults to <code>['x', 'y', 'z']</code> |
-|  [onChange](./tweak-ui.padmodel.onchange.md) | (model: [PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.padmodel.oninput.md) | (model: [PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called when the control value has been changed. |
+|  [keys?](./tweak-ui.padmodel.keys.md) | string\[\] | <i>(Optional)</i> The object field names. Defaults to <code>['x', 'y', 'z']</code> |
+|  [onChange?](./tweak-ui.padmodel.onchange.md) | (model: [PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called once the control value is committed by the user. |
+|  [onInput?](./tweak-ui.padmodel.oninput.md) | (model: [PadModel](./tweak-ui.padmodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called when the control value has been changed. |
+|  [reset?](./tweak-ui.padmodel.reset.md) | \[number, number\] | <i>(Optional)</i> Value to reset to when released |
+|  [snap?](./tweak-ui.padmodel.snap.md) | number | <i>(Optional)</i> Snap to grid value |
 |  [type](./tweak-ui.padmodel.type.md) | 'pad' | The type name of the control |
-|  [xRange](./tweak-ui.padmodel.xrange.md) | \[number, number\] | X-Axis min and max valuse |
-|  [yRange](./tweak-ui.padmodel.yrange.md) | \[number, number\] | Y-Axis min and max valuse |
+|  [xRange?](./tweak-ui.padmodel.xrange.md) | \[number, number\] | <i>(Optional)</i> X-Axis min and max valuse |
+|  [yRange?](./tweak-ui.padmodel.yrange.md) | \[number, number\] | <i>(Optional)</i> Y-Axis min and max valuse |
 

@@ -9,7 +9,7 @@ Number component model
 <b>Signature:</b>
 
 ```typescript
-export interface NumberModel<T = any> extends ComponentModel, ValueSource<T, number> 
+export interface NumberModel<T = unknown> extends ComponentModel, ValueSource<T, number> 
 ```
 <b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, number&gt;
 
@@ -17,12 +17,12 @@ export interface NumberModel<T = any> extends ComponentModel, ValueSource<T, num
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.numbermodel.disabled.md) | boolean | Disables the control input |
-|  [max](./tweak-ui.numbermodel.max.md) | number | The max value |
-|  [min](./tweak-ui.numbermodel.min.md) | number | The min value |
-|  [onChange](./tweak-ui.numbermodel.onchange.md) | (model: [NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.numbermodel.oninput.md) | (model: [NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | This is called when the control value has been changed. |
-|  [placeholder](./tweak-ui.numbermodel.placeholder.md) | string | The placeholder text |
-|  [step](./tweak-ui.numbermodel.step.md) | number | The step value |
+|  [disabled?](./tweak-ui.numbermodel.disabled.md) | boolean | <i>(Optional)</i> Disables the control input |
+|  [max?](./tweak-ui.numbermodel.max.md) | number | <i>(Optional)</i> The max value |
+|  [min?](./tweak-ui.numbermodel.min.md) | number | <i>(Optional)</i> The min value |
+|  [onChange?](./tweak-ui.numbermodel.onchange.md) | (model: [NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called once the control value is committed by the user. |
+|  [onInput?](./tweak-ui.numbermodel.oninput.md) | (model: [NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;, value: number) =&gt; void | <i>(Optional)</i> This is called when the control value has been changed. |
+|  [placeholder?](./tweak-ui.numbermodel.placeholder.md) | string | <i>(Optional)</i> The placeholder text |
+|  [step?](./tweak-ui.numbermodel.step.md) | number | <i>(Optional)</i> The step value |
 |  [type](./tweak-ui.numbermodel.type.md) | 'number' \| 'slider' | The type name of the control |
 

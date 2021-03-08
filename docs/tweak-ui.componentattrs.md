@@ -13,3 +13,5 @@ export declare type ComponentAttrs<T extends ComponentModel> = {
     data: T;
 };
 ```
+<b>References:</b> [ComponentModel](./tweak-ui.componentmodel.md)
+

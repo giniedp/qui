@@ -4,6 +4,8 @@
 
 ## GroupModel.title property
 
+The group title to display
+
 <b>Signature:</b>
 
 ```typescript

@@ -11,3 +11,5 @@ Tabs component attributes
 ```typescript
 export declare type TabsAtts = ComponentAttrs<TabsModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [TabsModel](./tweak-ui.tabsmodel.md)
+

@@ -11,3 +11,5 @@ Select component attributes
 ```typescript
 export declare type SelectAttrs = ComponentAttrs<SelectModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [SelectModel](./tweak-ui.selectmodel.md)
+

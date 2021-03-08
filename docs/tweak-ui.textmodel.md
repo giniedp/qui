@@ -9,7 +9,7 @@ Text component model
 <b>Signature:</b>
 
 ```typescript
-export interface TextModel<T = any> extends ComponentModel, ValueSource<T, string> 
+export interface TextModel<T = unknown> extends ComponentModel, ValueSource<T, string> 
 ```
 <b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, string&gt;
 
@@ -17,9 +17,9 @@ export interface TextModel<T = any> extends ComponentModel, ValueSource<T, strin
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [disabled](./tweak-ui.textmodel.disabled.md) | boolean | Disables the control input |
-|  [onChange](./tweak-ui.textmodel.onchange.md) | (model: [TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;, value: string) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.textmodel.oninput.md) | (model: [TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;, value: string) =&gt; void | This is called when the control value has been changed. |
-|  [placeholder](./tweak-ui.textmodel.placeholder.md) | string | The placeholder text |
+|  [disabled?](./tweak-ui.textmodel.disabled.md) | boolean | <i>(Optional)</i> Disables the control input |
+|  [onChange?](./tweak-ui.textmodel.onchange.md) | (model: [TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;, value: string) =&gt; void | <i>(Optional)</i> This is called once the control value is committed by the user. |
+|  [onInput?](./tweak-ui.textmodel.oninput.md) | (model: [TextModel](./tweak-ui.textmodel.md)<!-- -->&lt;T&gt;, value: string) =&gt; void | <i>(Optional)</i> This is called when the control value has been changed. |
+|  [placeholder?](./tweak-ui.textmodel.placeholder.md) | string | <i>(Optional)</i> The placeholder text |
 |  [type](./tweak-ui.textmodel.type.md) | 'text' | The type name of the control |
 

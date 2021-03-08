@@ -9,7 +9,7 @@ Adds a number control
 <b>Signature:</b>
 
 ```typescript
-number<T>(target: T, property: keyof T, opts?: Partial<NumberModel>): NumberModel<any> & Removable;
+number<T>(target: T, property: keyof T, opts?: Partial<NumberModel<T>>): NumberModel<T>;
 ```
 
 ## Parameters
@@ -18,9 +18,9 @@ number<T>(target: T, property: keyof T, opts?: Partial<NumberModel>): NumberMode
 |  --- | --- | --- |
 |  target | T | The target object holding the value |
 |  property | keyof T | The accessor property |
-|  opts | Partial&lt;[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&gt; | Additional options for the control |
+|  opts | Partial&lt;[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;&gt; | Additional options for the control |
 
 <b>Returns:</b>
 
-[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;any&gt; &amp; [Removable](./tweak-ui.removable.md)
+[NumberModel](./tweak-ui.numbermodel.md)<!-- -->&lt;T&gt;
 

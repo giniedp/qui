@@ -17,7 +17,7 @@ export interface PanelModel extends ComponentGroupModel<ComponentModel>
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [style](./tweak-ui.panelmodel.style.md) | Partial&lt;CSSStyleDeclaration&gt; | Panel CSS Style |
-|  [title](./tweak-ui.panelmodel.title.md) | string | Panel title |
+|  [style?](./tweak-ui.panelmodel.style.md) | Partial&lt;CSSStyleDeclaration&gt; | <i>(Optional)</i> Panel CSS Style |
+|  [title?](./tweak-ui.panelmodel.title.md) | string | <i>(Optional)</i> Panel title |
 |  [type](./tweak-ui.panelmodel.type.md) | 'panel' | Component type name |
 

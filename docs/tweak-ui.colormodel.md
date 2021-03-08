@@ -9,7 +9,7 @@ Color component model
 <b>Signature:</b>
 
 ```typescript
-export interface ColorModel<T = any, V = number | string | number[]> extends ComponentModel, ValueSource<T, V> 
+export interface ColorModel<T = unknown, V = number | string | number[]> extends ComponentModel, ValueSource<T, V> 
 ```
 <b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, V&gt;
 
@@ -17,10 +17,10 @@ export interface ColorModel<T = any, V = number | string | number[]> extends Com
 
 |  Property | Type | Description |
 |  --- | --- | --- |
-|  [format](./tweak-ui.colormodel.format.md) | string | The format of the string value. Defaults to 'rgb' |
-|  [normalized](./tweak-ui.colormodel.normalized.md) | boolean | Whether each component is normalized to range \[0:1\] |
-|  [onChange](./tweak-ui.colormodel.onchange.md) | (model: [ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.colormodel.oninput.md) | (model: [ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | This is called when the control value has been changed. |
+|  [format?](./tweak-ui.colormodel.format.md) | string | <i>(Optional)</i> The format of the string value. Defaults to 'rgb' |
+|  [normalized?](./tweak-ui.colormodel.normalized.md) | boolean | <i>(Optional)</i> Whether each component is normalized to range \[0:1\] |
+|  [onChange?](./tweak-ui.colormodel.onchange.md) | (model: [ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | <i>(Optional)</i> This is called once the control value is committed by the user. |
+|  [onInput?](./tweak-ui.colormodel.oninput.md) | (model: [ColorModel](./tweak-ui.colormodel.md)<!-- -->&lt;T, V&gt;, value: V) =&gt; void | <i>(Optional)</i> This is called when the control value has been changed. |
 |  [type](./tweak-ui.colormodel.type.md) | 'color' | The type name of the control |
-|  [value](./tweak-ui.colormodel.value.md) | V | The color value as a string. |
+|  [value?](./tweak-ui.colormodel.value.md) | V | <i>(Optional)</i> The color value as a string. |
 

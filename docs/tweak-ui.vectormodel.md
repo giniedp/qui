@@ -2,27 +2,23 @@
 
 [Home](./index.md) &gt; [tweak-ui](./tweak-ui.md) &gt; [VectorModel](./tweak-ui.vectormodel.md)
 
-## VectorModel interface
+## VectorModel type
 
 Vector component model
 
 <b>Signature:</b>
 
 ```typescript
-export interface VectorModel<T = any> extends ComponentModel, ValueSource<T, VectorValue> 
+export declare type VectorModel<T = unknown> = ComponentModel & ValueSource<T, VectorValue> & {
+    type: 'vector';
+    keys?: string[];
+    min?: number;
+    max?: number;
+    step?: number;
+    onInput?: (model: VectorModel<T>, value: VectorValue, key?: string | number) => void;
+    onChange?: (model: VectorModel<T>, value: VectorValue, key?: string | number) => void;
+    disabled?: boolean;
+};
 ```
-<b>Extends:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->&lt;T, [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->&gt;
-
-## Properties
-
-|  Property | Type | Description |
-|  --- | --- | --- |
-|  [disabled](./tweak-ui.vectormodel.disabled.md) | boolean | Disables the control input |
-|  [keys](./tweak-ui.vectormodel.keys.md) | string\[\] | The vector object field names. Defaults to <code>['x', 'y', 'z']</code> |
-|  [max](./tweak-ui.vectormodel.max.md) | number | The max value |
-|  [min](./tweak-ui.vectormodel.min.md) | number | The min value |
-|  [onChange](./tweak-ui.vectormodel.onchange.md) | (model: [VectorModel](./tweak-ui.vectormodel.md)<!-- -->&lt;T&gt;, value: [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->, key?: string \| number) =&gt; void | This is called once the control value is committed by the user. |
-|  [onInput](./tweak-ui.vectormodel.oninput.md) | (model: [VectorModel](./tweak-ui.vectormodel.md)<!-- -->&lt;T&gt;, value: [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->, key?: string \| number) =&gt; void | This is called when the control value has been changed. |
-|  [step](./tweak-ui.vectormodel.step.md) | number | The step value |
-|  [type](./tweak-ui.vectormodel.type.md) | 'vector' | The type name of the control |
+<b>References:</b> [ComponentModel](./tweak-ui.componentmodel.md)<!-- -->, [ValueSource](./tweak-ui.valuesource.md)<!-- -->, [VectorValue](./tweak-ui.vectorvalue.md)<!-- -->, [VectorModel](./tweak-ui.vectormodel.md)
 

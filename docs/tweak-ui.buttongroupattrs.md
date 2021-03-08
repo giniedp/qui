@@ -11,3 +11,5 @@ Button group component attributes
 ```typescript
 export declare type ButtonGroupAttrs = ComponentAttrs<ButtonGroupModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [ButtonGroupModel](./tweak-ui.buttongroupmodel.md)
+

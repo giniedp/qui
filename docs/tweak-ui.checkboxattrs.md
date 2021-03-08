@@ -11,3 +11,5 @@ Checkbox component attrs
 ```typescript
 export declare type CheckboxAttrs = ComponentAttrs<CheckboxModel>;
 ```
+<b>References:</b> [ComponentAttrs](./tweak-ui.componentattrs.md)<!-- -->, [CheckboxModel](./tweak-ui.checkboxmodel.md)
+

@@ -34,6 +34,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [renderModel(model)](./tweak-ui.rendermodel.md) | Renders a registered component using the model |
 |  [rgb2hsv(rgb)](./tweak-ui.rgb2hsv.md) | Converts rgb to hsv |
 |  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |
+|  [TwuiComponent(type)](./tweak-ui.twuicomponent.md) |  |
 |  [unmount(el)](./tweak-ui.unmount.md) | Unmounts the ui from given host element |
 
 ## Interfaces
@@ -42,6 +43,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  --- | --- |
 |  [AccordeonBuilder](./tweak-ui.accordeonbuilder.md) |  |
 |  [AccordeonModel](./tweak-ui.accordeonmodel.md) | Accordeon component model |
+|  [AngleModel](./tweak-ui.anglemodel.md) | Spherical component model |
 |  [ButtonGroupModel](./tweak-ui.buttongroupmodel.md) | Button group component model |
 |  [ButtonModel](./tweak-ui.buttonmodel.md) | Button component model |
 |  [CheckboxModel](./tweak-ui.checkboxmodel.md) | Describes a checkbox control |
@@ -65,16 +67,20 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [RGB](./tweak-ui.rgb.md) | Describes an RGB color value |
 |  [RGBA](./tweak-ui.rgba.md) | Describes an RGB color value with alpha |
 |  [SelectModel](./tweak-ui.selectmodel.md) | Select component model |
+|  [SphericalModel](./tweak-ui.sphericalmodel.md) | Spherical component model |
 |  [TabsBuilder](./tweak-ui.tabsbuilder.md) |  |
 |  [TabsModel](./tweak-ui.tabsmodel.md) | Tabs component model |
 |  [TextModel](./tweak-ui.textmodel.md) | Text component model |
-|  [VectorModel](./tweak-ui.vectormodel.md) | Vector component model |
 
 ## Variables
 
 |  Variable | Description |
 |  --- | --- |
+|  [AngleComponent](./tweak-ui.anglecomponent.md) |  |
+|  [CheckboxComponent](./tweak-ui.checkboxcomponent.md) |  |
 |  [h](./tweak-ui.h.md) | Mithril's hyperscript function. |
+|  [NumberComponent](./tweak-ui.numbercomponent.md) |  |
+|  [SphericalComponent](./tweak-ui.sphericalcomponent.md) |  |
 |  [VERSION](./tweak-ui.version.md) | The version string |
 
 ## Type Aliases
@@ -82,6 +88,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  Type Alias | Description |
 |  --- | --- |
 |  [AccordeonAtts](./tweak-ui.accordeonatts.md) | Accordeon component attribuets |
+|  [AngleAttrs](./tweak-ui.angleattrs.md) | Spherical component attributes |
 |  [ArrayOrSingleOf](./tweak-ui.arrayorsingleof.md) |  |
 |  [BuildInComponent](./tweak-ui.buildincomponent.md) | Union type of all build in models |
 |  [ButtonAttrs](./tweak-ui.buttonattrs.md) | Button component attribuets |
@@ -95,6 +102,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [DirectionAttrs](./tweak-ui.directionattrs.md) | Direction component attributes |
 |  [GroupAttrs](./tweak-ui.groupattrs.md) | Group component attributes |
 |  [ImageAttrs](./tweak-ui.imageattrs.md) | Image component attrs |
+|  [KeyMatchingType](./tweak-ui.keymatchingtype.md) |  |
 |  [NumberAttrs](./tweak-ui.numberattrs.md) | Number component attributes |
 |  [PadAttrs](./tweak-ui.padattrs.md) | Pad component attributes |
 |  [PanelAttrs](./tweak-ui.panelattrs.md) | Panel component attributes |
@@ -104,9 +112,13 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [SelectOptionArray](./tweak-ui.selectoptionarray.md) |  |
 |  [SelectOptionGroup](./tweak-ui.selectoptiongroup.md) |  |
 |  [SelectOptionsObject](./tweak-ui.selectoptionsobject.md) |  |
+|  [SphericalAttrs](./tweak-ui.sphericalattrs.md) | Spherical component attributes |
+|  [SphericalValue](./tweak-ui.sphericalvalue.md) |  |
 |  [TabsAtts](./tweak-ui.tabsatts.md) | Tabs component attributes |
 |  [TextAttrs](./tweak-ui.textattrs.md) | Text component attributes |
+|  [ValueCodec](./tweak-ui.valuecodec.md) | Utility to convert a value type |
 |  [ValueSource](./tweak-ui.valuesource.md) |  |
 |  [VectorAttrs](./tweak-ui.vectorattrs.md) | Vector component attributes |
+|  [VectorModel](./tweak-ui.vectormodel.md) | Vector component model |
 |  [VectorValue](./tweak-ui.vectorvalue.md) |  |
 
