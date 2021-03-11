@@ -1,0 +1,39 @@
+p.mt-3.mb-0 A simple button
++example#example-button-1('')
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-button-1", [{
+      type: "button",
+      text: "My Button",
+      onClick: console.log
+    }])
+
+p.mt-3.mb-0 Button having a label
++example#example-button-2
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-button-2", [{
+      type: "button",
+      text: "GO",
+      label: "My Label"
+    }])
+
+p.mt-3.mb-0 Multiple buttons
++example#example-button-3
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-button-3", [{
+      type: "button",
+      text: "GO",
+      label: "My Label"
+    }, {
+      type: "button",
+      text: "Another button",
+      label: ""
+    }])
+
+p.mt-3.mb-0 Simplified syntax
++example#example-button-4
+  script(type="text/javascript").language-javascript.
+    TweakUi.create("#example-button-4", (b) => {
+      b.button('Button')
+      b.button('Button', { label: 'With Label' })
+    })
+

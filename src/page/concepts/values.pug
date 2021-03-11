@@ -1,0 +1,31 @@
+p There are several ways how to provide and retreive input values.
+p Use the <code>value</code> property to set the inital value and then listen for change
++example#example-values-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-values-1", [{
+      type: "text",
+      label: "My text",
+      value: "i have a label",
+      onInput: (it, value) => { console.log(it, value) }
+    }])
+
+p.mt-3 Use getters and setters (ECMAScript 5 and above)
++example#example-values-2
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-values-2", [{
+      type: "text",
+      label: "Page Title",
+      get value() { return window.document.title },
+      set value(v) { window.document.title = v },
+      onInput: (it, value) => { console.log(it, value) }
+    }])
+
+p.mt-3 Use a <code>target</code> object and provide a <code>property</code> name to get and set the value
++example#example-values-3
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-values-3", [{
+      type: "text",
+      label: "Page Title",
+      target: window.document,
+      property: "title"
+    }])

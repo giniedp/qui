@@ -1,0 +1,54 @@
+p.
+  The Color control has a <code>format</code> option which describes how the color value
+  should be parsed and encoded. It consists of 2 sections. The prefix specifies whether the color value is a
+ul
+  li <code>#</code> hex string
+  li <code>0x</code> a number
+  li <code>[]</code> an array
+  li <code>{}</code> an object
+p.
+  The suffix specifies the order of the color components. It may be any combinarion of
+  <code>r</code>, <code>g</code>, <code>b</code> and <code>a</code> Here are some examples
+table.table.table-borderless.table-sm
+  thead
+    tr
+      th format
+      th value (r: 255, g: 128, b: 0, a: 1)
+      th description
+  tbody
+    tr
+      td <code>"#rgb"</code>
+      td <code>"#FF8000"</code>
+      td Hex string with red green and blue coded from left to right
+    tr
+      td <code>"#bgr"</code>
+      td <code>"#0080FF"</code>
+      td Hex string with red green and blue coded from right to left
+    tr
+      td <code>"0xrgb"</code>
+      td <code>16744448</code>
+      td number Hex string with red green and blue coded from right to left
+    tr
+      td <code>"[]rgb"</code>
+      td <code>[255, 128, 0]</code>
+      td number array with red green and blue coded from right to left
+    tr
+      td <code>"{}rgb"</code>
+      td <code>{ r: 255, g: 128, b: 0 }</code>
+      td object red green and blue components
+    tr
+      td <code>"[n]rgb"</code>
+      td <code>[1, 0.5, 0]</code>
+      td number array with all components normalized to range [0:1]
+    tr
+      td <code>"{n}rgb"</code>
+      td <code>{ r: 1, g: 0.5, b: 0 }</code>
+      td object red green and blue components normalized to range [0:1]
+
++example#example-color-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-color-1", [{
+      type:   "color", label: "hex rgb",
+      format: "#rgb",  value: "#00ff00",
+      onInput: (it, value) => console.log(value)
+    }])

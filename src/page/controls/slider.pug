@@ -1,0 +1,13 @@
++example#example-slider-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-slider-1", [{
+      type: "slider",
+      label: "Slider",
+      value: 10, min: 1, max: 100, step: 0.5,
+      onInput: console.log, onChange: console.log
+    }, {
+      type: "slider",
+      label: "Slider",
+      value: 10, min: 1, max: 100, step: 0.5,
+      disabled: true,
+    }])

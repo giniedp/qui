@@ -1,0 +1,11 @@
+mixin example
+  .row.justify-content-center
+    .col.gui.flex-grow-0.order-last(id!=attributes.id, class!=attributes.class)
+    .col
+      block
+
+mixin section
+  .row
+    .col.gui.flex-grow-0.order-last(id!=attributes.id,)
+    .col
+      block

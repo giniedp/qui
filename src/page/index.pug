@@ -1,0 +1,210 @@
+include includes/_mixins.pug
+doctype html
+head
+  meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+  meta(charset="utf-8")
+  meta(property="og:type" content="website")
+  meta(property="og:title" content="Tweak Ui")
+  meta(property="og:site_name" content="Tweak Ui")
+  meta(property="og:url" content="https://tweakui.ginie.eu/")
+  meta(property="og:description" content="a lightweight js library for building input controls with data binding")
+  title Tweak UI
+  link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous")
+  link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css")
+  script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous")
+  link(rel='stylesheet' href='https://unpkg.com/prismjs@1.16.0/themes/prism.css')
+  script(src='https://unpkg.com/prismjs@1.16.0/prism.js' type='text/javascript')
+  style.
+    pre[class*="language-"] {
+      margin: 0;
+    }
+    h2, h3 {
+      margin-top: 3rem;
+    }
+    .dropdown-item.active, .dropdown-item:active {
+      background-color: var(--bs-dark);
+    }
+    .accordion-button:not(.collapsed) {
+      background-color: rgba(0,0,0,.125);
+      color: initial;
+    }
+    .accordion-button:focus {
+      border-color: rgba(0,0,0,.125);
+      box-shadow: none;
+    }
+
+body(data-bs-spy="scroll" data-bs-offset="56")
+  .bg-dark.text-light.text-center.p-4.mb-0
+    .container
+      h1.display-4 Tweak UI
+      p.lead a lightweight js library for building input controls with data binding.
+
+
+  .container-xxl
+    .row
+      .col-auto.d-none.d-xl-block(style="min-width: 220px;")
+        .accordion.accordion-flush.sticky-top
+          .accordion-item
+            h2.accordion-header
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-install") Install
+            #menu-install.accordion-collapse.collapse.show
+              .list-group.list-group-flush
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#install-npm") NPM
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#install-cdn") CDN
+          .accordion-item
+            h2.accordion-header.m-0
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-controls") Controls
+            #menu-controls.accordion-collapse.collapse
+              .list-group.list-group-flush
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-button") Button
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-button-group") Button group
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-checkbox") Checkbox
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-number") Number
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-slider") Slider
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-vector") Vector
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-text") Text
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-select") Select
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-image") Image
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-angle") Angle
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-spherical") Spherical coordinates
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-pad") 2D Pad
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-direction") Direction Vector
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-color") Color
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-color-picker") Color picker
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-custom") Custom Control
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-group") Group
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-tabs") Tabs
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-toolbar") Toolbar
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-accordeon") Accordeon
+          .accordion-item
+            h2.accordion-header.m-0
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-concepts") Concepts
+            #menu-concepts.accordion-collapse.collapse
+              .list-group.list-group-flush
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-layout") Layout & Labels
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-input") Input Values
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-mithril") Mithril
+          .accordion-item
+            h2.accordion-header.m-0
+              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-customize") Customize
+            #menu-customize.accordion-collapse.collapse
+              .list-group.list-group-flush
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#custom-controls") Custom controls
+                a.list-group-item.list-group-item-action.list-group-item-light(href="#custom-colors") Theme colors
+
+      .col-12.col-xl
+        h2#install-npm Installation (NPM)
+        section
+          include includes/install-npm.pug
+
+        h2#install-cdn Installation (CDN)
+        section
+          include includes/install-cdn.pug
+
+        h2#sourcecode-git Source
+        section
+          include includes/source.pug
+
+        h2#controls Controls
+        section#control-button
+          h3 Button
+          include controls/button.pug
+
+        section#control-button-group
+          h3 Button group
+          include controls/button-group.pug
+
+        section#control-checkbox
+          h3 Checkbox
+          include controls/checkbox.pug
+
+        section#control-number
+          h3 Number
+          include controls/number.pug
+
+        section#control-slider
+          h3 Slider
+          include controls/slider.pug
+
+        section#control-vector
+          h3 Vector
+          include controls/vector.pug
+
+        section#control-text
+          h3 Text
+          include controls/text.pug
+
+        section#control-select
+          h3 Select
+          include controls/select.pug
+
+        section#control-image
+          h3 Image
+          include controls/image.pug
+
+        section#control-angle
+          h3 Angle
+          include controls/angle.pug
+
+        section#control-spherical
+          h3 Spherical coordinates
+          include controls/spherical.pug
+
+        section#control-pad
+          h3 2D Pad
+          include controls/pad.pug
+
+        section#control-direction
+          h3 Direction Vector
+          include controls/direction.pug
+
+        section#control-color
+          h3#controls-color Color
+          include controls/color.pug
+
+        section#control-color-picker
+          h3 Color picker
+          include controls/color-picker.pug
+
+        section#control-custom
+          h3 Custom Control (the lazy way)
+          include controls/custom.pug
+
+        section#control-group
+          h3 Groups
+          include controls/group.pug
+
+        section#control-tabs
+          h3 Tabs
+          include controls/tabs.pug
+
+        section#control-toolbar
+          h3 Toolbar
+          include controls/toolbar.pug
+
+        section#control-accordeon
+          h3 Accordeon
+          include controls/accordeon.pug
+
+        h2#concepts Concepts
+        h3#concept-layout Layout & Labels
+        include concepts/labels.pug
+
+        h3#concept-input Input values
+        include concepts/values.pug
+
+        h3#concept-mithril Mithril
+        include concepts/mithril.pug
+
+        h2#customize Customize
+        h3#custom-controls Custom controls
+        include concepts/custom.pug
+
+        h3#custom-colors Change Theme colors
+        include concepts/theme.pug
+
+        script(type='text/javascript')
+          include index.js
+
+        h3#comments Comments
+        include includes/comments.pug

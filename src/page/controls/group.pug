@@ -1,0 +1,20 @@
++example#example-group-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-group-1", [{
+      type: "group",
+      title: "A Group",
+      open: true,        // will be opened initially
+      children: [
+        { type: "text", label: "My Text" },
+        { type: "number", label: "My Number" },
+        {
+          type: "group",
+          title: "Another Group",
+          open: false,   // will be closed initially (default)
+          children: [
+            { type: "text", label: "My Text" },
+            { type: "number", label: "My Number" },
+          ]
+        }
+      ]
+    }])

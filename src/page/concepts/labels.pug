@@ -1,0 +1,15 @@
+p.
+  The main container has a fixed width of <code>20rem</code> which is <code>320px</code> on this page.
+  All controlls are stacked vertically. The default stylesheet uses the <code>flex-box</code> layout model
+  which should render just fine on <a href="https://caniuse.com/#feat=flexbox" target="_blank"> all modern browsers </a>
+p.
+  Almost all controls have a label to their left side. Hhowever this is only rendered if the <code>label</code> option
+  is actually set. If you want to alignt the controls vertically you have to set the <code>label</code> option
+  at least to an empty string.
++example#example-labels-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-labels-1", [
+      { type: "text",                   value: "i dont have a label" },
+      { type: "text", label: "My text", value: "i do have a label" },
+      { type: "text", label: "",        value: "i have an empty label" }
+    ])

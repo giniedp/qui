@@ -1,0 +1,106 @@
+p.
+  Tweak ui comes with a default theme and the alternatives <code>.twui-dark</code> and <code>.twui-light</code>.
+  Add one of these classes to the root element to change the look.
++example#example-theme-1
+  span this is default
+  script(type="text/javascript").
+    TweakUi.mount("#example-theme-1", [{
+      type: "button",
+      text: "Button",
+      label: ""
+    }, {
+      type: "number",
+      label: "Number",
+      value: 0
+    }, {
+      type: "text",
+      label: "Text",
+      value: "Hello World"
+    }, {
+      type: "color",
+      label: "Color",
+      value: "#ff00ff"
+    }])
+
++example#example-theme-2.twui-dark
+  code .twui-dark
+  script(type="text/javascript").
+    TweakUi.mount("#example-theme-2", [{
+      type: "button",
+      text: "Button",
+      label: ""
+    }, {
+      type: "number",
+      label: "Number",
+      value: 0
+    }, {
+      type: "text",
+      label: "Text",
+      value: "Hello World"
+    }, {
+      type: "color",
+      label: "Color",
+      value: "#ff00ff"
+    }])
+
++example#example-theme-3.twui-light
+  code .twui-light
+  script(type="text/javascript").
+    TweakUi.mount("#example-theme-3", [{
+      type: "button",
+      text: "Button",
+      label: ""
+    }, {
+      type: "number",
+      label: "Number",
+      value: 0
+    }, {
+      type: "text",
+      label: "Text",
+      value: "Hello World"
+    }, {
+      type: "color",
+      label: "Color",
+      value: "#ff00ff"
+    }])
+
+p.
+  Another quick and easy way is to change the CSS variables for the root element.
+  However <a href="https://caniuse.com/#feat=css-variables" target="_blank">not all browsers</a> support that.
+  Read more about CSS variables
+  <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties">here </a>,
+  <a target="_blank" href="https://www.w3schools.com/css/css3_variables.asp">here </a> or
+  <a target="_blank" href="https://medium.freecodecamp.org/learn-css-variables-in-5-minutes-80cf63b4025d">here </a>
+
++example#example-theme-4
+  style.language-css.
+    #example-theme-4 {
+      --twui-color-primary: #263238;
+      --twui-color-primary-dark: #000a12;
+      --twui-color-primary-light: #4f5b62;
+      --twui-color-secondary: #37474f;
+      --twui-color-secondary-dark: #102027;
+      --twui-color-secondary-light: #62727b;
+      --twui-color-on-primary: #fff;
+      --twui-color-on-secondary: #fff;
+      --twui-color-accent: #f9AA33;
+    }
+
+  script(type="text/javascript").
+    TweakUi.mount("#example-theme-4", [{
+      type: "button",
+      text: "Button",
+      label: ""
+    }, {
+      type: "number",
+      label: "Number",
+      value: 0
+    }, {
+      type: "text",
+      label: "Text",
+      value: "Hello World"
+    }, {
+      type: "color",
+      label: "Color",
+      value: "#ff00ff"
+    }])

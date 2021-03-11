@@ -1,0 +1,37 @@
++example#example-select-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-select-1", [{
+      type: "select",
+      label: "Array",
+      value: "foo",
+      options: ["foo", "bar", "baz", { label: "a label", value: {} }],
+      onInput: (it, value) => console.log(it, value)
+    }, {
+      type: "select",
+      label: "Key Value",
+      value: "foo",
+      options: { Foo: "foo", Bar: "bar", Baz: "baz", "A Label": {} },
+      onInput: (it, value) => console.log(it, value)
+    }, {
+      type: "select",
+      label: "Groups",
+      value: "foo",
+      options: [{
+        label: "Group 1",
+        options: { Foo: "foo", Bar: "bar", Baz: "baz" }
+      }, {
+        label: "Group 2",
+        options: [0, 1, 2, 3]
+      }, {
+        label: "Group 3",
+        options: ["A", "B", "C"]
+      }, {
+        label: "Group 4",
+        options: [
+          { label: "X", value: { foo: "x" } },
+          { label: "Y", value: { foo: "y" } },
+          { label: "Z", value: { foo: "z" }, disabled: true }
+        ]
+      }],
+      onInput: (it, value) => console.log(it, value)
+    }])

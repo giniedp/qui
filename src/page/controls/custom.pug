@@ -1,0 +1,25 @@
+p.mt-3 simple text or html output
++example#example-custom-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-custom-1", [{
+      type: "custom",
+      label: "Text",
+      node: `
+        Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+      `,
+    }, {
+      type: "custom",
+      label: "HTML",
+      node: TweakUi.h.trust(`
+        <i onclick="alert('hijacked')">Dont do this for untrusted input</i>
+      `)
+    }, {
+      type: "custom",
+      label: "Mithril",
+      node: TweakUi.h('a', {
+        target: "_blank",
+        href: "https://mithril.js.org/"
+      }, 'this is a mithril link')
+    }])
+

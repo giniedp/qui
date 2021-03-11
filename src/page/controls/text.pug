@@ -1,0 +1,13 @@
++example#example-text-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-text-1", [{
+      type: "text",
+      label: "Text",
+      value: "Hello World",
+      onInput: (it, value) => console.log(it, value)
+    }, {
+      type: "text",
+      label: "Text",
+      value: "Hello World",
+      disabled: true,
+    }])

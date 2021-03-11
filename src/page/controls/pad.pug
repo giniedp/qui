@@ -1,0 +1,13 @@
+p.mt-3 an object with 2d coordinates
++example#example-pad-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-pad-1", [{
+      type: "pad",
+      label: "2D",
+      xRange: [-1, 1],
+      yRange: [-1, 1],
+      reset: [0, 0],
+      snap: 0.1,
+      value: { x: 0, y: 0 },
+      onInput: (it, value) => console.log(it, value)
+    }])

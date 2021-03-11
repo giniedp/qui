@@ -1,0 +1,20 @@
++example#example-tabs-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-tabs-1", [{
+      type: "tabs",
+      active: 1,
+      children: [{
+        label: "Tab 1",
+        children: [
+          { type: "text", label: "My Text" },
+          { type: "number", label: "My Number" },
+        ]
+      }, {
+        label: "Tab 2",
+        children: [
+          { type: "color-picker", label: "My Color" },
+        ]
+      }, {
+        label: "Tab 3",
+      }]
+    }])
