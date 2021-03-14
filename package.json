@@ -1,9 +1,10 @@
 {
   "name": "tweak-ui",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "main": "dist/tweak-ui.umd.js",
   "module": "dist/tweak-ui.module.js",
   "typings": "dist/lib/index.d.ts",
+  "files": ["dist"],
   "author": "Alexander Gräfenstein",
   "license": "MIT",
   "description": "Tweak UI - a lightweight js library for building input controls with data binding",
