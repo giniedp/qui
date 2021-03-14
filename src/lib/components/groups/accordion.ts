@@ -23,13 +23,6 @@ export interface AccordeonModel extends ComponentGroupModel<GroupModel> {
    * The index of the group that should be open initially
    */
   expand?: number
-  /**
-   * If true, scrolls the opened group into view on click
-   *
-   * @remarks
-   * if this is a number, this is used as setTimeout delay
-   */
-  autoscroll?: boolean | number
 }
 
 const TYPE = 'accordion'
@@ -44,7 +37,6 @@ component<AccordeonAtts>(TYPE, () => {
         group.type = 'group'
         group.collapsible = true
         group.collapsed = i !== data.expand
-        group.autoscroll = group.autoscroll ?? data.autoscroll
         return renderModel<GroupModel>(group)
       }))
     }),

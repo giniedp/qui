@@ -167,13 +167,6 @@ export function dataFn<T extends ComponentModel, R>(
   return () => fn(node.attrs.data, node)
 }
 
-/**
- * @interlnal
- */
-export function scrollIntoView(el: HTMLElement) {
-  el.scrollIntoView?.({ behavior: 'auto', block: 'start' })
-}
-
 export function dragUtil({
   onStart,
   onMove,

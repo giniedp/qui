@@ -7,7 +7,7 @@ import {
   ComponentAttrs,
   ComponentModel,
 } from '../../core'
-import { twuiClass, viewFn, isString, use, call, scrollIntoView, cssClass } from '../../core/utils'
+import { twuiClass, viewFn, isString, use, call, cssClass } from '../../core/utils'
 
 /**
  * Group component attributes
@@ -49,12 +49,13 @@ export interface GroupModel extends ComponentGroupModel<ComponentModel> {
    */
   onToggle?: (group: GroupModel) => void
   /**
-   * If true, scrolls the expanded group into view on click
-   *
-   * @remarks
-   * if this is a number, this is used as setTimeout delay
+   * Is called when this Group has been expanded
    */
-  autoscroll?: boolean | number
+  onExpand?: (group: GroupModel) => void
+  /**
+   * Is called when this Group has been collapsed
+   */
+  onCollapse?: (group: GroupModel) => void
 }
 
 const TYPE = 'group'
@@ -63,8 +64,10 @@ component<GroupAttrs>(TYPE, (node) => {
     use(node.attrs.data, (data) => {
       data.collapsed = !data.collapsed
       call(data.onToggle, data)
-      if (!data.collapsed && data.autoscroll) {
-        setTimeout(() => scrollIntoView(e.target as HTMLElement), Number(data.autoscroll))
+      if (data.collapsed) {
+        call(data.onCollapse, data)
+      } else {
+        call(data.onExpand, data)
       }
     })
   }
