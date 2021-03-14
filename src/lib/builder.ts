@@ -162,8 +162,6 @@ function buildControl<T extends ValueSource<any, any> & ComponentModel>(): Parti
  * @public
  */
 export class Builder {
-  private el: HTMLElement
-
   /**
    * Collection of created controls
    */
