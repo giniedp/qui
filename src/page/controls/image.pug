@@ -1,7 +1,29 @@
+p Display the image as is
 +example#example-image-1
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-image-1", [{
-      type: "image",
-      label: "Image",
-      src: "https://picsum.photos/300/300",
-    }])
+    TweakUi.mount("#example-image-1", (b) => {
+      b.image("Image", {
+        src: "https://picsum.photos/id/893/400/300",
+      })
+    })
+
+p Constrain the aspect ratio
++example#example-image-2
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-image-2", (b) => {
+      b.image("Image", {
+        src: "https://picsum.photos/id/893/400/300",
+        aspect: "16x9"
+      })
+    })
+
+p Constrain the display width
++example#example-image-3
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-image-3", (b) => {
+      b.image("Image", {
+        src: "https://picsum.photos/id/893/400/300",
+        aspect: "16x9",
+        width: 100
+      })
+    })

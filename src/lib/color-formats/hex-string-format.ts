@@ -1,4 +1,4 @@
-import { padLeft } from '../utils'
+import { padLeft } from '../core/utils'
 import { ColorFormatter, RGBA } from './types'
 
 export class HexStringFormat implements ColorFormatter<string> {

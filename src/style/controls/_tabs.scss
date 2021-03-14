@@ -1,17 +1,10 @@
 
-.twui-tabs, .twui-accordeon, .twui-group {
+.twui-tabs {
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
 
   @include color(border-color, primary-dark);
-  margin-left: -$spacer;
-  margin-right: -$spacer;
-
-  > .twui-panel {
-    margin-left: $spacer;
-    margin-right: $spacer;
-  }
 }
 
 .twui-tabs-list {

@@ -1,4 +1,4 @@
-import { clamp } from '../utils'
+import { clamp } from '../core/utils'
 import { HSV, RGB } from './types'
 
 /**

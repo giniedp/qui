@@ -1,29 +1,10 @@
-+example#example-checkbox-1
++example#example-checkbox
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-checkbox-1", [{
-      type: "checkbox",
-      label: "Check 1",
-      value: true,
-    }, {
-      type: "checkbox",
-      label: "Check 2",
-    }, {
-      type: "checkbox",
-      label: "",
-      text: "Check 3"
-    }, {
-      type: "checkbox",
-      text: "Check 4"
-    }, {
-      type: "checkbox",
-      text: "Check 5",
-      disabled: true
-    }])
-
-p Functional syntax
-+example#example-checkbox-2
-  script(type="text/javascript").language-javascript.
-    const state = { value: true }
-    TweakUi.create("#example-checkbox-2", (b) => {
-      b.checkbox(state, 'value', { label: 'Label' })
+    var context = { value: true }
+    TweakUi.mount("#example-checkbox", (b) => {
+      b.checkbox({ value: true, onChange: console.log })
+      b.checkbox(context, 'value')
+      b.checkbox(context, 'value', { label: 'Label' })
+      b.checkbox(context, 'value', { label: '' })
+      b.checkbox(context, 'value', { label: null, text: 'Annotation' })
     })

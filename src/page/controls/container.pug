@@ -1,0 +1,19 @@
+p A simple flexbox container. Can be either horizontal or vertical. For more flexibility combine nested containers with custom style rules.
++example#example-container-1
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-container-1", (b) => {
+      b.container({ horizontal: true }, (g) => {
+        g.container({ style: { flex: 'none' } }, (g) => {
+          g.image("Image", {
+            src: "https://picsum.photos/300/300",
+            width: '4rem'
+          })
+        })
+
+        g.container((g) => {
+          g.button("Button", { label: "Label" })
+          g.button("Button", { label: "Label" })
+          g.button("Button", { label: "Label" })
+        })
+      })
+    })

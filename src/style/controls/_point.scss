@@ -1,0 +1,36 @@
+
+.twui-point {
+  @include color(background-color, secondary);
+  @include color(border-color, primary-dark);
+  background-image:
+    linear-gradient(getColor(primary-light) 1px, transparent 1px),
+    linear-gradient(90deg, getColor(primary-light) 1px, transparent 1px);
+  background-image:
+    linear-gradient(getColorVar(primary-light) 1px, transparent 1px),
+    linear-gradient(90deg, getColorVar(primary-light) 1px, transparent 1px);
+  background-size: 10% 10%, 10% 10%;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  box-sizing: border-box;
+  cursor: crosshair;
+  z-index: 1;
+  // border-bottom: 1px solid;
+  overflow: visible;
+
+  .point-x-axis,
+  .point-y-axis {
+    @include color(background-color, primary-dark);
+  }
+
+  &:focus {
+    .point-x-axis,
+    .point-y-axis {
+      @include color(background-color, accent);
+    }
+    @include color(border-color, accent);
+    outline: none;
+  }
+}

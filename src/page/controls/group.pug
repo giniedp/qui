@@ -1,20 +1,39 @@
+p A group with a title header
 +example#example-group-1
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-group-1", [{
-      type: "group",
-      title: "A Group",
-      open: true,        // will be opened initially
-      children: [
-        { type: "text", label: "My Text" },
-        { type: "number", label: "My Number" },
-        {
-          type: "group",
-          title: "Another Group",
-          open: false,   // will be closed initially (default)
-          children: [
-            { type: "text", label: "My Text" },
-            { type: "number", label: "My Number" },
-          ]
-        }
-      ]
-    }])
+    TweakUi.mount("#example-group-1", (b) => {
+      b.group("A Group", (g) => {
+        g.button("Button")
+        g.button("Button")
+        g.button("Button")
+      })
+    })
+
+p Groups may be collapsible
++example#example-group-2
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-group-2", (b) => {
+      b.group("A Group", { collapsible: true }, (g) => {
+        g.button("Button")
+        g.button("Button")
+        g.button("Button")
+      })
+    })
+
+p Nested groups
++example#example-group-3
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-group-3", (b) => {
+      b.group("A Group", { collapsible: true }, (g) => {
+        g.group("Sub group", { collapsible: true }, (g) => {
+          g.button("Button")
+          g.button("Button")
+          g.button("Button")
+        })
+        g.group("Sub group", { collapsible: true }, (g) => {
+          g.button("Button")
+          g.button("Button")
+          g.button("Button")
+        })
+      })
+    })

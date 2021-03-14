@@ -1,0 +1,21 @@
+p.mt-3 Create an HTML container where Tweak UI should render.
+aside.language-html.
+  <div class="my-element"></div>
+
+p.mt-3 Mount the controls. Either by using a builder function
+pre.language-javascript: code.
+  TweakUi.mount(".my-element", (b) => {
+    // ... builder function
+  })
+
+p.mt-3 or an array of control definitions
+pre.language-javascript: code.
+  TweakUi.mount(".my-element", [
+    // ... array of control definitions
+  ])
+
+p.mt-3 or a single control definition
+pre.language-javascript: code.
+  TweakUi.mount(".my-element", {
+    // ... control definition
+  })

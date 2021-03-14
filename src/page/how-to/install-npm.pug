@@ -1,0 +1,41 @@
+p Install library from NPM
++tabs
+  +tab-item('#install-with-npm', 'NPM', true)
+  +tab-item('#install-with-yarn', 'Yarn')
+
+.tab-content
+  +tab-pane(true)#install-with-npm
+    pre.language-shell: code.
+      $ npm install tweak-ui
+
+  +tab-pane()#install-with-yarn
+    pre.language-shell: code.
+      $ yarn add tweak-ui
+
+p.mt-3 Then import it in your source code
+
++tabs
+  +tab-item('#tab-import-es6', 'ES6', true)
+  +tab-item('#tab-import-require', 'require')
+
+.tab-content
+  +tab-pane(true)#tab-import-es6
+    pre.language-javascript: code.
+      import * as TweakUi from "tweak-ui"
+
+  +tab-pane()#tab-import-require
+    pre.language-javascript: code.
+      var TweakUi = require("tweak-ui")
+
+p.mt-3
+  span The stylesheet is located at
+  br
+  code  node_modules/tweak-ui/tweak-ui.css
+
+p.mt-3
+  span If you are building a custom stylesheet then finde the
+  code  SCSS
+  span  files at
+  br
+  code  node_modules/tweak-ui/scss
+

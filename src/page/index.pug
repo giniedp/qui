@@ -1,4 +1,4 @@
-include includes/_mixins.pug
+include ./_mixins.pug
 doctype html
 head
   meta(name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
@@ -15,196 +15,182 @@ head
   link(rel='stylesheet' href='https://unpkg.com/prismjs@1.16.0/themes/prism.css')
   script(src='https://unpkg.com/prismjs@1.16.0/prism.js' type='text/javascript')
   style.
-    pre[class*="language-"] {
+    pre[class*="language-"], .token {
       margin: 0;
+      background: none !important;
     }
-    h2, h3 {
-      margin-top: 3rem;
-    }
-    .dropdown-item.active, .dropdown-item:active {
-      background-color: var(--bs-dark);
-    }
-    .accordion-button:not(.collapsed) {
-      background-color: rgba(0,0,0,.125);
-      color: initial;
-    }
-    .accordion-button:focus {
-      border-color: rgba(0,0,0,.125);
-      box-shadow: none;
+    .container-xxl > section {
+      padding-top: 56px;
     }
 
-body(data-bs-spy="scroll" data-bs-offset="56")
+body(data-bs-spy="scroll", data-bs-target="nav.navbar", data-bs-offset=56)
   .bg-dark.text-light.text-center.p-4.mb-0
     .container
       h1.display-4 Tweak UI
       p.lead a lightweight js library for building input controls with data binding.
+  nav.navbar.navbar-expand.navbar-dark.bg-dark.sticky-top(style="z-index: 1021;")
+    .container-xxl
+      a.navbar-brand(href="#")
+      ul.navbar-nav
+        li.nav-item.dropdown.d-none.d-sm-block
+          a.nav-link.dropdown-toggle(href="#", data-bs-toggle="dropdown") How to
+          ul.dropdown-menu.dropdown-menu-dark
+            li: a.dropdown-item(href="#install-npm") Install (NPM)
+            li: a.dropdown-item(href="#install-cdn") Install (CDN)
+            li: a.dropdown-item(href="#usage") Usage
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle(href="#", data-bs-toggle="dropdown") Components
+          ul.dropdown-menu.dropdown-menu-dark
+            li: a.dropdown-item(href="#control-number") Number
+            li: a.dropdown-item(href="#control-slider") Slider
+            li: a.dropdown-item(href="#control-text") Text
+            li: a.dropdown-item(href="#control-checkbox") Checkbox
+            li: a.dropdown-item(href="#control-select") Select
+            li: a.dropdown-item(href="#control-angle") Angle
+            li: a.dropdown-item(href="#control-spherical") Spherical
+            li: a.dropdown-item(href="#control-point") Point
+            li: a.dropdown-item(href="#control-position") Position
+            li: a.dropdown-item(href="#control-color") Color
+            li: a.dropdown-item(href="#control-color-picker") Color picker
 
+            li: hr.dropdown-divider
+            li: a.dropdown-item(href="#control-button") Button
+            li: a.dropdown-item(href="#control-image") Image
+            li: a.dropdown-item(href="#control-content") Content
+
+            li: hr.dropdown-divider
+            li: a.dropdown-item(href="#control-group") Group
+            li: a.dropdown-item(href="#control-tabs") Tabs
+            li: a.dropdown-item(href="#control-accordion") Accordion
+            li: a.dropdown-item(href="#control-container") Container
+        li.nav-item.dropdown.d-none.d-sm-block
+          a.nav-link.dropdown-toggle(href="#", data-bs-toggle="dropdown") Concepts
+          ul.dropdown-menu.dropdown-menu-dark
+            li: a.dropdown-item(href="#concept-layout") Layout & Labels
+            li: a.dropdown-item(href="#concept-input") Input Values
+            li: a.dropdown-item(href="#concept-mithril") Mithril
+            li: a.dropdown-item(href="#custom-controls") Custom controls
+            li: a.dropdown-item(href="#custom-colors") Theme colors
+
+        li.nav-item
+          a.nav-link(href="#", onclick="openPlayground();") Playground
+        li.nav-item
+          a.nav-link(href="https://github.com/giniedp/tweak-ui", target="_blank") Github
 
   .container-xxl
-    .row
-      .col-auto.d-none.d-xl-block(style="min-width: 220px;")
-        .accordion.accordion-flush.sticky-top
-          .accordion-item
-            h2.accordion-header
-              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-install") Install
-            #menu-install.accordion-collapse.collapse.show
-              .list-group.list-group-flush
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#install-npm") NPM
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#install-cdn") CDN
-          .accordion-item
-            h2.accordion-header.m-0
-              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-controls") Controls
-            #menu-controls.accordion-collapse.collapse
-              .list-group.list-group-flush
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-button") Button
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-button-group") Button group
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-checkbox") Checkbox
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-number") Number
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-slider") Slider
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-vector") Vector
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-text") Text
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-select") Select
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-image") Image
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-angle") Angle
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-spherical") Spherical coordinates
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-pad") 2D Pad
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-direction") Direction Vector
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-color") Color
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-color-picker") Color picker
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-custom") Custom Control
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-group") Group
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-tabs") Tabs
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-toolbar") Toolbar
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#control-accordeon") Accordeon
-          .accordion-item
-            h2.accordion-header.m-0
-              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-concepts") Concepts
-            #menu-concepts.accordion-collapse.collapse
-              .list-group.list-group-flush
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-layout") Layout & Labels
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-input") Input Values
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#concept-mithril") Mithril
-          .accordion-item
-            h2.accordion-header.m-0
-              button.accordion-button.collapsed(type="button" data-bs-toggle="collapse" data-bs-target="#menu-customize") Customize
-            #menu-customize.accordion-collapse.collapse
-              .list-group.list-group-flush
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#custom-controls") Custom controls
-                a.list-group-item.list-group-item-action.list-group-item-light(href="#custom-colors") Theme colors
+    section#install-npm
+      h2 Installation (NPM)
+      include how-to/install-npm.pug
 
-      .col-12.col-xl
-        h2#install-npm Installation (NPM)
-        section
-          include includes/install-npm.pug
+    section#install-cdn
+      h2 Installation (CDN)
+      include how-to/install-cdn.pug
 
-        h2#install-cdn Installation (CDN)
-        section
-          include includes/install-cdn.pug
+    section#install-cdn
+      h2 Usage
+      include how-to/usage.pug
 
-        h2#sourcecode-git Source
-        section
-          include includes/source.pug
+    h2#controls Controls
 
-        h2#controls Controls
-        section#control-button
-          h3 Button
-          include controls/button.pug
+    section#control-number
+      h3 Number
+      include controls/number.pug
 
-        section#control-button-group
-          h3 Button group
-          include controls/button-group.pug
+    section#control-slider
+      h3 Slider
+      include controls/slider.pug
 
-        section#control-checkbox
-          h3 Checkbox
-          include controls/checkbox.pug
+    section#control-text
+      h3 Text
+      include controls/text.pug
 
-        section#control-number
-          h3 Number
-          include controls/number.pug
+    section#control-checkbox
+      h3 Checkbox
+      include controls/checkbox.pug
 
-        section#control-slider
-          h3 Slider
-          include controls/slider.pug
+    section#control-select
+      h3 Select
+      include controls/select.pug
 
-        section#control-vector
-          h3 Vector
-          include controls/vector.pug
+    section#control-angle
+      h3 Angle
+      include controls/angle.pug
 
-        section#control-text
-          h3 Text
-          include controls/text.pug
+    section#control-spherical
+      h3 Spherical
+      include controls/spherical.pug
 
-        section#control-select
-          h3 Select
-          include controls/select.pug
+    section#control-point
+      h3 Point
+      include controls/point.pug
 
-        section#control-image
-          h3 Image
-          include controls/image.pug
+    section#control-position
+      h3 Position
+      include controls/position.pug
 
-        section#control-angle
-          h3 Angle
-          include controls/angle.pug
+    section#control-color
+      h3 Color
+      include controls/color.pug
 
-        section#control-spherical
-          h3 Spherical coordinates
-          include controls/spherical.pug
+    section#control-color
+      h3-picker Color picker
+      include controls/color-picker.pug
 
-        section#control-pad
-          h3 2D Pad
-          include controls/pad.pug
+    section#control-button
+      h3 Button
+      include controls/button.pug
 
-        section#control-direction
-          h3 Direction Vector
-          include controls/direction.pug
+    section#control-image
+      h3 Image
+      include controls/image.pug
 
-        section#control-color
-          h3#controls-color Color
-          include controls/color.pug
+    section#control-content
+      h3 Content
+      include controls/content.pug
 
-        section#control-color-picker
-          h3 Color picker
-          include controls/color-picker.pug
+    section#control-group
+      h3 Group
+      include controls/group.pug
 
-        section#control-custom
-          h3 Custom Control (the lazy way)
-          include controls/custom.pug
+    section#control-tabs
+      h3 Tabs
+      include controls/tabs.pug
 
-        section#control-group
-          h3 Groups
-          include controls/group.pug
+    section#control-accordion
+      h3 Accordion
+      include controls/accordion.pug
 
-        section#control-tabs
-          h3 Tabs
-          include controls/tabs.pug
+    section#control-container
+      h3 Container
+      include controls/container.pug
 
-        section#control-toolbar
-          h3 Toolbar
-          include controls/toolbar.pug
+    h2#concepts Concepts
+    section#concept-layout
+      h3 Layout & Labels
+      include concepts/labels.pug
 
-        section#control-accordeon
-          h3 Accordeon
-          include controls/accordeon.pug
+    section#concept-input
+      h3 Input values
+      include concepts/values.pug
 
-        h2#concepts Concepts
-        h3#concept-layout Layout & Labels
-        include concepts/labels.pug
+    section#concept-mithril
+      h3 Mithril
+      include concepts/mithril.pug
 
-        h3#concept-input Input values
-        include concepts/values.pug
+    section#custom-controls
+      h3 Custom controls
+      include concepts/custom.pug
 
-        h3#concept-mithril Mithril
-        include concepts/mithril.pug
+    section#custom-colors
+      h3 Change Theme colors
+      include concepts/theme.pug
 
-        h2#customize Customize
-        h3#custom-controls Custom controls
-        include concepts/custom.pug
+    script(type='text/javascript')
+      include index.js
 
-        h3#custom-colors Change Theme colors
-        include concepts/theme.pug
+    section#comments
+      h3 Comments
+      include ./comments.pug
 
-        script(type='text/javascript')
-          include index.js
-
-        h3#comments Comments
-        include includes/comments.pug
+    section
+      include ./playground.pug

@@ -1,0 +1,23 @@
+mixin example
+  .row.justify-content-center.mb-3
+    .col.gui.flex-grow-0.order-last(id!=attributes.id, class!=attributes.class)
+    .col
+      block
+
+mixin section
+  .row
+    .col.gui.flex-grow-0.order-last(id!=attributes.id,)
+    .col
+      block
+
+mixin tabs
+  ul.nav.nav-tabs
+    block
+
+mixin tab-item(target, label, active)
+  li.nav-item
+    button.nav-link(type="button", data-bs-toggle="tab", data-bs-target!=target, class={active: active})= label
+
+mixin tab-pane(active)
+  .tab-pane.fade(class={active: !!active, show: !!active})&attributes(attributes)
+    block

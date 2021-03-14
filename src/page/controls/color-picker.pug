@@ -1,9 +1,10 @@
-+example#example-color-picker-1
++example#example-color-picker
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-color-picker-1", [{
-      type: "color-picker",
-      label: "hex rgb",
-      value: 0,
-      format: "0xrgb",
-      onInput: (it, value) => console.log(value)
-    }])
+    var context = { value: '#fff' }
+    TweakUi.mount("#example-color-picker", (b) => {
+      b.colorPicker(context, 'value', {
+        label: 'Color',
+        onInput: console.log,
+        onChange: console.log,
+      })
+    })

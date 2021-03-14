@@ -45,10 +45,13 @@ table.table.table-borderless.table-sm
       td <code>{ r: 1, g: 0.5, b: 0 }</code>
       td object red green and blue components normalized to range [0:1]
 
-+example#example-color-1
++example#example-color
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-color-1", [{
-      type:   "color", label: "hex rgb",
-      format: "#rgb",  value: "#00ff00",
-      onInput: (it, value) => console.log(value)
-    }])
+    var context = { value: [1, 0, 0] }
+    TweakUi.mount("#example-color", (b) => {
+      b.color(context, 'value', {
+        label: 'Color',
+        format: '[n]rgb',
+        onInput: console.log
+      })
+    })

@@ -5,14 +5,28 @@
       label: "Array",
       value: "foo",
       options: ["foo", "bar", "baz", { label: "a label", value: {} }],
-      onInput: (it, value) => console.log(it, value)
+      onInput: console.log
     }, {
       type: "select",
       label: "Key Value",
       value: "foo",
       options: { Foo: "foo", Bar: "bar", Baz: "baz", "A Label": {} },
-      onInput: (it, value) => console.log(it, value)
-    }, {
+      onInput: console.log
+    }])
+
++example#example-select-2
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-select-2", [{
+      type: "select",
+      label: "Key Value",
+      value: "foo",
+      options: { Foo: "foo", Bar: "bar", Baz: "baz", "A Label": {} },
+      onInput: console.log
+    }])
+
++example#example-select-3
+  script(type="text/javascript").language-javascript.
+    TweakUi.mount("#example-select-3", [{
       type: "select",
       label: "Groups",
       value: "foo",
@@ -33,5 +47,5 @@
           { label: "Z", value: { foo: "z" }, disabled: true }
         ]
       }],
-      onInput: (it, value) => console.log(it, value)
+      onInput: console.log
     }])

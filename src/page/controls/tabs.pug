@@ -1,20 +1,16 @@
+p Renders sub groups as tabs
 +example#example-tabs-1
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-tabs-1", [{
-      type: "tabs",
-      active: 1,
-      children: [{
-        label: "Tab 1",
-        children: [
-          { type: "text", label: "My Text" },
-          { type: "number", label: "My Number" },
-        ]
-      }, {
-        label: "Tab 2",
-        children: [
-          { type: "color-picker", label: "My Color" },
-        ]
-      }, {
-        label: "Tab 3",
-      }]
-    }])
+    TweakUi.mount("#example-tabs-1", (b) => {
+      b.tabs((tabs) => {
+        tabs.group("Tab 1", (t) => {
+          t.button("Button")
+        })
+        tabs.group("Tab 2", (t) => {
+          t.number({ label: "Number" })
+        })
+        tabs.group("Tab 3", (t) => {
+          t.text({ label: "Text" })
+        })
+      })
+    })

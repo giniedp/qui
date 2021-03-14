@@ -1,5 +1,5 @@
 // tslint:disable:no-bitwise
-import { padLeft } from '../utils'
+import { padLeft } from '../core/utils'
 import { ColorFormatter, RGBA } from './types'
 
 export class NumberColorFormat implements ColorFormatter<number> {

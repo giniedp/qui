@@ -25,7 +25,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [build(el, builder)](./tweak-ui.build.md) | Creates a new ui builder and mounts the result to the given DOM element |
 |  [getColorFormatter(format)](./tweak-ui.getcolorformatter.md) | Gets a formatter implementation for the given format |
 |  [getComponent(type)](./tweak-ui.getcomponent.md) | Gets a registered component for a given type name |
-|  [getModelValue(model)](./tweak-ui.getmodelvalue.md) | Gets a value of a view model |
+|  [getValue(model)](./tweak-ui.getValue.md) | Gets a value of a view model |
 |  [hsv2rgb(hsv)](./tweak-ui.hsv2rgb.md) | Converts hsv to rgb |
 |  [mount(el, data)](./tweak-ui.mount.md) | Mounts a ui to the given element |
 |  [redraw()](./tweak-ui.redraw.md) | Redraws the ui |
@@ -33,7 +33,7 @@ Similar projects are: [dat.GUI](https://github.com/dataarts/dat.gui) [controlkit
 |  [renderComponent(attrs)](./tweak-ui.rendercomponent.md) | Renders a registered component |
 |  [renderModel(model)](./tweak-ui.rendermodel.md) | Renders a registered component using the model |
 |  [rgb2hsv(rgb)](./tweak-ui.rgb2hsv.md) | Converts rgb to hsv |
-|  [setModelValue(model, value)](./tweak-ui.setmodelvalue.md) | Sets a value on a view model |
+|  [setValue(model, value)](./tweak-ui.setValue.md) | Sets a value on a view model |
 |  [TwuiComponent(type)](./tweak-ui.twuicomponent.md) |  |
 |  [unmount(el)](./tweak-ui.unmount.md) | Unmounts the ui from given host element |
 

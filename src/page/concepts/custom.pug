@@ -1,6 +1,6 @@
 
 p.
-  Register your custom controls by using the <code>registerComponent</code> function.
+  Register your custom controls by using the <code>component</code> function.
   The argument must be a unique name and a component class or component factory.
   Consult the documentation of <a href="https://mithril.js.org/components.html" target="_blank">mithriljs</a>
   for how the components work. Take a look at the source code for how Tweak Ui components are
@@ -8,7 +8,7 @@ p.
 
 +example#example-register-1
   script(type="text/javascript").language-javascript.
-    TweakUi.registerComponent("embed", (node) => {
+    TweakUi.component("embed", (node) => {
       return {
         view: () => {
           return TweakUi.h('embed', {

@@ -1,0 +1,13 @@
+.twui-container {
+  display: flex;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.twui-container-horizontal {
+  flex-direction: row;
+  > * {
+    flex: 1;
+  }
+}

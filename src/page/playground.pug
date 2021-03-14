@@ -1,0 +1,28 @@
+script(src="https://unpkg.com/@stackblitz/sdk/bundles/sdk.umd.js" async)
+script(type='text/javascript').
+  function openPlayground() {
+    StackBlitzSDK.openProject({
+      files: {
+        "index.ts": formatText(document.querySelector('script.playground-ts').text),
+        "index.html": formatText(document.querySelector('script.playground-html').text)
+      },
+      title: "Tweak UI Playground",
+      description: "Tweak UI Playground",
+      template: "typescript",
+      tags: ["tweakui"],
+      dependencies: {
+        "tweak-ui": "*"
+      }
+    });
+  }
+
+
+script.playground-html(type='text/plain').
+  <div class="tweak-ui"></div>
+
+script.playground-ts(type='text/plain').
+  import * as TweakUI from 'tweak-ui'
+
+  TweakUI.mount('.tweak-ui', (t) => {
+    t.button('Hello World')
+  })
