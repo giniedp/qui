@@ -185,6 +185,23 @@ export class Builder {
     }))
   }
 
+  public collapsible(builder: BuilderFn): GroupModel & Removable
+  public collapsible(opts: Partial<GroupModel>): GroupModel & Removable
+  public collapsible(opts: Partial<GroupModel>, builder: BuilderFn): GroupModel & Removable
+  public collapsible(label: string, builder: BuilderFn): GroupModel & Removable
+  public collapsible(label: string, opts: Partial<GroupModel>): GroupModel & Removable
+  public collapsible(label: string, opts: Partial<GroupModel>, builder: BuilderFn): GroupModel & Removable
+  public collapsible(): GroupModel & Removable {
+    const opts: Partial<GroupModel> = buildGroup.apply(this, arguments)
+    return this.add<GroupModel>(assign(opts, {
+      type: 'group',
+      children: opts.children,
+      collapsible: true,
+      label: null,
+      title: opts.label,
+    }))
+  }
+
   public container(builder: BuilderFn): ContainerModel & Removable
   public container(opts: Partial<ContainerModel>): ContainerModel & Removable
   public container(opts: Partial<ContainerModel>, builder: BuilderFn): ContainerModel & Removable
