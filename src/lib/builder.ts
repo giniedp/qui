@@ -373,13 +373,13 @@ export class Builder {
    * @param label - The control label
    * @param opts - Additional options for the control
    */
-  public image(label: string, opts: Partial<ImageModel> = {}) {
-    return this.add<ImageModel>(
-      assign(opts, {
+  public image(opts: Partial<ImageModel>): ImageModel & Removable
+  public image(label: string, opts: Partial<ImageModel>): ImageModel & Removable
+  public image() {
+    const opts: Partial<ImageModel> = buildGroup.apply(this, arguments)
+    return this.add<ImageModel>(assign(opts, {
         type: 'image',
-        label: label,
-      }),
-    )
+    }))
   }
 
   /**
