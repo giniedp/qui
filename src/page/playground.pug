@@ -21,8 +21,8 @@ script.playground-html(type='text/plain').
   <div class="tweak-ui"></div>
 
 script.playground-ts(type='text/plain').
+  import 'tweak-ui/dist/tweak-ui.css'
   import * as TweakUI from 'tweak-ui'
-
   TweakUI.mount('.tweak-ui', (t) => {
     t.button('Hello World')
   })
