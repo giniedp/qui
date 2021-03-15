@@ -1,7 +1,7 @@
 +example#example-button
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-button", (b) => {
-      b.button('Button', { onClick: console.log })
-      b.button('Button', { label: 'With Label' })
-      b.button('Button', { label: '' })
+    TweakUi.mount("#example-button", (ui) => {
+      ui.button('Button', { onClick: console.log })
+      ui.button('Button', { label: 'With Label' })
+      ui.button('Button', { label: '' })
     })

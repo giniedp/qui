@@ -1,10 +1,10 @@
 +example#example-checkbox
   script(type="text/javascript").language-javascript.
     var context = { value: true }
-    TweakUi.mount("#example-checkbox", (b) => {
-      b.checkbox({ value: true, onChange: console.log })
-      b.checkbox(context, 'value')
-      b.checkbox(context, 'value', { label: 'Label' })
-      b.checkbox(context, 'value', { label: '' })
-      b.checkbox(context, 'value', { label: null, text: 'Annotation' })
+    TweakUi.mount("#example-checkbox", (ui) => {
+      ui.checkbox({ value: true, onChange: console.log })
+      ui.checkbox(context, 'value')
+      ui.checkbox(context, 'value', { label: 'Label' })
+      ui.checkbox(context, 'value', { label: '' })
+      ui.checkbox(context, 'value', { label: null, text: 'Annotation' })
     })

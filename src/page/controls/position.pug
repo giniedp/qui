@@ -2,8 +2,8 @@ p Object with x, y, z components (default)
 +example#example-position-1
   script(type="text/javascript").language-javascript.
     var context = { value: { x: 0, y: 1, z: 0 } }
-    TweakUi.mount("#example-position-1", (b) => {
-      b.position(context, 'value', {
+    TweakUi.mount("#example-position-1", (ui) => {
+      ui.position(context, 'value', {
         label: 'Vector',
         min: -1, max: 1, step: 0.125,
         onInput: console.log, onChange: console.log
@@ -14,8 +14,8 @@ p 2D Vector
 +example#example-position-2
   script(type="text/javascript").language-javascript.
     var context = { value: { x: 0, y: 1 } }
-    TweakUi.mount("#example-position-2", (b) => {
-      b.position(context, 'value', {
+    TweakUi.mount("#example-position-2", (ui) => {
+      ui.position(context, 'value', {
         label: 'Vector',
         keys: ['x', 'y'],
         min: -1, max: 1, step: 0.125,
@@ -27,8 +27,8 @@ p Array
 +example#example-position-4
   script(type="text/javascript").language-javascript.
     var context = { value: [3, 2, 1] }
-    TweakUi.mount("#example-position-4", (b) => {
-      b.position(context, 'value', {
+    TweakUi.mount("#example-position-4", (ui) => {
+      ui.position(context, 'value', {
         label: 'Vector',
         keys: [0, 1, 2],
         min: -1, max: 1, step: 0.125,

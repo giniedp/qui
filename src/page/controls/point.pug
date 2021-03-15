@@ -2,8 +2,8 @@ p an object with 2d coordinates
 +example#example-point-1
   script(type="text/javascript").language-javascript.
     var context = { value: { x: 0, y: 0 } }
-    TweakUi.mount("#example-point-1", (b) => {
-      b.point(context, 'value', {
+    TweakUi.mount("#example-point-1", (ui) => {
+      ui.point(context, 'value', {
         xRange: [-1, 1],
         yRange: [-1, 1],
         reset: [0, 0],

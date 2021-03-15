@@ -1,15 +1,15 @@
 p simple text or html output
 +example#example-content-1
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-content-1", (b) => {
-      b.content("Text", `
+    TweakUi.mount("#example-content-1", (ui) => {
+      ui.content("Text", `
         Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
         sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
       `)
-      b.content("HTML", TweakUi.h.trust(`
+      ui.content("HTML", TweakUi.h.trust(`
         <i onclick="alert('hijacked')">Dont do this for untrusted input</i>
       `))
-      b.content("Mithril", TweakUi.h('a', {
+      ui.content("Mithril", TweakUi.h('a', {
         target: "_blank",
         href: "https://mithril.js.org/"
       }, 'this is a mithril link'))

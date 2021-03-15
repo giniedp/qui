@@ -1,8 +1,8 @@
 +example#example-color-picker
   script(type="text/javascript").language-javascript.
     var context = { value: '#fff' }
-    TweakUi.mount("#example-color-picker", (b) => {
-      b.colorPicker(context, 'value', {
+    TweakUi.mount("#example-color-picker", (ui) => {
+      ui.colorPicker(context, 'value', {
         label: 'Color',
         onInput: console.log,
         onChange: console.log,

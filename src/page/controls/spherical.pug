@@ -2,8 +2,8 @@ p an object with spherical coordinates
 +example#example-spherical-1
   script(type="text/javascript").language-javascript.
     var context = { value: { phi: 0, theta: 0 } }
-    TweakUi.mount("#example-spherical-1", (b) => {
-      b.spherical(context, 'value', {
+    TweakUi.mount("#example-spherical-1", (ui) => {
+      ui.spherical(context, 'value', {
         label: 'Spherical',
         //- degree: true,
         onInput: console.log

@@ -2,14 +2,14 @@ p Automatically handles the collapse state of sub groups
 +example#example-accordion-1
   script(type="text/javascript").language-javascript.
     var person = { name: "John Doe", age: 42, eyes: '#4F8' }
-    TweakUi.mount("#example-accordion-1", (b) => {
-      b.accordion({ expand: 0 }, (a) => {
-        a.group("Group 1", (g) => {
-          g.text(person, 'name')
-          g.number(person, 'age')
+    TweakUi.mount("#example-accordion-1", (ui) => {
+      ui.accordion({ expand: 0 }, () => {
+        ui.group("Group 1", () => {
+          ui.text(person, 'name')
+          ui.number(person, 'age')
         })
-        a.group("Group 2", (g) => {
-          g.color(person, 'eyes')
+        ui.group("Group 2", () => {
+          ui.color(person, 'eyes')
         })
       })
     })

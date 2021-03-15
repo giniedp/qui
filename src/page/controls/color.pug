@@ -48,8 +48,8 @@ table.table.table-borderless.table-sm
 +example#example-color
   script(type="text/javascript").language-javascript.
     var context = { value: [1, 0, 0] }
-    TweakUi.mount("#example-color", (b) => {
-      b.color(context, 'value', {
+    TweakUi.mount("#example-color", (ui) => {
+      ui.color(context, 'value', {
         label: 'Color',
         format: '[n]rgb',
         onInput: console.log

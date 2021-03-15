@@ -1,39 +1,39 @@
 p A group with a title header
 +example#example-group-1
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-group-1", (b) => {
-      b.group("A Group", (g) => {
-        g.button("Button")
-        g.button("Button")
-        g.button("Button")
+    TweakUi.mount("#example-group-1", (ui) => {
+      ui.group("A Group", () => {
+        ui.button("Button")
+        ui.button("Button")
+        ui.button("Button")
       })
     })
 
 p Groups may be collapsible
 +example#example-group-2
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-group-2", (b) => {
-      b.group("A Group", { collapsible: true }, (g) => {
-        g.button("Button")
-        g.button("Button")
-        g.button("Button")
+    TweakUi.mount("#example-group-2", (ui) => {
+      ui.group("A Group", { collapsible: true }, () => {
+        ui.button("Button")
+        ui.button("Button")
+        ui.button("Button")
       })
     })
 
 p Nested groups
 +example#example-group-3
   script(type="text/javascript").language-javascript.
-    TweakUi.mount("#example-group-3", (b) => {
-      b.group("A Group", { collapsible: true }, (g) => {
-        g.group("Sub group", { collapsible: true }, (g) => {
-          g.button("Button")
-          g.button("Button")
-          g.button("Button")
+    TweakUi.mount("#example-group-3", (ui) => {
+      ui.group("A Group", { collapsible: true }, () => {
+        ui.group("Sub group", { collapsible: true }, () => {
+          ui.button("Button")
+          ui.button("Button")
+          ui.button("Button")
         })
-        g.group("Sub group", { collapsible: true }, (g) => {
-          g.button("Button")
-          g.button("Button")
-          g.button("Button")
+        ui.group("Sub group", { collapsible: true }, () => {
+          ui.button("Button")
+          ui.button("Button")
+          ui.button("Button")
         })
       })
     })

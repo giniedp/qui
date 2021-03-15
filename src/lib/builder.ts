@@ -109,7 +109,7 @@ function assign<T extends ComponentModel>(partial: Partial<T>, overrides: T): T 
   return partial as T
 }
 
-function buildGroup<T extends ComponentGroupModel>(): Partial<T> {
+function buildGroup<T extends ComponentGroupModel>(this: Builder): Partial<T> {
   let label: string = null
   let opts: Partial<T> = {}
   let cb: BuilderFn
@@ -131,9 +131,11 @@ function buildGroup<T extends ComponentGroupModel>(): Partial<T> {
   }
 
   if (cb) {
-    const builder = new Builder()
-    cb(builder)
-    opts.children = builder.controls
+    const controls = this.controls
+    this.controls = []
+    cb(this)
+    opts.children = this.controls
+    this.controls = controls
   }
   return opts
 }
@@ -165,7 +167,7 @@ export class Builder {
   /**
    * Collection of created controls
    */
-  public readonly controls: any[] = []
+  public controls: ComponentModel[] = []
 
   public group(builder: BuilderFn): GroupModel & Removable
   public group(opts: Partial<GroupModel>): GroupModel & Removable
@@ -378,7 +380,7 @@ export class Builder {
   public image() {
     const opts: Partial<ImageModel> = buildGroup.apply(this, arguments)
     return this.add<ImageModel>(assign(opts, {
-        type: 'image',
+      type: 'image',
     }))
   }
 
