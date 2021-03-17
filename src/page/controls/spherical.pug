@@ -5,7 +5,21 @@ p an object with spherical coordinates
     TweakUi.mount("#example-spherical-1", (ui) => {
       ui.spherical(context, 'value', {
         label: 'Spherical',
-        //- degree: true,
+        // degree: true,
+        onInput: console.log
+      })
+    })
+
+p use a codec to map into 3d vector
++example#example-spherical-2
+  script(type="text/javascript").language-javascript.
+    var context = { value: { x: 0, y: 0, z: 1 } }
+    TweakUi.mount("#example-spherical-2", (ui) => {
+      ui.spherical(context, 'value', {
+        label: 'Spherical',
+        codec: TweakUi.sphericalCodec({
+          axes: { x: 'right', y: 'up', z: 'back'}
+        }),
         onInput: console.log
       })
     })

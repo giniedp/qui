@@ -8,25 +8,16 @@ import {
   ValueSource,
   ComponentAttrs,
   setValue,
+  ValueCodec,
 } from '../../core'
-import {
-  call,
-  clamp,
-  cssClass,
-  dragUtil,
-  getTouchPosition,
-  twuiClass,
-} from '../../core/utils'
+import { call, clamp, cssClass, dragUtil, getTouchPosition, twuiClass } from '../../core/utils'
 import { NumberModel } from './number'
 import { CheckboxModel } from './checkbox'
 
 /**
  * @public
  */
-export type SphericalValue =
-  | number[]
-  | { [key: string]: number }
-  | { [key: number]: number }
+export type SphericalValue = number[] | { [key: string]: number } | { [key: number]: number }
 
 /**
  * Spherical component attributes
@@ -48,7 +39,7 @@ export interface SphericalModel<T = unknown>
   /**
    * The object field names. Defaults to `['phi', 'theta']`
    */
-  keys?: string[]
+  keys?: Array<string | number>
   /**
    * Whether to use degrees instead of radians
    */
@@ -56,26 +47,18 @@ export interface SphericalModel<T = unknown>
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (
-    model: SphericalModel<T>,
-    value: SphericalValue,
-    key?: string | number,
-  ) => void
+  onInput?: (model: SphericalModel<T>, value: unknown) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (
-    model: SphericalModel<T>,
-    value: SphericalValue,
-    key?: string | number,
-  ) => void
+  onChange?: (model: SphericalModel<T>, value: unknown) => void
 }
 
 const TYPE = 'spherical'
-const defaultKeys = ['phi', 'theta']
+const KEYS = ['phi', 'theta']
 const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
   let phi = 0 // azimuth     [0, 2PI]
   let theta = 0 // inclination [0,  PI]
@@ -102,7 +85,7 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
       phi: data.degree ? toDeg(phi) : phi,
       theta: data.degree ? toDeg(theta) : theta,
     }
-    const [kPhi, kTheta] = data.keys || defaultKeys
+    const [kPhi, kTheta] = data.keys || KEYS
     return { data, value, kPhi, kTheta }
   }
 
@@ -114,6 +97,13 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
       phi = toRad(phi)
       theta = toRad(theta)
     }
+    const p2 = Math.PI / 2
+    while (theta < 0) {
+      theta += p2
+    }
+    while (theta > p2) {
+      theta -= p2
+    }
     backface = theta > Math.PI / 2
     updatePositions()
   }
@@ -123,8 +113,8 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
     const { data, value, kPhi, kTheta } = read(vnode)
     value[kPhi] = data.degree ? toDeg(phi) : phi
     value[kTheta] = data.degree ? toDeg(theta) : theta
-    setValue(data, value)
-    call(type === 'input' ? data.onInput : data.onChange, data, value)
+    const written = setValue(data, value)
+    call(type === 'input' ? data.onInput : data.onChange, data, written)
   }
 
   function updatePositions() {
@@ -163,9 +153,7 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
         // p0: [0, 0], p1: vPhi
         const ab = v2Phi
         const ac = [py, px]
-        const t =
-          (ab[0] * ac[0] + ab[1] * ac[1]) /
-          Math.sqrt(ab[0] * ab[0] + ab[1] * ab[1])
+        const t = (ab[0] * ac[0] + ab[1] * ac[1]) / Math.sqrt(ab[0] * ab[0] + ab[1] * ab[1])
 
         theta = Math.PI * clamp(t, 0, 0.5)
         if (backface) {
@@ -256,10 +244,10 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
                 ontouchstart: onStartPhi,
                 style: {
                   position: 'absolute',
-                  width: '13px',
-                  height: '13px',
-                  top: `calc(${toScreen(v2Phi[0])}% - 6px)`,
-                  left: `calc(${toScreen(v2Phi[1])}% - 6px)`,
+                  width: '15px',
+                  height: '15px',
+                  top: `calc(${toScreen(v2Phi[0])}% - 7px)`,
+                  left: `calc(${toScreen(v2Phi[1])}% - 7px)`,
                 },
               }),
             ),
@@ -282,10 +270,10 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
                 ontouchstart: onStartTheta,
                 style: {
                   position: 'absolute',
-                  width: '13px',
-                  height: '13px',
-                  top: `calc(${toScreen(v2Theta[0])}% - 6px)`,
-                  left: `calc(${toScreen(v2Theta[1])}% - 6px)`,
+                  width: '15px',
+                  height: '15px',
+                  top: `calc(${toScreen(v2Theta[0])}% - 7px)`,
+                  left: `calc(${toScreen(v2Theta[1])}% - 7px)`,
                 },
               }),
             ),
@@ -326,3 +314,111 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
 }
 
 component<SphericalAttrs>(TYPE, SphericalComponent)
+
+/**
+ * Direction name
+ * @public
+ */
+export type Direction = 'right' | 'left' | 'up' | 'down' | 'front' | 'back'
+export interface SphericalCodecOptions<T> {
+  /**
+   * Maps object keys to cartesian axes. Defaults to `{ x: 'right', y: 'up', z: 'back' }`
+   */
+  axes?: Record<string | number, Direction>
+  /**
+   * The vector length (sphere radius). Defaults to `1`
+   */
+  length?: number | (() => number)
+  /**
+   * Gets the objec where the result should be stored. May return a new instance.
+   */
+  result?: () => T
+}
+
+export function sphericalCodec(): ValueCodec<
+  { x: number; y: number; z: number },
+  { phi: number; theta: number }
+>
+export function sphericalCodec<T>(options: SphericalCodecOptions<T>): ValueCodec<T, { phi: number; theta: number }>
+export function sphericalCodec({
+  axes,
+  length,
+  result,
+}: SphericalCodecOptions<any> = {}): ValueCodec<any, { phi: number; theta: number }> {
+  axes = axes || { x: 'right', y: 'up', z: 'back' }
+  const keys = Object.keys(axes)
+  const radius = () => {
+    return (typeof length === 'function' ? length() : length) || 1
+  }
+  return {
+    decode: (value: any) => {
+      let x: number = 0
+      let y: number = 0
+      let z: number = 0
+      for (const key of keys) {
+        switch (axes[key]) {
+          case 'right':
+            y = value[key]
+            break
+          case 'left':
+            y = -value[key]
+            break
+          case 'back':
+            x = value[key]
+            break
+          case 'front':
+            x = -value[key]
+            break
+          case 'up':
+            z = value[key]
+            break
+          case 'down':
+            z = -value[key]
+            break
+          default:
+            break
+        }
+      }
+      const r = radius()
+      x /= r
+      y /= r
+      z /= r
+      return {
+        phi: Math.atan2(y, x) || 0,
+        theta: Math.atan(Math.sqrt(x * x + y * y) / z) || 0,
+      }
+    },
+    encode: ({ phi, theta }: { phi: number; theta: number }) => {
+      const r = radius()
+      const x = r * Math.sin(theta) * Math.cos(phi)
+      const y = r * Math.sin(theta) * Math.sin(phi)
+      const z = r * Math.cos(theta)
+      const value = result?.() || {}
+      for (const key of keys) {
+        switch (axes[key]) {
+          case 'right':
+            value[key] = y
+            break
+          case 'left':
+            value[key] = -y
+            break
+          case 'back':
+            value[key] = x
+            break
+          case 'front':
+            value[key] = -x
+            break
+          case 'up':
+            value[key] = z
+            break
+          case 'down':
+            value[key] = -z
+            break
+          default:
+            break
+        }
+      }
+      return value
+    },
+  }
+}

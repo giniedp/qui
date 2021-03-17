@@ -1,15 +1,18 @@
 import m, { FactoryComponent } from 'mithril'
 
-import { component, getValue, renderModel, setValue, ComponentModel, ValueSource, ComponentAttrs } from '../../core'
 import {
-  call,
-  clamp,
-  cssClass,
-  dragUtil,
-  getTouchPosition,
-  twuiClass,
-} from '../../core/utils'
+  component,
+  getValue,
+  renderModel,
+  setValue,
+  ComponentModel,
+  ValueSource,
+  ComponentAttrs,
+  ValueCodec,
+} from '../../core'
+import { call, clamp, cssClass, dragUtil, getTouchPosition, twuiClass } from '../../core/utils'
 import type { NumberModel } from './number'
+import { Direction } from './spherical'
 
 /**
  * Spherical component attributes
@@ -21,9 +24,7 @@ export type AngleAttrs = ComponentAttrs<AngleModel>
  * Spherical component model
  * @public
  */
-export interface AngleModel<T = unknown>
-  extends ComponentModel,
-    ValueSource<T, number> {
+export interface AngleModel<T = unknown> extends ComponentModel, ValueSource<T, number> {
   /**
    * The type name of the control
    */
@@ -35,22 +36,14 @@ export interface AngleModel<T = unknown>
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (
-    model: AngleModel<T>,
-    value: number,
-    key?: string | number,
-  ) => void
+  onInput?: (model: AngleModel<T>, value: unknown) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (
-    model: AngleModel<T>,
-    value: number,
-    key?: string | number,
-  ) => void
+  onChange?: (model: AngleModel<T>, value: unknown) => void
 }
 
 const TYPE = 'angle'
@@ -82,8 +75,8 @@ const AngleComponent: FactoryComponent<AngleAttrs> = (vnode) => {
     updatePositions()
     const data = vnode.attrs.data
     const value = data.degree ? toRad(angle) : angle
-    setValue(data, value)
-    call(type === 'input' ? data.onInput : data.onChange, data, value)
+    const written = setValue(data, value)
+    call(type === 'input' ? data.onInput : data.onChange, data, written)
   }
 
   function updatePositions() {
@@ -149,7 +142,7 @@ const AngleComponent: FactoryComponent<AngleAttrs> = (vnode) => {
           class: twuiClass(TYPE),
           style: {
             '--angle-value': `${toDeg(-angle) + 90}deg`,
-            '--angle-percent': `${toDeg(angle) / 360 * 100}%`,
+            '--angle-percent': `${(toDeg(angle) / 360) * 100}%`,
           },
         },
         m(
@@ -182,10 +175,10 @@ const AngleComponent: FactoryComponent<AngleAttrs> = (vnode) => {
                 ontouchstart: onStartPhi,
                 style: {
                   position: 'absolute',
-                  width: '13px',
-                  height: '13px',
-                  top: `calc(${toScreen(pos[0])}% - 6px)`,
-                  left: `calc(${toScreen(pos[1])}% - 6px)`,
+                  width: '15px',
+                  height: '15px',
+                  top: `calc(${toScreen(pos[0])}% - 7px)`,
+                  left: `calc(${toScreen(pos[1])}% - 7px)`,
                 },
               }),
             ),
@@ -210,3 +203,87 @@ const AngleComponent: FactoryComponent<AngleAttrs> = (vnode) => {
 }
 
 component<AngleAttrs>(TYPE, AngleComponent)
+
+export interface AngleCodecOptions<T> {
+  /**
+   * Maps object keys to cartesian axes. Defaults to `{ x: 'right', y: 'up' }`
+   */
+  axes?: Record<string | number, Direction>
+  /**
+   * The vector length (circle radius). Defaults to `1`
+   */
+  length?: number | (() => number)
+  /**
+   * Gets the objec where the result should be stored. May return a new instance.
+   */
+  result?: () => T
+}
+
+export function angleCodec(): ValueCodec<{ x: number; y: number }, number>
+export function angleCodec<T>(options: AngleCodecOptions<T>): ValueCodec<T, number>
+export function angleCodec({ axes, length, result }: AngleCodecOptions<any> = {}): ValueCodec<
+  any,
+  number
+> {
+  axes = axes || { x: 'right', y: 'up'}
+  const keys = Object.keys(axes)
+  const radius = () => {
+    return (typeof length === 'function' ? length() : length) || 1
+  }
+  return {
+    decode: (value: any) => {
+      let x: number = 0
+      let y: number = 0
+      for (const key of keys) {
+        switch (axes[key]) {
+          case 'right':
+            y = value[key]
+            break
+          case 'left':
+            y = -value[key]
+            break
+          case 'up':
+          case 'front':
+            x = -value[key]
+            break
+          case 'down':
+          case 'back':
+            x = value[key]
+          default:
+            break
+        }
+      }
+      const r = radius()
+      x /= r
+      y /= r
+      return Math.atan2(y, x) || 0
+    },
+    encode: (angle) => {
+      const r = radius()
+      const x = r * Math.cos(angle)
+      const y = r * Math.sin(angle)
+      const value = result() || {}
+      for (const key of keys) {
+        switch (axes[key]) {
+          case 'right':
+            value[key] = y
+            break
+          case 'left':
+            value[key] = -y
+            break
+          case 'up':
+          case 'front':
+            value[key] = -x
+            break
+          case 'down':
+          case 'back':
+            value[key] = x
+            break
+          default:
+            break
+        }
+      }
+      return value
+    },
+  }
+}
