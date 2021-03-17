@@ -71,7 +71,7 @@ export interface SelectModel<T = unknown, V = any>
   /**
    * This is called once the control value is committed by the user.
    */
-  onChange?: (model: SelectModel<T>, value: V) => void
+  onChange?: (model: SelectModel<T>, value: unknown) => void
   /**
    * Disables the control input
    */
@@ -184,8 +184,8 @@ component<SelectAttrs>('select', (node) => {
     const el = e.target as HTMLSelectElement
     const data = node.attrs.data
     const value = getSelectionAt(el.selectedIndex)
-    setValue(data, value)
-    call(data.onChange, data, getValue(data))
+    const written = setValue(data, value)
+    call(data.onChange, data, written)
   }
 
   return {

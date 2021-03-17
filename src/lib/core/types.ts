@@ -66,7 +66,7 @@ export type ValueCodec<Encoded, Decoded> = {
   encode: (value: Decoded) => Encoded
 }
 
-export type ValueSource<T, V> = {
+export type ValueSource<T, V, I = unknown> = {
   /**
    * The object which is holding a control value
    *
@@ -84,8 +84,8 @@ export type ValueSource<T, V> = {
   /**
    * If `target` and `property` are not set, then this is used as the control value
    */
-  value?: V | unknown
-  codec?: ValueCodec<unknown, V>
+  value?: V | I
+  codec?: ValueCodec<I, V>,
 }
 
 /**

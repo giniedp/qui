@@ -57,7 +57,7 @@ export type PositionModel<T = unknown> = ComponentModel &
      */
     onInput?: (
       model: PositionModel<T>,
-      value: PositionValue,
+      value: unknown,
       key?: string | number,
     ) => void
     /**
@@ -68,7 +68,7 @@ export type PositionModel<T = unknown> = ComponentModel &
      */
     onChange?: (
       model: PositionModel<T>,
-      value: PositionValue,
+      value: unknown,
       key?: string | number,
     ) => void
     /**
@@ -84,8 +84,8 @@ component<PositionAttrs>(TYPE, (node) => {
     const data = node.attrs.data
     const value: any = getValue(data) || {}
     value[field] = isNaN(v) ? null : v
-    setValue(data, value)
-    call(type === 'input' ? data.onInput : data.onChange, data, value, field)
+    const written = setValue(data, value)
+    call(type === 'input' ? data.onInput : data.onChange, data, written, field)
   }
 
   return {
@@ -105,8 +105,8 @@ component<PositionAttrs>(TYPE, (node) => {
             step: data.step,
             value: value?.[field],
             disabled: data.disabled,
-            onInput: (_, v) => onChange('input', field, v),
-            onChange: (_, v) => onChange('change', field, v),
+            onInput: (_, v: number) => onChange('input', field, v),
+            onChange: (_, v: number) => onChange('change', field, v),
             placeholder: field,
           })
         }),

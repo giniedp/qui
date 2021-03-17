@@ -1,4 +1,5 @@
 import type { ValueSource } from './types'
+import { call } from './utils'
 
 /**
  * Gets a value of a view model
@@ -7,18 +8,7 @@ import type { ValueSource } from './types'
  * @param model - The model of a component
  */
 export function getValue<V>(model: ValueSource<any, V>): V {
-  let result: unknown = null
-  if (
-    'target' in model &&
-    model.target &&
-    model.property != null &&
-    model.property in model.target
-  ) {
-    result = model.target[model.property]
-  } else if ('value' in model) {
-    result = model.value
-  }
-  return decode(model, result) as V
+  return decode(model, readValue(model)) as V
 }
 
 /**
@@ -27,15 +17,34 @@ export function getValue<V>(model: ValueSource<any, V>): V {
  * @public
  * @param model - The model of a component
  * @param value - The value for the component
- * @returns result of {@link getValue} after the value has been set
+ * @returns the encoded value as it was written to the model
  */
-export function setValue<V>(model: ValueSource<any, V>, value: V): V {
-  if ('target' in model && model.target && model.property != null) {
-    model.target[model.property] = encode(model, value)
-  } else if (isWriteable(model, 'value')) {
-    model.value = encode(model, value)
+export function setValue<V>(model: ValueSource<any, V>, value: V): unknown {
+  const encoded = encode(model, value)
+  writeValue(model, encoded)
+  return encoded
+}
+
+function readValue(model: ValueSource<any, any>) {
+  if (
+    'target' in model &&
+    model.target &&
+    model.property != null &&
+    model.property in model.target
+  ) {
+    return model.target[model.property]
   }
-  return getValue(model)
+  if ('value' in model) {
+    return model.value
+  }
+}
+
+function writeValue<V>(model: ValueSource<any, V>, value: V): void {
+  if ('target' in model && model.target && model.property != null) {
+    model.target[model.property] = value
+  } else if (isWriteable(model, 'value')) {
+    model.value = value
+  }
 }
 
 function isWriteable<T>(obj: T, key: keyof T): boolean {

@@ -30,7 +30,7 @@ export interface CheckboxModel<T = unknown>
   /**
    * This is called when the control value changes
    */
-  onChange?: (value: CheckboxModel, checked: boolean) => void
+  onChange?: (model: CheckboxModel, value: unknown) => void
   /**
    * Text behind the checkbox or inside the buttn
    */
@@ -46,8 +46,8 @@ const CheckboxComponent: FactoryComponent<CheckboxAttrs> = (node) => {
   function onChange(e: Event) {
     const data = node.attrs.data
     const checked = (e.target as HTMLInputElement).checked
-    setValue(data, checked)
-    call(data.onChange, data, checked)
+    const written = setValue(data, checked)
+    call(data.onChange, data, written)
   }
   return {
     view: viewFn((data) => {

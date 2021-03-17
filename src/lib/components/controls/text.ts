@@ -34,14 +34,14 @@ export interface TextModel<T = unknown>
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (model: TextModel<T>, value: string) => void
+  onInput?: (model: TextModel<T>, value: unknown) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (model: TextModel<T>, value: string) => void
+  onChange?: (model: TextModel<T>, value: unknown) => void
   /**
    * Disables the control input
    */
@@ -52,8 +52,8 @@ component<TextAttrs>('text', (node) => {
   function onChange(e: Event) {
     const el = e.target as HTMLInputElement
     const data = node.attrs.data
-    setValue(data, el.value)
-    call(e.type === 'input' ? data.onInput : data.onChange, data, el.value)
+    const written = setValue(data, el.value)
+    call(e.type === 'input' ? data.onInput : data.onChange, data, written)
   }
 
   return {

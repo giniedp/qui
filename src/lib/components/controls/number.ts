@@ -44,14 +44,14 @@ export interface NumberModel<T = unknown> extends ComponentModel, ValueSource<T,
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (model: NumberModel<T>, value: number) => void
+  onInput?: (model: NumberModel<T>, value: unknown) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (model: NumberModel<T>, value: number) => void
+  onChange?: (model: NumberModel<T>, value: unknown) => void
   /**
    * Disables the control input
    */
@@ -88,8 +88,8 @@ const NumberComponent: ClosureComponent<NumberAttrs> = () => {
   function setModelValue(e: 'input' | 'change', v: number) {
     v = value = clamp(isNaN(v) ? null : v, min, max)
     const data = vnode.attrs.data
-    setValue(data, v)
-    call(e === 'input' ? data.onInput : data.onChange, data, v)
+    const written = setValue(data, v)
+    call(e === 'input' ? data.onInput : data.onChange, data, written)
     m.redraw()
   }
 

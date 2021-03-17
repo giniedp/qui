@@ -75,14 +75,14 @@ export interface ColorPickerModel<T = unknown, V = number | string | number[]>
   /**
    * This is called when the control value has been changed.
    */
-  onInput?: (model: ColorPickerModel<T, V>, value: V) => void
+  onInput?: (model: ColorPickerModel<T, V>, value: unknown) => void
   /**
    * This is called once the control value is committed by the user.
    *
    * @remarks
    * Unlike the `onInput` callback, this is not necessarily called for each value change.
    */
-  onChange?: (model: ColorPickerModel<T, V>, value: V) => void
+  onChange?: (model: ColorPickerModel<T, V>, value: unknown) => void
 }
 
 component<ColorPickerAttrs>('color-picker', (node) => {
@@ -146,16 +146,16 @@ component<ColorPickerAttrs>('color-picker', (node) => {
   function triggerInput() {
     use(node.attrs.data, (data) => {
       const value = formatOutput(data.format)
-      setValue(data, value)
-      call(data.onInput, data, value)
+      const written = setValue(data, value)
+      call(data.onInput, data, written)
     })
   }
 
   function triggerChange() {
     use(node.attrs.data, (data) => {
       const value = formatOutput(data.format)
-      setValue(data, value)
-      call(data.onChange, data, value)
+      const written = setValue(data, value)
+      call(data.onChange, data, written)
     })
   }
 
