@@ -22,8 +22,7 @@ import {
   clamp,
   use,
   twuiClass,
-  getMouseXY,
-  getTouchPosition,
+  getTouchPoint,
 } from '../../core/utils'
 
 /**
@@ -252,7 +251,7 @@ component<ColorPickerAttrs>('color-picker', (node) => {
     const ty = window.pageYOffset || document.documentElement.scrollTop
     const cw = target.clientWidth
     const ch = target.clientHeight
-    let [cx, cy] = getMouseXY(e)
+    let [cx, cy] = getTouchPoint(e)
     cx = clamp((cx - tx - rect.left) / cw, 0, 1)
     cy = clamp((cy - ty - rect.top) / ch, 0, 1)
 

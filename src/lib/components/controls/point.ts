@@ -1,7 +1,7 @@
 import m from 'mithril'
 
 import { component, getValue, ComponentModel, ValueSource, ComponentAttrs } from '../../core'
-import { call, clamp, use, twuiClass, viewFn, getMouseXY, dragUtil } from '../../core/utils'
+import { call, clamp, use, twuiClass, viewFn, getTouchPoint, dragUtil } from '../../core/utils'
 
 /**
  * Point component attributes
@@ -127,7 +127,7 @@ component<PointAttrs>(TYPE, (vnode) => {
 
       const cw = target.clientWidth
       const ch = target.clientHeight
-      let [cx, cy] = getMouseXY(e)
+      let [cx, cy] = getTouchPoint(e)
       x = clamp((cx - tx - rect.left) / cw, 0, 1)
       y = clamp((cy - ty - rect.top) / ch, 0, 1)
 

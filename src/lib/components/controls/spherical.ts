@@ -10,7 +10,7 @@ import {
   setValue,
   ValueCodec,
 } from '../../core'
-import { call, clamp, cssClass, dragUtil, getTouchPosition, twuiClass } from '../../core/utils'
+import { call, clamp, cssClass, dragUtil, getTouchInTarget, getTouchPoint, twuiClass } from '../../core/utils'
 import { NumberModel } from './number'
 import { CheckboxModel } from './checkbox'
 
@@ -97,12 +97,11 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
       phi = toRad(phi)
       theta = toRad(theta)
     }
-    const p2 = Math.PI / 2
     while (theta < 0) {
-      theta += p2
+      theta += Math.PI
     }
-    while (theta > p2) {
-      theta -= p2
+    while (theta > Math.PI) {
+      theta -= Math.PI
     }
     backface = theta > Math.PI / 2
     updatePositions()
@@ -133,14 +132,20 @@ const SphericalComponent: FactoryComponent<SphericalAttrs> = (vnode) => {
     drag.activate(e)
   }
 
+  let touchOffset: [number, number]
   const drag = dragUtil({
     onStart: (e) => {
+      const touch = getTouchInTarget(e)
+      touchOffset = [
+        -(touch.x - touch.width / 2),
+        -(touch.y - touch.height / 2),
+      ]
       drag.onMove(e)
     },
     onMove: (e) => {
       e.preventDefault()
 
-      const position = getTouchPosition(drag.target.parentElement, e)
+      const position = getTouchInTarget(e, drag.target.parentElement, touchOffset)
       const px = position.normalizedX - 0.5
       const py = position.normalizedY - 0.5
       if (draggedKnob === 'phi') {

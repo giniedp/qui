@@ -8,7 +8,7 @@ import {
   ComponentAttrs,
   ValueSource,
 } from '../../core'
-import { call, clamp, cssClass, twuiClass, dragUtil, getTouchPosition } from '../../core/utils'
+import { call, clamp, cssClass, twuiClass, dragUtil, getTouchInTarget } from '../../core/utils'
 
 /**
  * Number component attributes
@@ -117,7 +117,7 @@ const NumberComponent: ClosureComponent<NumberAttrs> = () => {
     },
     onMove: (e) => {
       e.preventDefault()
-      const s = getTouchPosition(drag.target, e).normalizedX
+      const s = getTouchInTarget(e, drag.target).normalizedX
       setModelValue('input', limit(min + s * (max - min)))
     },
     onEnd: () => {

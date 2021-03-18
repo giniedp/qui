@@ -10,7 +10,7 @@ import {
   ComponentAttrs,
   ValueCodec,
 } from '../../core'
-import { call, clamp, cssClass, dragUtil, getTouchPosition, twuiClass } from '../../core/utils'
+import { call, clamp, cssClass, dragUtil, getTouchInTarget, twuiClass } from '../../core/utils'
 import type { NumberModel } from './number'
 import { Direction } from './spherical'
 
@@ -89,14 +89,20 @@ const AngleComponent: FactoryComponent<AngleAttrs> = (vnode) => {
     drag.activate(e)
   }
 
+  let touchOffset: [number, number]
   const drag = dragUtil({
     onStart: (e) => {
+      const touch = getTouchInTarget(e)
+      touchOffset = [
+        -(touch.x - touch.width / 2),
+        -(touch.y - touch.height / 2),
+      ]
       drag.onMove(e)
     },
     onMove: (e) => {
       e.preventDefault()
 
-      const position = getTouchPosition(drag.target.parentElement, e)
+      const position = getTouchInTarget(e, drag.target.parentElement, touchOffset)
       const px = position.normalizedX - 0.5
       const py = position.normalizedY - 0.5
       if (dragged) {

@@ -117,7 +117,7 @@ export function twuiClass(name: string, variation?: string) {
  * Gets current mouse coordinates from mouse or touch event
  * @internal
  */
-export function getMouseXY(e: MouseEvent | TouchEvent) {
+export function getTouchPoint(e: MouseEvent | TouchEvent): [number, number] {
   let cx = 0
   let cy = 0
   if ('touches' in e) {
@@ -130,14 +130,19 @@ export function getMouseXY(e: MouseEvent | TouchEvent) {
   return [cx, cy]
 }
 
-export function getTouchPosition(target: HTMLElement, e: MouseEvent) {
+export function getTouchInTarget(e: MouseEvent, target?: HTMLElement, offset?: [number, number]) {
+  target = target || e.target as HTMLElement
   const rect = target.getBoundingClientRect()
   const tx = window.pageXOffset || document.documentElement.scrollLeft
   const ty = window.pageYOffset || document.documentElement.scrollTop
 
   const cw = target.clientWidth
   const ch = target.clientHeight
-  let [cx, cy] = getMouseXY(e)
+  let [cx, cy] = getTouchPoint(e)
+  if (offset) {
+    cx += offset[0]
+    cy += offset[1]
+  }
   const x = cx - tx - rect.left
   const y = cy - ty - rect.top
   return {
